@@ -1,11 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29102.190
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.757
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Schnacc.Domain", "Schnacc.Domain\Schnacc.Domain.csproj", "{E80A4BA3-9C23-46B9-8C9B-9D82FA04D321}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Schnacc.Test", "Schnacc.Test\Schnacc.Test.csproj", "{8DA53D78-08EC-487A-B8BF-2DF08CE63358}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Schnacc.Domain.Test", "Schnacc.Test\Schnacc.Domain.Test.csproj", "{8DA53D78-08EC-487A-B8BF-2DF08CE63358}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Schnacc.GraphicalUserInterface", "Schnacc.GraphicalUserInterface\Schnacc.GraphicalUserInterface.csproj", "{30BD405F-63A3-4E6B-A494-4700590E3889}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{48F57786-FE72-4BF5-94F5-E617CD73AE10}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,9 +25,16 @@ Global
 		{8DA53D78-08EC-487A-B8BF-2DF08CE63358}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8DA53D78-08EC-487A-B8BF-2DF08CE63358}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8DA53D78-08EC-487A-B8BF-2DF08CE63358}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30BD405F-63A3-4E6B-A494-4700590E3889}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30BD405F-63A3-4E6B-A494-4700590E3889}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30BD405F-63A3-4E6B-A494-4700590E3889}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30BD405F-63A3-4E6B-A494-4700590E3889}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8DA53D78-08EC-487A-B8BF-2DF08CE63358} = {48F57786-FE72-4BF5-94F5-E617CD73AE10}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {187B0A43-E7D3-4240-B8D4-2B49BD9D57E0}
