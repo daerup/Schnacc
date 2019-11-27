@@ -1,4 +1,5 @@
-﻿namespace Schnacc.Domain.Test {
+﻿namespace Schnacc.Domain.UnitTests
+{
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;

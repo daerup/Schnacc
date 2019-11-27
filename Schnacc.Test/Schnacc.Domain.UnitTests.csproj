@@ -8,8 +8,8 @@
     <ProjectGuid>{8DA53D78-08EC-487A-B8BF-2DF08CE63358}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Schnacc.Domain.Test</RootNamespace>
-    <AssemblyName>Schnacc.Domain.Test</AssemblyName>
+    <RootNamespace>Schnacc.Domain.UnitTests</RootNamespace>
+    <AssemblyName>Schnacc.Domain.UnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

@@ -1,4 +1,4 @@
-﻿namespace Schnacc.Domain.Test.Food
+﻿namespace Schnacc.Domain.UnitTests.Food
 {
     using FluentAssertions;
 

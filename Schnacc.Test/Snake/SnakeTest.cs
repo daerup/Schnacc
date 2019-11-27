@@ -1,8 +1,11 @@
-﻿namespace Schnacc.Domain.Test.Snake
+﻿namespace Schnacc.Domain.UnitTests.Snake
 {
     using System.Linq;
+
     using FluentAssertions;
+
     using Schnacc.Domain.Snake;
+
     using Xunit;
 
     public class SnakeTest
@@ -208,6 +211,24 @@
 
             // Assert
             this.testee.Body.Count.Should().Be(2);
+        }
+
+        [Fact]
+        private void whenSnakeHasABodyItMovesWithTheHead()
+        {
+            // Arrange
+            this.testee.ResetSnakeToPosition(0, 0);
+            this.testee.UpdateFacingDirection(Direction.Right);
+            this.testee.Grow();
+
+            // Act
+            this.testee.Move();
+
+            // Assert
+            this.testee.Head.Position.row.Should().Be(0);
+            this.testee.Head.Position.column.Should().Be(1);
+            this.testee.Body.Last().Position.row.Should().Be(0);
+            this.testee.Body.Last().Position.column.Should().Be(0);
         }
     }
 }

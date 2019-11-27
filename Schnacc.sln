@@ -5,11 +5,17 @@ VisualStudioVersion = 15.0.28307.757
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Schnacc.Domain", "Schnacc.Domain\Schnacc.Domain.csproj", "{E80A4BA3-9C23-46B9-8C9B-9D82FA04D321}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Schnacc.Domain.Test", "Schnacc.Test\Schnacc.Domain.Test.csproj", "{8DA53D78-08EC-487A-B8BF-2DF08CE63358}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Schnacc.Domain.UnitTests", "Schnacc.Test\Schnacc.Domain.UnitTests.csproj", "{8DA53D78-08EC-487A-B8BF-2DF08CE63358}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Schnacc.GraphicalUserInterface", "Schnacc.GraphicalUserInterface\Schnacc.GraphicalUserInterface.csproj", "{30BD405F-63A3-4E6B-A494-4700590E3889}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{48F57786-FE72-4BF5-94F5-E617CD73AE10}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{48F57786-FE72-4BF5-94F5-E617CD73AE10}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IntegrationTests", "IntegrationTests", "{EF880393-BB82-4A11-94E5-8104497A1E44}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestsProjects", "TestsProjects", "{896B8B71-42BD-4AC8-A1EB-91BECA37B53A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Schnacc.Domain.IntegrationTests", "Schnacc.Domain.IntegrationTests\Schnacc.Domain.IntegrationTests.csproj", "{BA7C626B-1839-402A-BE16-2A08729B9A0B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,12 +35,19 @@ Global
 		{30BD405F-63A3-4E6B-A494-4700590E3889}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30BD405F-63A3-4E6B-A494-4700590E3889}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30BD405F-63A3-4E6B-A494-4700590E3889}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA7C626B-1839-402A-BE16-2A08729B9A0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA7C626B-1839-402A-BE16-2A08729B9A0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA7C626B-1839-402A-BE16-2A08729B9A0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA7C626B-1839-402A-BE16-2A08729B9A0B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{8DA53D78-08EC-487A-B8BF-2DF08CE63358} = {48F57786-FE72-4BF5-94F5-E617CD73AE10}
+		{48F57786-FE72-4BF5-94F5-E617CD73AE10} = {896B8B71-42BD-4AC8-A1EB-91BECA37B53A}
+		{EF880393-BB82-4A11-94E5-8104497A1E44} = {896B8B71-42BD-4AC8-A1EB-91BECA37B53A}
+		{BA7C626B-1839-402A-BE16-2A08729B9A0B} = {EF880393-BB82-4A11-94E5-8104497A1E44}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {187B0A43-E7D3-4240-B8D4-2B49BD9D57E0}

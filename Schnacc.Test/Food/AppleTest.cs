@@ -1,4 +1,4 @@
-﻿namespace Schnacc.Domain.Test.Food
+﻿namespace Schnacc.Domain.UnitTests.Food
 {
     using FluentAssertions;
 
@@ -11,7 +11,7 @@
         private readonly IFood testee = new Apple();
 
         [Fact]
-        private void appleInstanceShouldBeNamedApple()
+        public void AppleInstanceShouldBeNamedApple()
         {
             // Assert
             this.testee.Name.Should().Be("Apple");
