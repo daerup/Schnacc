@@ -5,9 +5,7 @@ VisualStudioVersion = 15.0.28307.757
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Schnacc.Domain", "Schnacc.Domain\Schnacc.Domain.csproj", "{E80A4BA3-9C23-46B9-8C9B-9D82FA04D321}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Schnacc.Domain.UnitTests", "Schnacc.Test\Schnacc.Domain.UnitTests.csproj", "{8DA53D78-08EC-487A-B8BF-2DF08CE63358}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Schnacc.GraphicalUserInterface", "Schnacc.GraphicalUserInterface\Schnacc.GraphicalUserInterface.csproj", "{30BD405F-63A3-4E6B-A494-4700590E3889}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Schnacc.Domain.UnitTests", "Schnacc.UnitTest\Schnacc.Domain.UnitTests.csproj", "{8DA53D78-08EC-487A-B8BF-2DF08CE63358}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{48F57786-FE72-4BF5-94F5-E617CD73AE10}"
 EndProject
@@ -31,10 +29,6 @@ Global
 		{8DA53D78-08EC-487A-B8BF-2DF08CE63358}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8DA53D78-08EC-487A-B8BF-2DF08CE63358}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8DA53D78-08EC-487A-B8BF-2DF08CE63358}.Release|Any CPU.Build.0 = Release|Any CPU
-		{30BD405F-63A3-4E6B-A494-4700590E3889}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{30BD405F-63A3-4E6B-A494-4700590E3889}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{30BD405F-63A3-4E6B-A494-4700590E3889}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{30BD405F-63A3-4E6B-A494-4700590E3889}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BA7C626B-1839-402A-BE16-2A08729B9A0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BA7C626B-1839-402A-BE16-2A08729B9A0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA7C626B-1839-402A-BE16-2A08729B9A0B}.Release|Any CPU.ActiveCfg = Release|Any CPU

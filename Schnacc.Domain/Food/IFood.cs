@@ -1,4 +1,5 @@
-﻿namespace Schnacc.Domain.Food {
+﻿namespace Schnacc.Domain.Food
+{
     public interface IFood
     {
         string Name { get; }

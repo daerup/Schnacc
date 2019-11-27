@@ -6,11 +6,11 @@
 
     using Xunit.Sdk;
 
-    internal class RepeatAttribute : DataAttribute
+    internal class repeatAttribute : DataAttribute
     {
         private readonly int count;
 
-        public RepeatAttribute(int count)
+        public repeatAttribute(int count)
         {
             this.count = count;
         }

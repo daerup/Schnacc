@@ -12,7 +12,6 @@
     {
         private readonly Snake testee = new Snake(0, 0);
 
-
         [Fact]
         private void forwardsFacingSnakeShouldMoveFarwards()
         {
@@ -118,7 +117,7 @@
         private void snakeShouldNotBeAbleToChangeDirectionBy180Degrees(Direction startDirection, Direction newDirection)
         {
             // Arrange
-            this.testee.ResetSnakeToPosition(0,0);
+            this.testee.ResetSnakeToPosition(0, 0);
             this.testee.UpdateFacingDirection(startDirection);
 
             // Act
@@ -184,7 +183,7 @@
         }
 
         [Fact]
-        private void whenSnakeEatsForTheFirstTimeABodyPartShouldBeAddedAfterTheHeadOfTheSnake()
+        private void whenSnakeGrowsForTheFirstTimeABodyPartShouldBeAddedAfterTheHeadOfTheSnake()
         {
             // Arrange
             this.testee.ResetSnakeToPosition(0, 0);
@@ -199,7 +198,7 @@
         }
 
         [Fact]
-        private void whenSnakeEatsABodyPartShouldBeAddedAfterTheLastBodyPartOfTheSnake()
+        private void whenTheSnakeGrowsABodyPartShouldBeAddedAtTheEndOfTheSnake()
         {
             // Arrange
             this.testee.ResetSnakeToPosition(0, 0);
@@ -211,6 +210,7 @@
 
             // Assert
             this.testee.Body.Count.Should().Be(2);
+            this.testee.Body.Last().Position.Should().Be(positionOfLastBodyPart);
         }
 
         [Fact]

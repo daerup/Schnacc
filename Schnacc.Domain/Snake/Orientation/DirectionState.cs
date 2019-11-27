@@ -5,7 +5,7 @@
 
     public abstract class DirectionState : IDirectionState
     {
-        public static readonly Dictionary<Direction, Type> dictionary = new Dictionary<Direction, Type>
+        public static readonly Dictionary<Direction, Type> DirectionToTypeMapper = new Dictionary<Direction, Type>
                                                                       {
                                                                           { Direction.Right, typeof(RightwardDirection) },
                                                                           { Direction.Left, typeof(LeftwardDirection) },
@@ -18,7 +18,8 @@
 
         protected abstract List<Direction> ValidNewDirections { get; }
 
-        public void ChangeDirection(Direction newDirection)
+        // ReSharper disable once FlagArgument
+        public void TryChangeDirection(Direction newDirection)
         {
             if (this.newDirectionIsValid(newDirection))
             {
@@ -33,7 +34,7 @@
 
         private DirectionState getNewOrientationState(Direction newDirection, DirectionState caller)
         {
-            return (DirectionState)Activator.CreateInstance(dictionary[newDirection], caller);
+            return (DirectionState)Activator.CreateInstance(DirectionToTypeMapper[newDirection], caller);
         }
     }
 }

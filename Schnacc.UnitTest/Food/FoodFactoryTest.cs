@@ -12,7 +12,7 @@
 
         // TODO Implement random position for Food
         [Theory]
-        [Repeat(30)]
+        [repeat(30)]
         private void createRandomFoodShouldCreateFood()
         {
             // Act

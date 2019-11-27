@@ -2,6 +2,6 @@
 {
     public interface IDirectionState
     {
-        void ChangeDirection(Direction newDirection);
+        void TryChangeDirection(Direction newDirection);
     }
 }

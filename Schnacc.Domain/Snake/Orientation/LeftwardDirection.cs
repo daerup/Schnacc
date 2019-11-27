@@ -1,4 +1,5 @@
-﻿namespace Schnacc.Domain.Snake.Orientation {
+﻿namespace Schnacc.Domain.Snake.Orientation
+{
     using System.Collections.Generic;
 
     using Schnacc.Domain.Snake.Movement;

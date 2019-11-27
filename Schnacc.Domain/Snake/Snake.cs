@@ -17,7 +17,7 @@
 
         public IDirectionState DirectionState { get; set; }
 
-        public Direction CurrentDirection => Orientation.DirectionState.dictionary.FirstOrDefault(x => x.Value == this.DirectionState.GetType()).Key;
+        public Direction CurrentDirection => Orientation.DirectionState.DirectionToTypeMapper.FirstOrDefault(x => x.Value == this.DirectionState.GetType()).Key;
 
         public SnakeHead Head { get; private set; }
 
@@ -41,7 +41,7 @@
 
         public void UpdateFacingDirection(Direction newDirection)
         {
-            this.DirectionState.ChangeDirection(newDirection);
+            this.DirectionState.TryChangeDirection(newDirection);
         }
 
         private void addBodyPart()

@@ -12,12 +12,11 @@
         private Snake testee;
 
         [Background]
-        public void background()
+        public void Background()
         {
             "Given a snake"
                 .x(() => this.testee = new Snake(0, 0));
         }
-
 
         // TODO replace Grow() with fake bodypart list 
         [Scenario]
