@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using System.Runtime.CompilerServices;
 
     using Schnacc.Domain.Snake.Movement;
     using Schnacc.Domain.Snake.Orientation;
@@ -16,9 +15,9 @@
 
         public IMovement MovementStrategy { private get; set; }
 
-        public Direction CurrentDirection => Orientation.DirectionState.dictionary.FirstOrDefault(x => x.Value == this.DirectionState.GetType()).Key;
-
         public IDirectionState DirectionState { get; set; }
+
+        public Direction CurrentDirection => Orientation.DirectionState.dictionary.FirstOrDefault(x => x.Value == this.DirectionState.GetType()).Key;
 
         public SnakeHead Head { get; private set; }
 

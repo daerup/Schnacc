@@ -1,14 +1,12 @@
 ﻿namespace Schnacc.Domain.Test.Food
 {
     using FluentAssertions;
-
     using Schnacc.Domain.Food;
-
     using Xunit;
 
     public class BananaTest
     {
-        private readonly Banana testee = new Banana();
+        private readonly IFood testee = new Banana();
 
         [Fact]
         private void bananaInstanceShouldBeNamedBanana()

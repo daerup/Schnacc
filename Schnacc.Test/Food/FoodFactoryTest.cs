@@ -12,7 +12,7 @@
         private readonly FoodFactory testee = new FoodFactory();
 
         [Theory]
-        [Repeat(100)]
+        [Repeat(30)]
         private void createRandomFoodShouldCreateFood()
         {
             // Act

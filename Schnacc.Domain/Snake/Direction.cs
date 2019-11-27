@@ -1,4 +1,4 @@
-﻿namespace Schnacc.Domain.Snake.Orientation
+﻿namespace Schnacc.Domain.Snake
 {
     public enum Direction
     {

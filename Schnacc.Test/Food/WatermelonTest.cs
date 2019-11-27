@@ -8,7 +8,7 @@
 
     public class WatermelonTest
     {
-        private readonly Watermelon testee = new Watermelon();
+        private readonly IFood testee = new Watermelon();
 
         [Fact]
         private void watermelonInstanceShouldBeNamedWatermelon()

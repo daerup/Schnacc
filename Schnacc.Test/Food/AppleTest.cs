@@ -8,7 +8,7 @@
 
     public class AppleTest
     {
-        private readonly Apple testee = new Apple();
+        private readonly IFood testee = new Apple();
 
         [Fact]
         private void appleInstanceShouldBeNamedApple()

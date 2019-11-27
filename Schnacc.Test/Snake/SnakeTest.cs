@@ -1,14 +1,8 @@
 ﻿namespace Schnacc.Domain.Test.Snake
 {
     using System.Linq;
-    using System.Reflection;
-
     using FluentAssertions;
-
-    using Schnacc.Domain.Food;
     using Schnacc.Domain.Snake;
-    using Schnacc.Domain.Snake.Orientation;
-
     using Xunit;
 
     public class SnakeTest
@@ -214,7 +208,6 @@
 
             // Assert
             this.testee.Body.Count.Should().Be(2);
-
         }
     }
 }
