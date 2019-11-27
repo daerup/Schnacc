@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Dynamic;
     using System.Linq;
     using System.Reflection;
     using System.Security.Cryptography;
@@ -17,7 +16,7 @@
 
         private List<Type> getAllFoodTypes()
         {
-            var derivedType = typeof(Food);
+            Type derivedType = typeof(Food);
             return Assembly.GetAssembly(typeof(Food)).GetTypes().Where(t => t != derivedType && derivedType.IsAssignableFrom(t)).ToList();
         }
 

@@ -48,21 +48,22 @@
     <Compile Include="Food\FoodFactory.cs" />
     <Compile Include="Food\Watermelon.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Snake\Movement\BackwardMovement.cs" />
+    <Compile Include="Snake\Movement\LeftwardsMovement.cs" />
     <Compile Include="Snake\Movement\DownwardMovement.cs" />
-    <Compile Include="Snake\Movement\ForwardMovement.cs" />
+    <Compile Include="Snake\Movement\RightwardMovement.cs" />
     <Compile Include="Snake\Movement\IMovement.cs" />
     <Compile Include="Snake\Movement\NoMovement.cs" />
     <Compile Include="Snake\Movement\UpwardMovement.cs" />
-    <Compile Include="Snake\Orientation\Backward.cs" />
-    <Compile Include="Snake\Orientation\Downward.cs" />
-    <Compile Include="Snake\Orientation\Forward.cs" />
-    <Compile Include="Snake\Orientation\None.cs" />
-    <Compile Include="Snake\Orientation\OrientationState.cs" />
-    <Compile Include="Snake\Orientation\OrientationDirection.cs" />
-    <Compile Include="Snake\Orientation\Upward.cs" />
+    <Compile Include="Snake\Orientation\IDirectionState.cs" />
+    <Compile Include="Snake\Orientation\LeftwardDirection.cs" />
+    <Compile Include="Snake\Orientation\DownwardDirection.cs" />
+    <Compile Include="Snake\Orientation\RightwardDirection.cs" />
+    <Compile Include="Snake\Orientation\NoDirection.cs" />
+    <Compile Include="Snake\Orientation\DirectionState.cs" />
+    <Compile Include="Snake\Orientation\Direction.cs" />
+    <Compile Include="Snake\Orientation\UpwardDirection.cs" />
     <Compile Include="Snake\Snake.cs" />
-    <Compile Include="Snake\SnakeBody.cs" />
+    <Compile Include="Snake\SnakeBodyPart.cs" />
     <Compile Include="Snake\SnakeHead.cs" />
   </ItemGroup>
   <ItemGroup />

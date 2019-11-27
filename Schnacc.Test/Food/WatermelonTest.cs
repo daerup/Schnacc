@@ -13,7 +13,7 @@
         [Fact]
         private void watermelonInstanceShouldBeNamedWatermelon()
         {
-            //Assert
+            // Assert
             this.testee.Name.Should().Be("Watermelon");
         }
     }

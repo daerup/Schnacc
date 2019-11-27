@@ -20,6 +20,7 @@
 
             // Assert
             createdFood.Should().NotBeNull();
+            createdFood.Should().Match(f => f is Apple || f is Banana || f is Watermelon);
         }
     }
 }

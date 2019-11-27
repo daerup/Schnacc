@@ -1,26 +1,28 @@
 ﻿namespace Schnacc.Domain.Snake
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Runtime.CompilerServices;
 
     using Schnacc.Domain.Snake.Movement;
     using Schnacc.Domain.Snake.Orientation;
 
     public class Snake
     {
-        public SnakeHead Head;
-
-        public List<SnakeBody> Body;
-
-        public IMovement orientation;
-
-        public OrientationState Facing { get; set; }
-
         public Snake(int startRow, int startColumn)
         {
             this.instantiateSnake(startRow, startColumn);
         }
+
+        public IMovement MovementStrategy { private get; set; }
+
+        public Direction CurrentDirection => Orientation.DirectionState.dictionary.FirstOrDefault(x => x.Value == this.DirectionState.GetType()).Key;
+
+        public IDirectionState DirectionState { get; set; }
+
+        public SnakeHead Head { get; private set; }
+
+        public List<SnakeBodyPart> Body { get; private set; }
 
         public void ResetSnakeToPosition(int startRow, int startColumn)
         {
@@ -29,27 +31,37 @@
 
         public void Move()
         {
-            (int, int) newHeadPosition = this.orientation.Move(this.Head.Position.row, this.Head.Position.column);
+            (int, int) newHeadPosition = this.MovementStrategy.Move(this.Head.Position.row, this.Head.Position.column);
             this.Head.Position = newHeadPosition;
         }
 
-        public void Eat()
+        public void Grow()
         {
-            (int row, int column) lastPosition = this.Body.Last().Position;
-            this.Body.Add(new SnakeBody(lastPosition));
+            this.addBodyPart();
         }
 
-        public void UpdateOrientation(OrientationDirection orientationStateOfHead)
+        public void UpdateFacingDirection(Direction newDirection)
         {
-            this.Facing.ChangeDirection(orientationStateOfHead);
+            this.DirectionState.ChangeDirection(newDirection);
+        }
+
+        private void addBodyPart()
+        {
+            if (this.Body.Any())
+            {
+                this.Body.Add(new SnakeBodyPart(this.Body.Last().Position));
+                return;
+            }
+
+            this.Body.Add(new SnakeBodyPart(this.Head.Position));
         }
 
         private void instantiateSnake(int startRow, int startColumn)
         {
-            this.Facing = new None(this);
+            this.DirectionState = new NoDirection(this);
             this.Head = new SnakeHead(startRow, startColumn);
-            this.Body = new List<SnakeBody>();
-            this.UpdateOrientation(OrientationDirection.Still);
+            this.Body = new List<SnakeBodyPart>();
+            this.UpdateFacingDirection(Direction.None);
         }
     }
 }
