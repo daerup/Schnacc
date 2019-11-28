@@ -2,11 +2,11 @@
 {
     public class SnakeHead
     {
-        public SnakeHead(int row, int column)
+        public SnakeHead(Position position)
         {
-            this.Position = (row, column);
+            this.Position = position;
         }
 
-        public (int row, int column) Position { get; set; }
+        public Position Position { get; set; }
     }
 }

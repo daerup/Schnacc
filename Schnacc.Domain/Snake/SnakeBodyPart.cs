@@ -2,11 +2,11 @@
 {
     public class SnakeBodyPart
     {
-        public SnakeBodyPart((int row, int column) position)
+        public SnakeBodyPart(Position position)
         {
             this.Position = position;
         }
 
-        public (int row, int column) Position { get; }
+        public Position Position { get; }
     }
 }

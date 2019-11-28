@@ -18,13 +18,21 @@
 
         protected abstract List<Direction> ValidNewDirections { get; }
 
+
         // ReSharper disable once FlagArgument
         public void TryChangeDirection(Direction newDirection)
         {
             if (this.newDirectionIsValid(newDirection))
             {
-                this.Snake.DirectionState = this.getNewOrientationState(newDirection, this);
+                this.Snake.FacingDirection = this.getNewOrientationState(newDirection, this);
             }
+        }
+
+        public abstract void MoveHead();
+
+        public void MoveBody()
+        {
+            throw new NotImplementedException();
         }
 
         private bool newDirectionIsValid(Direction newDirection)

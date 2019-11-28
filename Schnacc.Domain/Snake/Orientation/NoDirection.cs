@@ -2,8 +2,6 @@
 {
     using System.Collections.Generic;
 
-    using Schnacc.Domain.Snake.Movement;
-
     public class NoDirection : DirectionState
     {
         public NoDirection(Snake snake)
@@ -16,9 +14,15 @@
                                               Direction.Down
                                           };
             this.Snake = snake;
-            this.Snake.MovementStrategy = new NoMovement();
+           /* this.Snake.FacingDirection.MoveHead();*/ //= new NoMovement();
         }
 
-        protected override sealed List<Direction> ValidNewDirections { get; }
+        protected override List<Direction> ValidNewDirections { get; }
+
+        public override void MoveHead()
+        {
+            Position previousPosition = this.Snake.Head.Position;
+            this.Snake.Head.Position = new Position(previousPosition.Row, previousPosition.Column);
+        }
     }
 }

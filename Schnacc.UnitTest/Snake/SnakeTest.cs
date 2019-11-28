@@ -23,8 +23,8 @@
             this.testee.Move();
 
             // Assert
-            this.testee.Head.Position.row.Should().Be(0);
-            this.testee.Head.Position.column.Should().Be(1);
+            this.testee.Head.Position.Row.Should().Be(0);
+            this.testee.Head.Position.Column.Should().Be(1);
         }
 
         [Fact]
@@ -38,8 +38,8 @@
             this.testee.Move();
 
             // Assert
-            this.testee.Head.Position.row.Should().Be(0);
-            this.testee.Head.Position.column.Should().Be(-1);
+            this.testee.Head.Position.Row.Should().Be(0);
+            this.testee.Head.Position.Column.Should().Be(-1);
         }
 
         [Fact]
@@ -53,8 +53,8 @@
             this.testee.Move();
 
             // Assert
-            this.testee.Head.Position.row.Should().Be(-1);
-            this.testee.Head.Position.column.Should().Be(0);
+            this.testee.Head.Position.Row.Should().Be(-1);
+            this.testee.Head.Position.Column.Should().Be(0);
         }
 
         [Fact]
@@ -68,8 +68,8 @@
             this.testee.Move();
 
             // Assert
-            this.testee.Head.Position.row.Should().Be(1);
-            this.testee.Head.Position.column.Should().Be(0);
+            this.testee.Head.Position.Row.Should().Be(1);
+            this.testee.Head.Position.Column.Should().Be(0);
         }
 
         [Fact]
@@ -83,8 +83,8 @@
             this.testee.Move();
 
             // Assert
-            this.testee.Head.Position.row.Should().Be(0);
-            this.testee.Head.Position.column.Should().Be(0);
+            this.testee.Head.Position.Row.Should().Be(0);
+            this.testee.Head.Position.Column.Should().Be(0);
         }
 
         [Theory]
@@ -187,7 +187,7 @@
         {
             // Arrange
             this.testee.ResetSnakeToPosition(0, 0);
-            (int row, int column) positionOfHead = this.testee.Head.Position;
+            Position positionOfHead = this.testee.Head.Position;
 
             // Act
             this.testee.Grow();
@@ -203,7 +203,7 @@
             // Arrange
             this.testee.ResetSnakeToPosition(0, 0);
             this.testee.Grow();
-            (int row, int column) positionOfLastBodyPart = this.testee.Body.Last().Position;
+            Position positionOfLastBodyPart = this.testee.Body.Last().Position;
 
             // Act
             this.testee.Grow();
@@ -225,10 +225,10 @@
             this.testee.Move();
 
             // Assert
-            this.testee.Head.Position.row.Should().Be(0);
-            this.testee.Head.Position.column.Should().Be(1);
-            this.testee.Body.Last().Position.row.Should().Be(0);
-            this.testee.Body.Last().Position.column.Should().Be(0);
+            this.testee.Head.Position.Row.Should().Be(0);
+            this.testee.Head.Position.Column.Should().Be(1);
+            this.testee.Body.Last().Position.Row.Should().Be(0);
+            this.testee.Body.Last().Position.Column.Should().Be(0);
         }
     }
 }

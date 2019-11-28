@@ -48,13 +48,8 @@
     <Compile Include="Food\FoodFactory.cs" />
     <Compile Include="Food\IFood.cs" />
     <Compile Include="Food\Watermelon.cs" />
+    <Compile Include="Position.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Snake\Movement\LeftwardsMovement.cs" />
-    <Compile Include="Snake\Movement\DownwardMovement.cs" />
-    <Compile Include="Snake\Movement\RightwardMovement.cs" />
-    <Compile Include="Snake\Movement\IMovement.cs" />
-    <Compile Include="Snake\Movement\NoMovement.cs" />
-    <Compile Include="Snake\Movement\UpwardMovement.cs" />
     <Compile Include="Snake\Orientation\IDirectionState.cs" />
     <Compile Include="Snake\Orientation\LeftwardDirection.cs" />
     <Compile Include="Snake\Orientation\DownwardDirection.cs" />
