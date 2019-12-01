@@ -1,4 +1,6 @@
-﻿namespace Schnacc.Domain.Snake.Orientation
+﻿using System.Linq;
+
+namespace Schnacc.Domain.Snake.Orientation
 {
     using System;
     using System.Collections.Generic;
@@ -32,7 +34,25 @@
 
         public void MoveBody()
         {
-            throw new NotImplementedException();
+            if (this.Snake.Body.Any() == false)
+            {
+                return;
+            }
+
+            this.moveEveryBodyPart();
+        }
+
+        private void moveEveryBodyPart()
+        {
+            for (int i = this.Snake.Body.Count-1; i >= 0; i--)
+            {
+                if (i == 0)
+                {
+                    this.Snake.Body[i].Position = new Position(this.Snake.Head.Position);
+                    continue;
+                }
+                this.Snake.Body[i].Position = new Position(this.Snake.Body[i - 1].Position);
+            }
         }
 
         private bool newDirectionIsValid(Direction newDirection)

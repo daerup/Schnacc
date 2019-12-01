@@ -1,4 +1,6 @@
-﻿namespace Schnacc.Domain.UnitTests.Food
+﻿using FakeItEasy;
+
+namespace Schnacc.Domain.UnitTests.Food
 {
     using FluentAssertions;
 
@@ -8,7 +10,7 @@
 
     public class AppleTest
     {
-        private readonly IFood testee = new Apple();
+        private readonly IFood testee = new Apple(A.Dummy<Position>());
 
         [Fact]
         public void AppleInstanceShouldBeNamedApple()

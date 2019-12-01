@@ -1,4 +1,6 @@
-﻿namespace Schnacc.Domain.UnitTests.Food
+﻿using FakeItEasy;
+
+namespace Schnacc.Domain.UnitTests.Food
 {
     using FluentAssertions;
 
@@ -8,7 +10,7 @@
 
     public class WatermelonTest
     {
-        private readonly IFood testee = new Watermelon();
+        private readonly IFood testee = new Watermelon(A.Dummy<Position>());
 
         [Fact]
         private void watermelonInstanceShouldBeNamedWatermelon()

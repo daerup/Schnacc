@@ -4,30 +4,32 @@
     using System.Linq;
     using Orientation;
 
-    public class Snake
+    public class Snake : ISnake
     {
-        public Snake(int startRow, int startColumn)
+        public Snake(Position starPosition)
         {
-            this.instantiateSnake(startRow, startColumn);
+            this.instantiateSnake(starPosition);
         }
 
-        public IDirectionState FacingDirection { get; set; }
+        public IDirectionState FacingDirection { private get; set; }
 
         public Direction CurrentDirection => DirectionState.DirectionToTypeMapper.FirstOrDefault(x => x.Value == this.FacingDirection.GetType()).Key;
+
+        public bool HasCollidedWithItSelf => this.Body.Skip(3).Any(bp => bp.Position.Equals(this.Head.Position));
 
         public SnakeHead Head { get; private set; }
 
         public List<SnakeBodyPart> Body { get; private set; }
 
-        public void ResetSnakeToPosition(int startRow, int startColumn)
+        public void ResetSnakeToPosition(Position startPosition)
         {
-            this.instantiateSnake(startRow, startColumn);
+            this.instantiateSnake(startPosition);
         }
 
         public void Move()
         {
+            this.FacingDirection.MoveBody();
             this.FacingDirection.MoveHead();
-            //this.FacingDirection.MoveBody();
         }
 
         public void Grow()
@@ -51,10 +53,10 @@
             this.Body.Add(new SnakeBodyPart(this.Head.Position));
         }
 
-        private void instantiateSnake(int startRow, int startColumn)
+        private void instantiateSnake(Position startPosition)
         {
             this.FacingDirection = new NoDirection(this);
-            this.Head = new SnakeHead(new Position(startRow, startColumn));
+            this.Head = new SnakeHead(startPosition);
             this.Body = new List<SnakeBodyPart>();
             this.UpdateFacingDirection(Direction.None);
         }

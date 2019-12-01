@@ -10,13 +10,13 @@
 
     public class SnakeTest
     {
-        private readonly Snake testee = new Snake(0, 0);
+        private readonly Snake testee = new Snake(new Position(0, 0));
 
         [Fact]
         private void forwardsFacingSnakeShouldMoveFarwards()
         {
             // Arrange
-            this.testee.ResetSnakeToPosition(0, 0);
+            this.testee.ResetSnakeToPosition(new Position(0, 0));
             this.testee.UpdateFacingDirection(Direction.Right);
             
             // Act
@@ -31,7 +31,7 @@
         private void backwardsFacingSnakeShouldMoveBackwards()
         {
             // Arrange
-            this.testee.ResetSnakeToPosition(0, 0);
+            this.testee.ResetSnakeToPosition(new Position(0, 0));
             this.testee.UpdateFacingDirection(Direction.Left);
             
             // Act
@@ -46,7 +46,7 @@
         private void upwardsFacingSnakeShouldMoveUpwards()
         {
             // Arrange
-            this.testee.ResetSnakeToPosition(0, 0);
+            this.testee.ResetSnakeToPosition(new Position(0, 0));
             this.testee.UpdateFacingDirection(Direction.Up);
             
             // Act
@@ -61,7 +61,7 @@
         private void downwardsFacingSnakeShouldMoveDownwards()
         {
             // Arrange
-            this.testee.ResetSnakeToPosition(0, 0);
+            this.testee.ResetSnakeToPosition(new Position(0, 0));
             this.testee.UpdateFacingDirection(Direction.Down);
             
             // Act
@@ -76,7 +76,7 @@
         private void stillStandingSnakeShouldNotMove()
         {
             // Arrange
-            this.testee.ResetSnakeToPosition(0, 0);
+            this.testee.ResetSnakeToPosition(new Position(0, 0));
             this.testee.UpdateFacingDirection(Direction.None);
             
             // Act
@@ -99,7 +99,7 @@
         private void snakeShouldBeAbleToChangeDirectionBy90Degrees(Direction startDirection, Direction newDirection)
         {
             // Arrange
-            this.testee.ResetSnakeToPosition(0, 0);
+            this.testee.ResetSnakeToPosition(new Position(0, 0));
             this.testee.UpdateFacingDirection(startDirection);
 
             // Act
@@ -117,7 +117,7 @@
         private void snakeShouldNotBeAbleToChangeDirectionBy180Degrees(Direction startDirection, Direction newDirection)
         {
             // Arrange
-            this.testee.ResetSnakeToPosition(0, 0);
+            this.testee.ResetSnakeToPosition(new Position(0, 0));
             this.testee.UpdateFacingDirection(startDirection);
 
             // Act
@@ -136,7 +136,7 @@
         private void snakeShouldBeAbleToChangeIntoEveryDirectionWhenNotMoving(Direction newDirection)
         {
             // Arrange
-            this.testee.ResetSnakeToPosition(0, 0);
+            this.testee.ResetSnakeToPosition(new Position(0, 0));
             this.testee.UpdateFacingDirection(Direction.None);
 
             // Act
@@ -154,7 +154,7 @@
         private void snakeShouldNotBeAbleToChangeIntoNoDirectionWhenAlreadyMoving(Direction newDirection)
         {
             // Arrange
-            this.testee.ResetSnakeToPosition(0, 0);
+            this.testee.ResetSnakeToPosition(new Position(0, 0));
             this.testee.UpdateFacingDirection(newDirection);
 
             // Act
@@ -173,7 +173,7 @@
         private void whenNewDirectionIsSameAsOldOneNothingChanges(Direction sameDirection)
         {
             // Arrange
-            this.testee.ResetSnakeToPosition(0, 0);
+            this.testee.ResetSnakeToPosition(new Position(0, 0));
 
             // Act
             this.testee.UpdateFacingDirection(sameDirection);
@@ -186,7 +186,7 @@
         private void whenSnakeGrowsForTheFirstTimeABodyPartShouldBeAddedAfterTheHeadOfTheSnake()
         {
             // Arrange
-            this.testee.ResetSnakeToPosition(0, 0);
+            this.testee.ResetSnakeToPosition(new Position(0, 0));
             Position positionOfHead = this.testee.Head.Position;
 
             // Act
@@ -195,13 +195,14 @@
             // Assert
             this.testee.Body.Count.Should().Be(1);
             this.testee.Body.Last().Position.Should().Be(positionOfHead);
+            this.testee.HasCollidedWithItSelf.Should().Be(false);
         }
 
         [Fact]
         private void whenTheSnakeGrowsABodyPartShouldBeAddedAtTheEndOfTheSnake()
         {
             // Arrange
-            this.testee.ResetSnakeToPosition(0, 0);
+            this.testee.ResetSnakeToPosition(new Position(0, 0));
             this.testee.Grow();
             Position positionOfLastBodyPart = this.testee.Body.Last().Position;
 
@@ -211,13 +212,14 @@
             // Assert
             this.testee.Body.Count.Should().Be(2);
             this.testee.Body.Last().Position.Should().Be(positionOfLastBodyPart);
+            this.testee.HasCollidedWithItSelf.Should().Be(false);
         }
 
         [Fact]
         private void whenSnakeHasABodyItMovesWithTheHead()
         {
             // Arrange
-            this.testee.ResetSnakeToPosition(0, 0);
+            this.testee.ResetSnakeToPosition(new Position(0, 0));
             this.testee.UpdateFacingDirection(Direction.Right);
             this.testee.Grow();
 
@@ -229,6 +231,7 @@
             this.testee.Head.Position.Column.Should().Be(1);
             this.testee.Body.Last().Position.Row.Should().Be(0);
             this.testee.Body.Last().Position.Column.Should().Be(0);
+            this.testee.HasCollidedWithItSelf.Should().Be(false);
         }
     }
 }

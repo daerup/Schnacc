@@ -7,6 +7,6 @@
             this.Position = position;
         }
 
-        public Position Position { get; }
+        public Position Position { get; set; }
     }
 }
