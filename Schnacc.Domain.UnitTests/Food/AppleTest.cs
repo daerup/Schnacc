@@ -1,5 +1,4 @@
-﻿
-namespace Schnacc.Domain.UnitTests.Food
+﻿namespace Schnacc.Domain.UnitTests.Food
 {
     using FakeItEasy;
 
@@ -14,7 +13,7 @@ namespace Schnacc.Domain.UnitTests.Food
         private readonly IFood testee = new Apple(A.Dummy<Position>());
 
         [Fact]
-        public void AppleInstanceShouldBeNamedApple()
+        private void appleInstanceShouldBeNamedApple()
         {
             // Assert
             this.testee.Name.Should().Be("Apple");

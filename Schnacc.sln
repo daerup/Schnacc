@@ -3,17 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.757
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{48F57786-FE72-4BF5-94F5-E617CD73AE10}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IntegrationTests", "IntegrationTests", "{EF880393-BB82-4A11-94E5-8104497A1E44}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestsProjects", "TestsProjects", "{896B8B71-42BD-4AC8-A1EB-91BECA37B53A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Schnacc.Domain", "Schnacc.Domain\Schnacc.Domain.csproj", "{9CA30C5E-416B-4C18-AE37-D59DD7D1DCCE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Schnacc.Domain.UnitTests", "Schnacc.Domain.UnitTests\Schnacc.Domain.UnitTests.csproj", "{24ECCB92-CB78-4E3E-9D9F-241856E678A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Schnacc.Domain.IntegrationTests", "Schnacc.Domain.IntegrationTests\Schnacc.Domain.IntegrationTests.csproj", "{B70AD4A0-2302-469E-B963-65C4FBF8B61A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Schnacc.Domain.IntegrationTests", "Schnacc.Domain.IntegrationTests\Schnacc.Domain.IntegrationTests.csproj", "{B70AD4A0-2302-469E-B963-65C4FBF8B61A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Schnacc.Domain", "Schnacc.Domain", "{72E3340B-E05F-4322-9863-CEB910E7E46E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,10 +36,9 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{48F57786-FE72-4BF5-94F5-E617CD73AE10} = {896B8B71-42BD-4AC8-A1EB-91BECA37B53A}
-		{EF880393-BB82-4A11-94E5-8104497A1E44} = {896B8B71-42BD-4AC8-A1EB-91BECA37B53A}
-		{24ECCB92-CB78-4E3E-9D9F-241856E678A5} = {48F57786-FE72-4BF5-94F5-E617CD73AE10}
-		{B70AD4A0-2302-469E-B963-65C4FBF8B61A} = {EF880393-BB82-4A11-94E5-8104497A1E44}
+		{24ECCB92-CB78-4E3E-9D9F-241856E678A5} = {72E3340B-E05F-4322-9863-CEB910E7E46E}
+		{B70AD4A0-2302-469E-B963-65C4FBF8B61A} = {72E3340B-E05F-4322-9863-CEB910E7E46E}
+		{72E3340B-E05F-4322-9863-CEB910E7E46E} = {896B8B71-42BD-4AC8-A1EB-91BECA37B53A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {187B0A43-E7D3-4240-B8D4-2B49BD9D57E0}

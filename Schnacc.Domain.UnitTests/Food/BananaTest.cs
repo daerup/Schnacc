@@ -1,7 +1,7 @@
-﻿using FakeItEasy;
-
-namespace Schnacc.Domain.UnitTests.Food
+﻿namespace Schnacc.Domain.UnitTests.Food
 {
+    using FakeItEasy;
+
     using FluentAssertions;
 
     using Schnacc.Domain.Food;
@@ -10,7 +10,7 @@ namespace Schnacc.Domain.UnitTests.Food
 
     public class BananaTest
     {
-        private readonly Banana testee = new Banana(A.Dummy<Position>());
+        private readonly IFood testee = new Banana(A.Dummy<Position>());
 
         [Fact]
         private void bananaInstanceShouldBeNamedBanana()

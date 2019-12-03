@@ -63,7 +63,7 @@
             "Then the game state should be running"
                 .x(() => this.testee.CurrentGameState.Should().Be(Game.Running));
 
-            "When the snake tries to be reset without being GameOVer"
+            "When the snake tries to be reset without being GameOver"
                 .x(() => this.testee.RestartGame(new Position(1, 1)));
             "Then nothing happens"
                 .x(() => this.testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 2)));
