@@ -1,4 +1,4 @@
-namespace Schnacc.Domain.Food
+﻿namespace Schnacc.Domain.Food
 {
     using System;
     using System.Collections.Generic;
@@ -7,34 +7,13 @@ namespace Schnacc.Domain.Food
     using System.Security.Cryptography;
     using Schnacc.Domain;
 
-    public class FoodFactory
+    public class FoodFactory : IFoodFactory
     {
-        public readonly (int maxRow, int maxColumn) Boundaries;
-
-        public FoodFactory((int maxRow, int maxColumn) boundaries)
-        {
-            if (boundaries.maxRow < 4)
-            {
-                boundaries.maxRow = 4;
-            }
-            if (boundaries.maxColumn< 4)
-            {
-                boundaries.maxColumn = 4;
-            }
-
-            this.Boundaries = boundaries;
-        }
-
-        public FoodFactory(Position lastPosition)
-        {
-            this.Boundaries = (lastPosition.Row, lastPosition.Column);
-        }
-
-        public Food CreateRandomFood()
+        public Food CreateRandomFoodBetweenBoundaries(Position boundaries)
         {
             List<Type> allFoodTypes = this.getAllFoodTypes();
-            int randomRow = this.getRandomInt(1, this.Boundaries.maxRow);
-            int randomColumn = this.getRandomInt(1, this.Boundaries.maxRow);
+            int randomRow = this.getRandomInt(1, boundaries.Row);
+            int randomColumn = this.getRandomInt(1, boundaries.Column);
             return (Food)Activator.CreateInstance(allFoodTypes.ElementAt(this.getRandomInt(0, allFoodTypes.Count)), new Position(randomRow, randomColumn));
         }
 

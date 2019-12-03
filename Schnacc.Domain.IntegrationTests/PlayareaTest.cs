@@ -1,4 +1,4 @@
-namespace Schnacc.Domain.IntegrationTests
+﻿namespace Schnacc.Domain.IntegrationTests
 {
     using FakeItEasy;
     using FluentAssertions;
@@ -15,13 +15,18 @@ namespace Schnacc.Domain.IntegrationTests
         [Scenario]
         private void whenTheSnakeCollidesInFruitItGrows()
         {
-            FoodFactory foodFactory = null;
-            "Given a food factory with 10 x 10 boundaries"
-                .x(() => foodFactory = A.Fake<FoodFactory>((x => x.WithArgumentsForConstructor(() => new FoodFactory(new Position(10,10))))));
-            "And given the food pops up in front of snake head"
-                .x(() => A.CallTo(() => foodFactory.CreateRandomFood()).Returns(new Apple(new Position(5, 4))));
-            "And given a play area"
-                .x(() => this.testee = new Playarea(foodFactory));
+            IFoodFactory foodFactory = null;
+            Snake snake = null;
+            "Given a food factory"
+                .x(() => foodFactory = A.Fake<IFoodFactory>());
+            "And given a snake at position row 5 and column 2"
+                .x(() => snake = new Snake(new Position(5, 2)));
+            "And given the food will pops up in front of snake head"
+                .x(body: () => A.CallTo(() => foodFactory.CreateRandomFoodBetweenBoundaries(A<Position>.Ignored)).Returns(new Apple(new Position(5, 4))));
+            "And given a play area with boundaries 10 and 10"
+                .x(() => this.testee = new Playarea(new Position(10, 10), foodFactory, snake));
+            "And given the food is actually in front of the snake"
+                .x(() => this.testee.Food.Position.Should().BeEquivalentTo(new Position(5, 4)));
             "And the snake is facing right wards"
                 .x(() => this.testee.UpdateSnakeDirection(Direction.Right));
             "When the snake moves into an empty place, it doesn't grows"
@@ -42,8 +47,14 @@ namespace Schnacc.Domain.IntegrationTests
         [Scenario]
         private void snakeCannotBeResetUnlessTheGameIsOver()
         {
-            "Given a play area"
-                .x(() => this.testee = new Playarea(new FoodFactory(new Position(4, 3))));
+            IFoodFactory foodFactory = null;
+            Snake snake = null;
+            "Given a food factory"
+                .x(() => foodFactory = A.Fake<IFoodFactory>());
+            "And given a snake at position row 2 and column 2"
+                .x(() => snake = new Snake(new Position(2, 2)));
+            "And given a play area"
+                .x(() => this.testee = new Playarea(new Position(4, 4), foodFactory, snake));
             "And the game state is start"
                 .x(() => this.testee.CurrentGameState.Should().Be(Game.Start));
 
@@ -53,7 +64,7 @@ namespace Schnacc.Domain.IntegrationTests
                 .x(() => this.testee.CurrentGameState.Should().Be(Game.Running));
 
             "When the snake tries to be reset without being GameOVer"
-                .x(() => this.testee.RestartGame());
+                .x(() => this.testee.RestartGame(new Position(1, 1)));
             "Then nothing happens"
                 .x(() => this.testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 2)));
 
@@ -61,14 +72,23 @@ namespace Schnacc.Domain.IntegrationTests
                 .x(() => this.testee.MoveSnake());
             "Then the snake should have moved"
                 .x(() => this.testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 3)));
+            "When the snake tries to be reset without being GameOVer"
+                .x(() => this.testee.RestartGame(new Position(1, 1)));
+            "Then nothing happens"
+                .x(() => this.testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 3)));
+
+            "when the snake moves"
+                .x(() => this.testee.MoveSnake());
+            "Then the snake should have moved"
+                .x(() => this.testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 4)));
 
             "and then the game is over"
                 .x(() => this.testee.CurrentGameState.Should().Be(Game.Over));
 
             "When the snake tries to be reset with the game state being GameOVer"
-                .x(() => this.testee.RestartGame());
-            "Then nothing happens"
-                .x(() => this.testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 2)));
+                .x(() => this.testee.RestartGame(new Position(1, 1)));
+            "Then the snake is reset"
+                .x(() => this.testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(1, 1)));
         }
     }
 }

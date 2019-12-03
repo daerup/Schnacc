@@ -7,18 +7,23 @@
 
     public class Playarea
     {
+        public readonly Position Boundaries;
+
+        private readonly IFoodFactory factory;
+
         private readonly Snake snake;
-        private readonly FoodFactory factory;
 
-        private IFood food;
-
-
-        public Playarea(FoodFactory factory)
+        public Playarea(Position boundaries, IFoodFactory factory, Snake snake)
         {
+            this.Boundaries = this.getValidBoundaries(boundaries);
             this.factory = factory;
-            this.snake = new Snake(new Position(factory.Boundaries.maxRow / 2, 2));
-            this.food = this.getRandomFoodInUniquePosition();
+            this.snake = snake;
+            this.Food = this.getRandomFoodInUniquePosition();
         }
+
+        public IFood Food { get; private set; }
+
+        public ISnake Snake => this.snake;
 
         public Game CurrentGameState
         {
@@ -38,6 +43,14 @@
             }
         }
 
+        private bool SnakeCollidedWithWalls =>
+            this.snake.Head.Position.Column == 0 || 
+            this.snake.Head.Position.Row == 0 ||
+            this.snake.Head.Position.Column == this.Boundaries.Column ||
+            this.snake.Head.Position.Row == this.Boundaries.Row;
+
+        private bool SnakeCollidedWithFood => this.Food.Position.Equals(this.snake.Head.Position);
+
         public void MoveSnake()
         {
             if (this.CurrentGameState.Equals(Game.Over) == false)
@@ -48,7 +61,7 @@
             if (this.SnakeCollidedWithFood)
             {
                 this.snake.Grow();
-                this.food = this.getRandomFoodInUniquePosition();
+                this.Food = this.getRandomFoodInUniquePosition();
             }
         }
 
@@ -60,23 +73,30 @@
             }
         }
 
-        public void RestartGame()
+        public void RestartGame(Position startPosition)
         {
             if (this.CurrentGameState.Equals(Game.Over))
             {
-                this.snake.ResetSnakeToPosition(new Position(this.factory.Boundaries.maxRow / 2, 2));
+                this.snake.ResetSnakeToPosition(startPosition);
             }
         }
 
-        public ISnake Snake => this.snake;
+        private Position getValidBoundaries(Position lastPossiblePosition)
+        {
+            int row = lastPossiblePosition.Row;
+            int column = lastPossiblePosition.Column;
+            if (lastPossiblePosition.Row < 4)
+            {
+                row = 4;
+            }
 
-        private bool SnakeCollidedWithWalls =>
-            this.snake.Head.Position.Column == 0 || 
-            this.snake.Head.Position.Row == 0 ||
-            this.snake.Head.Position.Column == this.factory.Boundaries.maxColumn ||
-            this.snake.Head.Position.Row == this.factory.Boundaries.maxRow;
+            if (lastPossiblePosition.Column < 4)
+            {
+                column = 4;
+            }
 
-        private bool SnakeCollidedWithFood => this.food.Position.Equals(this.snake.Head.Position);
+            return new Position(row, column);
+        }
 
         private IFood getRandomFoodInUniquePosition()
         {
@@ -86,8 +106,9 @@
 
             do
             {
-                randomFood = this.factory.CreateRandomFood();
-            } while (allUsedPositions.Contains(randomFood.Position));
+                randomFood = this.factory.CreateRandomFoodBetweenBoundaries(this.Boundaries);
+            }
+            while (allUsedPositions.Contains(randomFood.Position));
 
             return randomFood;
         }
