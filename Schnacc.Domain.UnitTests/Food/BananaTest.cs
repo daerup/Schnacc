@@ -8,15 +8,15 @@ namespace Schnacc.Domain.UnitTests.Food
 
     using Xunit;
 
-    public class AppleTest
+    public class BananaTest
     {
-        private readonly IFood testee = new Apple(A.Dummy<Position>());
+        private readonly Banana testee = new Banana(A.Dummy<Position>());
 
         [Fact]
-        public void AppleInstanceShouldBeNamedApple()
+        private void bananaInstanceShouldBeNamedBanana()
         {
             // Assert
-            this.testee.Name.Should().Be("Apple");
+            this.testee.Name.Should().Be("Banana");
         }
     }
 }

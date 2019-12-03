@@ -1,4 +1,4 @@
-﻿namespace Schnacc.Domain.IntegrationTests
+namespace Schnacc.Domain.IntegrationTests
 {
     using FakeItEasy;
     using FluentAssertions;
@@ -6,6 +6,7 @@
     using Playarea;
     using Snake;
     using Xbehave;
+    using Schnacc.Domain;
 
     public class PlayareaTest
     {

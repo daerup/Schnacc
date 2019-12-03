@@ -1,10 +1,11 @@
-﻿namespace Schnacc.Domain.Food
+namespace Schnacc.Domain.Food
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
     using System.Security.Cryptography;
+    using Schnacc.Domain;
 
     public class FoodFactory
     {
