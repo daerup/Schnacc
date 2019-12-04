@@ -2,6 +2,8 @@
 {
     public class Apple : Food
     {
-        public Apple(Position position) : base(position) { }
+        public Apple(Position position) : base(position)
+        {
+        }
     }
 }

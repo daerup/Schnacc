@@ -1,13 +1,12 @@
-﻿using System.Linq;
-
-namespace Schnacc.Domain.Snake.Orientation
+﻿namespace Schnacc.Domain.Snake.Orientation
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     public abstract class DirectionState : IDirectionState
     {
-        public static readonly Dictionary<Direction, Type> DirectionToTypeMapper = new Dictionary<Direction, Type>
+        private readonly Dictionary<Direction, Type> directionToTypeMapper = new Dictionary<Direction, Type>
                                                                       {
                                                                           { Direction.Right, typeof(RightwardDirection) },
                                                                           { Direction.Left, typeof(LeftwardDirection) },
@@ -20,6 +19,10 @@ namespace Schnacc.Domain.Snake.Orientation
 
         protected abstract List<Direction> ValidNewDirections { get; }
 
+        public Direction GetDirectionFromDirectionState()
+        {
+            return this.directionToTypeMapper.FirstOrDefault(x => x.Value == this.GetType()).Key;
+        }
 
         // ReSharper disable once FlagArgument
         public void TryChangeDirection(Direction newDirection)
@@ -39,18 +42,19 @@ namespace Schnacc.Domain.Snake.Orientation
                 return;
             }
 
-            this.moveEveryBodyPart();
+            this.moveBodyParts();
         }
 
-        private void moveEveryBodyPart()
+        private void moveBodyParts()
         {
-            for (int i = this.Snake.Body.Count-1; i >= 0; i--)
+            for (int i = this.Snake.Body.Count - 1; i >= 0; i--)
             {
                 if (i == 0)
                 {
                     this.Snake.Body[i].Position = new Position(this.Snake.Head.Position);
                     continue;
                 }
+
                 this.Snake.Body[i].Position = new Position(this.Snake.Body[i - 1].Position);
             }
         }
@@ -62,7 +66,7 @@ namespace Schnacc.Domain.Snake.Orientation
 
         private DirectionState getNewOrientationState(Direction newDirection, DirectionState caller)
         {
-            return (DirectionState)Activator.CreateInstance(DirectionToTypeMapper[newDirection], caller);
+            return (DirectionState)Activator.CreateInstance(this.directionToTypeMapper[newDirection], caller);
         }
     }
 }

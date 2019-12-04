@@ -3,6 +3,7 @@
     public interface IFood
     {
         string Name { get; }
-        Position Position { get; set; }
+
+        Position Position { get; }
     }
 }

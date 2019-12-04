@@ -1,9 +1,11 @@
 ﻿namespace Schnacc.Domain.Playarea
 {
     using System.Collections.Generic;
-    using Food;
-    using Snake;
     using System.Linq;
+
+    using Food;
+
+    using Snake;
 
     public class Playarea
     {
@@ -51,12 +53,14 @@
 
         private bool SnakeCollidedWithFood => this.Food.Position.Equals(this.snake.Head.Position);
 
-        public void MoveSnake()
+        public void MoveSnakeWhenAllowed()
         {
-            if (this.CurrentGameState.Equals(Game.Over) == false)
+            if (this.CurrentGameState.Equals(Game.Over))
             {
-                this.snake.Move();
+                return;
             }
+
+            this.snake.Move();
 
             if (this.SnakeCollidedWithFood)
             {
@@ -73,11 +77,11 @@
             }
         }
 
-        public void RestartGame(Position startPosition)
+        public void RestartGame(Position snakeStartPosition)
         {
             if (this.CurrentGameState.Equals(Game.Over))
             {
-                this.snake.ResetSnakeToPosition(startPosition);
+                this.snake.ResetSnakeToPosition(snakeStartPosition);
             }
         }
 

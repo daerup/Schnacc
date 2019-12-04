@@ -1,6 +1,7 @@
 ﻿namespace Schnacc.Domain.Snake.Orientation
 {
     using System.Collections.Generic;
+
     public class DownwardDirection : DirectionState
     {
         public DownwardDirection(DirectionState state)
@@ -11,7 +12,6 @@
         }
 
         protected override List<Direction> ValidNewDirections { get; }
-
 
         public override void MoveHead()
         {

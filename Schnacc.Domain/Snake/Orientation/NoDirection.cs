@@ -14,7 +14,6 @@
                                               Direction.Down
                                           };
             this.Snake = snake;
-           /* this.Snake.FacingDirection.MoveHead();*/ //= new NoMovement();
         }
 
         protected override List<Direction> ValidNewDirections { get; }

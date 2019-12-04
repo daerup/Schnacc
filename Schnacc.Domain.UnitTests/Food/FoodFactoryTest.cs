@@ -1,6 +1,4 @@
-﻿using FakeItEasy;
-
-namespace Schnacc.Domain.UnitTests.Food
+﻿namespace Schnacc.Domain.UnitTests.Food
 {
     using FluentAssertions;
 

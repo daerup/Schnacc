@@ -8,6 +8,7 @@
         }
 
         public string Name => this.GetType().Name;
-        public Position Position { get; set; }
+
+        public Position Position { get; }
     }
 }

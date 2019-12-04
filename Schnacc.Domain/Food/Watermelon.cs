@@ -2,6 +2,8 @@
 {
     public class Watermelon : Food
     {
-        public Watermelon(Position position) : base(position) { }
+        public Watermelon(Position position) : base(position)
+        {
+        }
     }
 }

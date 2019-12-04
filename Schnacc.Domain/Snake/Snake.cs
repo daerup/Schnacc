@@ -13,7 +13,7 @@
 
         public IDirectionState FacingDirection { private get; set; }
 
-        public Direction CurrentDirection => DirectionState.DirectionToTypeMapper.FirstOrDefault(x => x.Value == this.FacingDirection.GetType()).Key;
+        public Direction CurrentDirection => this.FacingDirection.GetDirectionFromDirectionState();
 
         public bool HasCollidedWithItSelf => this.Body.Skip(3).Any(bp => bp.Position.Equals(this.Head.Position));
 

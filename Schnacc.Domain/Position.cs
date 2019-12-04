@@ -2,9 +2,6 @@
 {
     public class Position
     {
-        public int Row { get; }
-        public int Column { get; }
-
         public Position(int row, int column)
         {
             this.Row = row;
@@ -16,6 +13,10 @@
             this.Row = position.Row;
             this.Column = position.Column;
         }
+
+        public int Row { get; }
+
+        public int Column { get; }
 
         public bool Equals(Position other)
         {

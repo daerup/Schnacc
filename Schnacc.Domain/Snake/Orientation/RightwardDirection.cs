@@ -13,7 +13,6 @@
 
         protected override List<Direction> ValidNewDirections { get; }
 
-
         public override void MoveHead()
         {
             Position previousPosition = this.Snake.Head.Position;

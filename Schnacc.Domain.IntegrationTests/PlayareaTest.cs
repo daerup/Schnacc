@@ -1,12 +1,18 @@
 ﻿namespace Schnacc.Domain.IntegrationTests
 {
     using FakeItEasy;
+
     using FluentAssertions;
+
     using Food;
+
     using Playarea;
-    using Snake;
-    using Xbehave;
+
     using Schnacc.Domain;
+
+    using Snake;
+
+    using Xbehave;
 
     public class PlayareaTest
     {
@@ -30,14 +36,14 @@
             "And the snake is facing right wards"
                 .x(() => this.testee.UpdateSnakeDirection(Direction.Right));
             "When the snake moves into an empty place, it doesn't grows"
-                .x(() => this.testee.MoveSnake());
+                .x(() => this.testee.MoveSnakeWhenAllowed());
             "Then the snake has moved"
                 .x(() => this.testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(5, 3)));
             "and then the snake has grown"
                 .x(() => this.testee.Snake.Body.Count.Should().Be(0));
 
             "When the snake moves into the food, it grows"
-                .x(() => this.testee.MoveSnake());
+                .x(() => this.testee.MoveSnakeWhenAllowed());
             "Then the snake has moved"
                 .x(() => this.testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(5, 4)));
             "and then the snake has grown"
@@ -69,7 +75,7 @@
                 .x(() => this.testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 2)));
 
             "when the snake moves"
-                .x(() => this.testee.MoveSnake());
+                .x(() => this.testee.MoveSnakeWhenAllowed());
             "Then the snake should have moved"
                 .x(() => this.testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 3)));
             "When the snake tries to be reset without being GameOVer"
@@ -78,7 +84,7 @@
                 .x(() => this.testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 3)));
 
             "when the snake moves"
-                .x(() => this.testee.MoveSnake());
+                .x(() => this.testee.MoveSnakeWhenAllowed());
             "Then the snake should have moved"
                 .x(() => this.testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 4)));
 

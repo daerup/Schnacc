@@ -31,7 +31,7 @@
             this.testee = new Playarea(boundaries, factory, snake);
 
             // Assert
-            this.testee.Boundaries.Should().BeEquivalentTo(new Position(4,4));
+            this.testee.Boundaries.Should().BeEquivalentTo(new Position(4, 4));
         }
 
         [Fact]
@@ -54,7 +54,6 @@
             // Arrange
             this.testee = new Playarea(new Position(10, 10), A.Dummy<IFoodFactory>(), new Snake(new Position(5, 5)));
 
-
             // Act
             this.testee.UpdateSnakeDirection(newFacingDirection);
 
@@ -73,7 +72,7 @@
             Position previousHeadPosition = this.testee.Snake.Head.Position;
 
             // Act
-            this.testee.MoveSnake();
+            this.testee.MoveSnakeWhenAllowed();
 
             // Assert
             this.testee.Snake.Head.Position.Should().BeEquivalentTo(previousHeadPosition);
