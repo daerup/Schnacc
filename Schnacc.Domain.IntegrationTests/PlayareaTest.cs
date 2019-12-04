@@ -96,5 +96,47 @@
             "Then the snake is reset"
                 .x(() => this.testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(1, 1)));
         }
+
+        [Scenario]
+        private void snakeCannotMoveWhenTheGameIsOver()
+        {
+            IFoodFactory foodFactory = null;
+            Snake snake = null;
+            "Given a food factory"
+                .x(() => foodFactory = A.Dummy<IFoodFactory>());
+            "And given a snake at position row 2 and column 2"
+                .x(() => snake = new Snake(new Position(2, 2)));
+            "And given a play area"
+                .x(() => this.testee = new Playarea(new Position(4, 4), foodFactory, snake));
+            "And the game state is start"
+                .x(() => this.testee.CurrentGameState.Should().Be(Game.Start));
+
+            "When the direction of the snake is updated for the first time"
+                .x(() => this.testee.UpdateSnakeDirection(Direction.Right));
+            "Then the game state should be running"
+                .x(() => this.testee.CurrentGameState.Should().Be(Game.Running));
+
+            "When the snake moves"
+                .x(() => this.testee.MoveSnakeWhenAllowed());
+            "Then the snake should have moved"
+                .x(() => this.testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 3)));
+            "Then the game state should be running"
+                .x(() => this.testee.CurrentGameState.Should().Be(Game.Running));
+
+            "When the snake moves"
+                .x(() => this.testee.MoveSnakeWhenAllowed());
+            "Then the snake should have moved"
+                .x(() => this.testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 4)));
+            "and then the game is over"
+                .x(() => this.testee.CurrentGameState.Should().Be(Game.Over));
+
+            "When the snake tries to move"
+                .x(() => this.testee.MoveSnakeWhenAllowed());
+            "And when the game is over"
+                .x(() => this.testee.CurrentGameState.Should().Be(Game.Over));
+
+            "Then the snake should not have moved"
+                .x(() => this.testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 4)));
+        }
     }
 }
