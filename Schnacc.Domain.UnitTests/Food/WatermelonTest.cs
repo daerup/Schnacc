@@ -5,6 +5,7 @@
     using FluentAssertions;
 
     using Schnacc.Domain.Food;
+    using Schnacc.Domain.Snake;
 
     using Xunit;
 

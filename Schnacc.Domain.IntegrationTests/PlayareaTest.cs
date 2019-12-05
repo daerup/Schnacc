@@ -8,8 +8,6 @@
 
     using Playarea;
 
-    using Schnacc.Domain;
-
     using Snake;
 
     using Xbehave;
@@ -19,7 +17,7 @@
         private Playarea testee;
 
         [Scenario]
-        private void whenTheSnakeCollidesInFruitItGrows()
+        public void whenTheSnakeCollidesInFruitItGrows()
         {
             IFoodFactory foodFactory = null;
             Snake snake = null;
@@ -30,7 +28,7 @@
             "And given the food will pops up in front of snake head"
                 .x(body: () => A.CallTo(() => foodFactory.CreateRandomFoodBetweenBoundaries(A<Position>.Ignored)).Returns(new Apple(new Position(5, 4))));
             "And given a play area with boundaries 10 and 10"
-                .x(() => this.testee = new Playarea(new Position(10, 10), foodFactory, snake));
+                .x(() => this.testee = new Playarea(new PlayareaSize(10, 10), foodFactory, snake));
             "And given the food is actually in front of the snake"
                 .x(() => this.testee.Food.Position.Should().BeEquivalentTo(new Position(5, 4)));
             "And the snake is facing right wards"
@@ -58,9 +56,9 @@
             "Given a food factory"
                 .x(() => foodFactory = A.Fake<IFoodFactory>());
             "And given a snake at position row 2 and column 2"
-                .x(() => snake = new Snake(new Position(2, 2)));
-            "And given a play area"
-                .x(() => this.testee = new Playarea(new Position(4, 4), foodFactory, snake));
+                .x(() => snake = new Snake(new Position(2, 3)));
+            "And given a play area with size 4 by 4"
+                .x(() => this.testee = new Playarea(new PlayareaSize(4, 4), foodFactory, snake));
             "And the game state is start"
                 .x(() => this.testee.CurrentGameState.Should().Be(Game.Start));
 
@@ -72,21 +70,21 @@
             "When the snake tries to be reset without being GameOver"
                 .x(() => this.testee.RestartGame(new Position(1, 1)));
             "Then nothing happens"
-                .x(() => this.testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 2)));
-
-            "when the snake moves"
-                .x(() => this.testee.MoveSnakeWhenAllowed());
-            "Then the snake should have moved"
-                .x(() => this.testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 3)));
-            "When the snake tries to be reset without being GameOVer"
-                .x(() => this.testee.RestartGame(new Position(1, 1)));
-            "Then nothing happens"
                 .x(() => this.testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 3)));
 
             "when the snake moves"
                 .x(() => this.testee.MoveSnakeWhenAllowed());
             "Then the snake should have moved"
                 .x(() => this.testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 4)));
+            "When the snake tries to be reset without being GameOVer"
+                .x(() => this.testee.RestartGame(new Position(1, 1)));
+            "Then nothing happens"
+                .x(() => this.testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 4)));
+
+            "when the snake moves"
+                .x(() => this.testee.MoveSnakeWhenAllowed());
+            "Then the snake should have collided with a wall"
+                .x(() => this.testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 5)));
 
             "and then the game is over"
                 .x(() => this.testee.CurrentGameState.Should().Be(Game.Over));
@@ -107,7 +105,7 @@
             "And given a snake at position row 2 and column 2"
                 .x(() => snake = new Snake(new Position(2, 2)));
             "And given a play area"
-                .x(() => this.testee = new Playarea(new Position(4, 4), foodFactory, snake));
+                .x(() => this.testee = new Playarea(new PlayareaSize(4, 4), foodFactory, snake));
             "And the game state is start"
                 .x(() => this.testee.CurrentGameState.Should().Be(Game.Start));
 
@@ -127,6 +125,13 @@
                 .x(() => this.testee.MoveSnakeWhenAllowed());
             "Then the snake should have moved"
                 .x(() => this.testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 4)));
+            "Then the game state should be running"
+                .x(() => this.testee.CurrentGameState.Should().Be(Game.Running));
+
+            "When the snake moves"
+                .x(() => this.testee.MoveSnakeWhenAllowed());
+            "Then the snake should have moved"
+                .x(() => this.testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 5)));
             "and then the game is over"
                 .x(() => this.testee.CurrentGameState.Should().Be(Game.Over));
 
@@ -134,9 +139,8 @@
                 .x(() => this.testee.MoveSnakeWhenAllowed());
             "And when the game is over"
                 .x(() => this.testee.CurrentGameState.Should().Be(Game.Over));
-
             "Then the snake should not have moved"
-                .x(() => this.testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 4)));
+                .x(() => this.testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 5)));
         }
     }
 }

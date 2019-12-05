@@ -1,4 +1,4 @@
-﻿namespace Schnacc.Domain
+﻿namespace Schnacc.Domain.Snake
 {
     public class Position
     {

@@ -9,15 +9,15 @@
 
     public class Playarea
     {
-        public readonly Position Boundaries;
+        public readonly Position WallCorner;
 
         private readonly IFoodFactory factory;
 
         private readonly Snake snake;
 
-        public Playarea(Position boundaries, IFoodFactory factory, Snake snake)
+        public Playarea(PlayareaSize size, IFoodFactory factory, Snake snake)
         {
-            this.Boundaries = this.getValidBoundaries(boundaries);
+            this.WallCorner = this.getValidWallCorner(size);
             this.factory = factory;
             this.snake = snake;
             this.Food = this.getRandomFoodInUniquePosition();
@@ -48,8 +48,8 @@
         private bool SnakeCollidedWithWalls =>
             this.snake.Head.Position.Column == 0 || 
             this.snake.Head.Position.Row == 0 ||
-            this.snake.Head.Position.Column == this.Boundaries.Column ||
-            this.snake.Head.Position.Row == this.Boundaries.Row;
+            this.snake.Head.Position.Column == this.WallCorner.Column ||
+            this.snake.Head.Position.Row == this.WallCorner.Row;
 
         private bool SnakeCollidedWithFood => this.Food.Position.Equals(this.snake.Head.Position);
 
@@ -85,21 +85,21 @@
             }
         }
 
-        private Position getValidBoundaries(Position lastPossiblePosition)
+        private Position getValidWallCorner(PlayareaSize size)
         {
-            int row = lastPossiblePosition.Row;
-            int column = lastPossiblePosition.Column;
-            if (lastPossiblePosition.Row < 4)
+            int row = size.NumberOfRows;
+            int column = size.NumberOfColumns;
+            if (size.NumberOfRows < 4)
             {
                 row = 4;
             }
 
-            if (lastPossiblePosition.Column < 4)
+            if (size.NumberOfColumns < 4)
             {
                 column = 4;
             }
 
-            return new Position(row, column);
+            return new Position(row + 1, column + 1);
         }
 
         private IFood getRandomFoodInUniquePosition()
@@ -110,7 +110,7 @@
 
             do
             {
-                randomFood = this.factory.CreateRandomFoodBetweenBoundaries(this.Boundaries);
+                randomFood = this.factory.CreateRandomFoodBetweenBoundaries(this.WallCorner);
             }
             while (allUsedPositions.Contains(randomFood.Position));
 
