@@ -8,6 +8,8 @@
 
         void MoveBody();
 
+        Position GetNexPosition();
+
         Direction GetDirectionFromDirectionState();
     }
 }

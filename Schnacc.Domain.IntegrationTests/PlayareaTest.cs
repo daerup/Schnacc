@@ -76,17 +76,17 @@
                 .x(() => this.testee.MoveSnakeWhenAllowed());
             "Then the snake should have moved"
                 .x(() => this.testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 4)));
-            "When the snake tries to be reset without being GameOVer"
+            "When the snake tries to be reset without being GameOver"
                 .x(() => this.testee.RestartGame(new Position(1, 1)));
             "Then nothing happens"
                 .x(() => this.testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 4)));
 
-            "when the snake moves"
+            "When the snake moves"
                 .x(() => this.testee.MoveSnakeWhenAllowed());
-            "Then the snake should have collided with a wall"
-                .x(() => this.testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 5)));
+            "Then the snake should not have moved"
+                .x(() => this.testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 4)));
 
-            "and then the game is over"
+            "And then the game is over"
                 .x(() => this.testee.CurrentGameState.Should().Be(Game.Over));
 
             "When the snake tries to be reset with the game state being GameOVer"
@@ -128,11 +128,11 @@
             "Then the game state should be running"
                 .x(() => this.testee.CurrentGameState.Should().Be(Game.Running));
 
-            "When the snake moves"
+            "When the snake moves outside of playarea"
                 .x(() => this.testee.MoveSnakeWhenAllowed());
-            "Then the snake should have moved"
-                .x(() => this.testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 5)));
-            "and then the game is over"
+            "Then the snake should not have moved"
+                .x(() => this.testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 4)));
+            "And then the game is over"
                 .x(() => this.testee.CurrentGameState.Should().Be(Game.Over));
 
             "When the snake tries to move"
@@ -140,7 +140,7 @@
             "And when the game is over"
                 .x(() => this.testee.CurrentGameState.Should().Be(Game.Over));
             "Then the snake should not have moved"
-                .x(() => this.testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 5)));
+                .x(() => this.testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 4)));
         }
     }
 }

@@ -31,7 +31,7 @@
             this.testee = new Playarea(size, factory, snake);
 
             // Assert
-            this.testee.WallCorner.Should().BeEquivalentTo(new Position(5, 5));
+            this.testee.Size.Should().BeEquivalentTo(new PlayareaSize(4, 4));
         }
 
         [Fact]

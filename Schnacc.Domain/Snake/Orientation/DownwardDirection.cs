@@ -15,8 +15,13 @@
 
         public override void MoveHead()
         {
+            this.Snake.Head.Position = this.GetNexPosition();
+        }
+
+        public override Position GetNexPosition()
+        {
             Position previousPosition = this.Snake.Head.Position;
-            this.Snake.Head.Position = new Position(previousPosition.Row + 1, previousPosition.Column);
+            return new Position(previousPosition.Row + 1, previousPosition.Column);
         }
     }
 }

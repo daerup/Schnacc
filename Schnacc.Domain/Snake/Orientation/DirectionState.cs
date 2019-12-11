@@ -35,6 +35,8 @@
 
         public abstract void MoveHead();
 
+        public abstract Position GetNexPosition();
+
         public void MoveBody()
         {
             if (this.Snake.Body.Any() == false)
