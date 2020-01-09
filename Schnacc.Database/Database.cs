@@ -21,7 +21,7 @@
                     });
         }
 
-        public List<Highscore> GetHighscores ()
+        public List<Highscore> GetHighscores()
         {
             List<Highscore> highscores = new List<Highscore>();
             IReadOnlyCollection<FirebaseObject<Highscore>> firebaseHighscores = this.firebaseClient.Child("Highscores")
