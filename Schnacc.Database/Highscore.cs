@@ -10,8 +10,8 @@
 
         public Highscore(string username, double score)
         {
-            username = this.Username;
-            score = this.Score;
+            this.Username = username;
+            this.Score = score;
         }
 
         [JsonProperty("Score")]

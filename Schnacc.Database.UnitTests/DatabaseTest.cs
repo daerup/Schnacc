@@ -15,7 +15,7 @@
         private Database testee;
 
         [Fact]
-        private void test()
+        private void userCanFetchHighscores()
         {
             // Act
             string email = "hans.muster@mail.ch";
@@ -26,8 +26,8 @@
             this.testee = new Database(new AuthorizationApi().SignInWithEmail(email, password));
             List<Highscore> highscores = this.testee.GetHighscores();
 
-            highscores.Count.Should().Be(2);
-            this.testee.WriteHighscore(new Highscore(email, Double.MaxValue));
+            highscores.Count.Should().BeGreaterThan(1);
+            this.testee.WriteHighscore(new Highscore(email, 123456));
         }
     }
 }

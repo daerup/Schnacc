@@ -25,16 +25,16 @@
 
         public List<Highscore> GetHighscores()
         {
-            IReadOnlyCollection<FirebaseObject<Highscore>> firebaseHighscores = this.firebaseClient.Child("Highscores")
+            IReadOnlyCollection<FirebaseObject<Highscore>> firebaseHighscores = this.firebaseClient.Child(DatabaseConfig.DatabaseChild)
                 .OrderByKey()
                 .OnceAsync<Highscore>().Result;
 
             return firebaseHighscores.Select(highscore => highscore.Object).ToList();
         }
 
-        public void WriteHighscore(Highscore highscore)
+        public async void WriteHighscore(Highscore highscore)
         {
-            this.firebaseClient.Child("Highscores").PutAsync("ssdfghjgfdsa").ConfigureAwait(true);
+            FirebaseObject<Highscore> firebaseObject = await this.firebaseClient.Child(DatabaseConfig.DatabaseChild).PostAsync(highscore, false);
         }
     }
 }
