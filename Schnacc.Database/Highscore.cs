@@ -4,10 +4,20 @@
 
     public class Highscore
     {
-            [JsonProperty("Score")]
-            public double Score { get; set; }
+        public Highscore()
+        {
+        }
 
-            [JsonProperty("Username")]
-            public string Username { get; set; }
+        public Highscore(string username, double score)
+        {
+            username = this.Username;
+            score = this.Score;
+        }
+
+        [JsonProperty("Score")]
+        public double Score { get; set; }
+
+        [JsonProperty("Username")]
+        public string Username { get; set; }
     }
 }

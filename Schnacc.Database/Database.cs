@@ -1,6 +1,8 @@
 ﻿namespace Schnacc.Database
 {
+    using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
     using System.Transactions;
 
@@ -9,7 +11,7 @@
 
     public class Database
     {
-        private FirebaseClient firebaseClient;
+        private readonly FirebaseClient firebaseClient;
 
         public Database(string accessToken)
         {
@@ -23,17 +25,16 @@
 
         public List<Highscore> GetHighscores()
         {
-            List<Highscore> highscores = new List<Highscore>();
             IReadOnlyCollection<FirebaseObject<Highscore>> firebaseHighscores = this.firebaseClient.Child("Highscores")
                 .OrderByKey()
                 .OnceAsync<Highscore>().Result;
 
-            foreach (FirebaseObject<Highscore> highscore in firebaseHighscores)
-            {
-                highscores.Add(highscore.Object);
-            }
+            return firebaseHighscores.Select(highscore => highscore.Object).ToList();
+        }
 
-            return highscores;
+        public void WriteHighscore(Highscore highscore)
+        {
+            this.firebaseClient.Child("Highscores").PutAsync("ssdfghjgfdsa").ConfigureAwait(true);
         }
     }
 }
