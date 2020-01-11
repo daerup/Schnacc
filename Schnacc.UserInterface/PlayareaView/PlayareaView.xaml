@@ -4,11 +4,24 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Schnacc.UserInterface.PlayareaView"
+             xmlns:grid="clr-namespace:Schnacc.UserInterface.Infrastructure.AttachedProperties"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:commands="clr-namespace:Schnacc.UserInterface.Infrastructure.Commands"
              d:DesignHeight="450" 
              d:DesignWidth="800"
              d:DataContext="{d:DesignInstance local:PlayareaViewModel}"
              mc:Ignorable="d" >
-    <Grid>
-        <Label Content="ASDASDASDASDASD"></Label>
+
+    <Grid Name="Grid" Loaded="GridLoaded">
+        <i:Interaction.Behaviors>
+            <commands:EventToCommandBehavior
+                Command="{Binding UpdateSnakeDirection}"
+                Event="KeyDown"
+                PassArguments="True" />
+        </i:Interaction.Behaviors>
+        <Label Background="Green" Grid.Row="{Binding HeadPosition.Row}" Grid.Column="{Binding HeadPosition.Column}"/>
+        <Label Background="Red" Grid.Row="{Binding FoodPosition.Row}" Grid.Column="{Binding FoodPosition.Column}"/>
+
+        <DataGrid ItemsSource=""/>
     </Grid>
 </UserControl>

@@ -90,15 +90,16 @@
 
         private bool nextPositionCollidesWithSnakeBody()
         {
-            return this.snake.Body.Select(sb => sb.Position).Contains(this.snake.GetNextPosition());
+            Position nextHeadPosition = this.snake.GetNextHeadPosition();
+            return this.snake.Body.Select(sb => sb.Position).Any(p => p.Equals(nextHeadPosition));
         }
 
         private bool nextPositionCollidesWithWalls()
         {
-            Position nextPosition = this.snake.GetNextPosition();
+            Position nextPosition = this.snake.GetNextHeadPosition();
             return
-                nextPosition.Column == 0 ||
-                nextPosition.Row == 0 ||
+                nextPosition.Column == -1 ||
+                nextPosition.Row == -1 ||
                 nextPosition.Column == this.getCorner().Column ||
                 nextPosition.Row == this.getCorner().Row;
         }
@@ -120,7 +121,7 @@
             return new PlayareaSize(row, column);
         }
 
-        private Position getCorner() => new Position(this.Size.NumberOfRows + 1, this.Size.NumberOfColumns + 1);
+        private Position getCorner() => new Position(this.Size.NumberOfRows, this.Size.NumberOfColumns);
 
         private IFood getRandomFoodInUniquePosition()
         {

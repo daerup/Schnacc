@@ -17,7 +17,7 @@
 
         public bool HasCollidedWithItSelf => this.Body.Skip(3).Any(bp => bp.Position.Equals(this.Head.Position));
 
-        public Position GetNextPosition() => this.FacingDirection.GetNexPosition();
+        public Position GetNextHeadPosition() => this.FacingDirection.GetNexPosition();
 
         public SnakeHead Head { get; private set; }
 
