@@ -1,4 +1,6 @@
-﻿namespace Schnacc.Authorization.UnitTests
+﻿using System.Threading.Tasks;
+
+namespace Schnacc.Authorization.UnitTests
 {
     using System;
 
@@ -28,17 +30,17 @@
         }
 
         [Fact]
-        private void whenNotRegisteredUserCanNotSignIn()
+        private async void whenNotRegisteredUserCanNotSignIn()
         {
             // Arrange
             string email = "hans.muster@notRegistered.ch";
             string password = "testAccount01";
 
             // Act
-            Action act = () => this.testee.SignInWithEmail(email, password);
+            Func<Task> func = async () => { await this.testee.SignInWithEmail(email, password); ; };
 
             // Assert
-            act.Should().Throw<UserNotRegisterdException>();
+            func.Should().Throw<UserNotRegisterdException>();
         }
     }
 }

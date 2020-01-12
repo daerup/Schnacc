@@ -82,7 +82,5 @@
             Command="{Binding RegisterCommand}"        
             CommandParameter="{Binding ElementName=PasswordBox}" />
         </Grid>
-
-
     </Grid>
 </UserControl>

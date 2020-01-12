@@ -30,6 +30,9 @@
                 <DataTemplate DataType="{x:Type loginView:LoginViewModel}">
                     <loginView:LoginView/>
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type loginView:LoginSuccessfulViewModel}">
+                    <loginView:LoginSuccessfulView/>
+                </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>
     </Grid>

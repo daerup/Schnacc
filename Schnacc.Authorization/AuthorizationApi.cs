@@ -28,21 +28,21 @@ namespace Schnacc.Authorization
             {
                 return (await this.authProvider.SignInWithEmailAndPasswordAsync(email, password)).FirebaseToken;
             }
-            catch (AggregateException e) when ((e.InnerException as FirebaseAuthException).Reason ==
-                                               AuthErrorReason.UnknownEmailAddress)
+            catch (FirebaseAuthException e) when (e.Reason == AuthErrorReason.UnknownEmailAddress)
             {
-                throw new UserNotRegisterdException(
-                    $"There is no user in this database with the {email}. Please register first");
+                throw new UserNotRegisterdException($"There is no user in this database with the {email}. Please register first");
             }
-            catch (AggregateException e) when ((e.InnerException as FirebaseAuthException).Reason ==
-                                               AuthErrorReason.WrongPassword)
+            catch (FirebaseAuthException e) when (e.Reason == AuthErrorReason.WrongPassword)
             {
                 throw new WrongLoginCredentials($"Your login credentials are incorrect :/");
             }
-            catch (AggregateException e) when ((e.InnerException as FirebaseAuthException).Reason ==
-                                               AuthErrorReason.InvalidEmailAddress)
+            catch (FirebaseAuthException e) when (e.Reason == AuthErrorReason.InvalidEmailAddress)
             {
-                throw new InvalidEmail($"Are you kidding me? {email} is not an email...");
+                throw new InvalidEmail($"Are you kidding me? '{email}' is not an email...");
+            }
+            catch (FirebaseAuthException e) when (e.Reason == AuthErrorReason.TooManyAttemptsTryLater)
+            {
+                throw new TooManyTries($"Chill my dude, you are doing too much. Try again later");
             }
             catch (System.Exception e)
             {

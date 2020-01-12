@@ -47,6 +47,7 @@ namespace Schnacc.UserInterface.LoginView
             try
             {
                 this.navigationService.SessionToken = await this.authApi.SignInWithEmail(this.Email, plainPassword);
+                this.navigationService.NavigateTo(new LoginSuccessfulViewModel(this.navigationService));
             }
             catch (Exception e) when (e is IFirebaseHandledException)
             {
@@ -56,8 +57,6 @@ namespace Schnacc.UserInterface.LoginView
             {
                 throw e;
             }
-
-            this.navigationService.NavigateTo(new LoginSuccessfulViewModel(this.navigationService));
         }
     }
 }
