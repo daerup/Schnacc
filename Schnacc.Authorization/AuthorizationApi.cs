@@ -1,13 +1,11 @@
-﻿namespace Schnacc.Authorization
+﻿using System.Threading.Tasks;
+
+namespace Schnacc.Authorization
 {
     using System;
-    using System.Net.Http;
-    using System.Text.RegularExpressions;
-    using System.Threading.Tasks;
-
     using Firebase.Auth;
 
-    using Schnacc.Authorization.Exception;
+    using Exception;
 
     public class AuthorizationApi
     {
@@ -24,15 +22,31 @@
             this.authProvider.SendEmailVerificationAsync(userWithEmailAndPasswordAsync);
         }
 
-        public string SignInWithEmail(string email, string password)
+        public async Task<string> SignInWithEmail(string email, string password)
         {
             try
             {
-                return this.authProvider.SignInWithEmailAndPasswordAsync(email, password).Result.FirebaseToken;
+                return (await this.authProvider.SignInWithEmailAndPasswordAsync(email, password)).FirebaseToken;
             }
-            catch (AggregateException e) when ((e.InnerException as FirebaseAuthException).Reason == AuthErrorReason.UnknownEmailAddress)
+            catch (AggregateException e) when ((e.InnerException as FirebaseAuthException).Reason ==
+                                               AuthErrorReason.UnknownEmailAddress)
             {
-                throw new UserNotRegisterdException($"There is no user in this database with the {email}. Please register first");
+                throw new UserNotRegisterdException(
+                    $"There is no user in this database with the {email}. Please register first");
+            }
+            catch (AggregateException e) when ((e.InnerException as FirebaseAuthException).Reason ==
+                                               AuthErrorReason.WrongPassword)
+            {
+                throw new WrongLoginCredentials($"Your login credentials are incorrect :/");
+            }
+            catch (AggregateException e) when ((e.InnerException as FirebaseAuthException).Reason ==
+                                               AuthErrorReason.InvalidEmailAddress)
+            {
+                throw new InvalidEmail($"Are you kidding me? {email} is not an email...");
+            }
+            catch (System.Exception e)
+            {
+                throw e;
             }
         }
 

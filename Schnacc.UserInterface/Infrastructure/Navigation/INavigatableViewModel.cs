@@ -1,4 +1,6 @@
-﻿namespace Schnacc.UserInterface.Infrastructure.Navigation
+﻿using System;
+
+namespace Schnacc.UserInterface.Infrastructure.Navigation
 {
     using ViewModels;
 

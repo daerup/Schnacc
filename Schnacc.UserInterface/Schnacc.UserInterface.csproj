@@ -8,10 +8,18 @@
 
   <ItemGroup>
     <None Remove="fonts\ARCADECLASSIC.TTF" />
+    <None Remove="fonts\Input.ttf" />
+    <None Remove="fonts\PressStart2P.ttf" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="fonts\ARCADECLASSIC.TTF">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="fonts\Input.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="fonts\PressStart2P.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

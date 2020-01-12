@@ -4,11 +4,25 @@
              xmlns:local="clr-namespace:Schnacc.UserInterface"
              Startup="OnStartup">
     <Application.Resources>
-        <Style x:Key="ArcadeClassicFont">
+        <Style x:Key="PressStartFontContent">
             <Setter Property="TextElement.FontFamily" 
-                    Value="pack://application:,,,/fonts/#ArcadeClassic" />
+                    Value="pack://application:,,,/fonts/PressStart2P.ttf#Press Start 2P" />
             <Setter Property="TextElement.FontSize" 
-                    Value="30px"/>
+                    Value="20px"/>
+        </Style>
+        <Style x:Key="PressStartFontTitle">
+            <Setter Property="TextElement.FontFamily" 
+                    Value="pack://application:,,,/fonts/PressStart2P.ttf#Press Start 2P" />
+            <Setter Property="TextElement.FontSize" 
+                    Value="40px"/>
+        </Style>
+        <Style x:Key="InputFontContent">
+            <Setter Property="TextElement.FontFamily" 
+                    Value="pack://application:,,,/fonts/PressStart2P.ttf#Press Start 2P" />
+            <Setter Property="TextElement.FontSize" 
+                    Value="10px"/>
+            <Setter Property="TextElement.Foreground" 
+                    Value="Red"/>
         </Style>
     </Application.Resources>
 </Application>

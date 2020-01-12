@@ -6,6 +6,7 @@ using Schnacc.UserInterface.Infrastructure.Commands;
 using Schnacc.UserInterface.Infrastructure.Navigation;
 using Schnacc.UserInterface.Infrastructure.ViewModels;
 using Schnacc.Authorization;
+using Schnacc.Authorization.Exception;
 
 namespace Schnacc.UserInterface.LoginView
 {
@@ -18,8 +19,12 @@ namespace Schnacc.UserInterface.LoginView
 
         public string Email { get; set; }
 
-        public LoginViewModel()
+        public string ErrorMessage { get; private set; }
+
+        public LoginViewModel(INavigationService navigationService)
         {
+            this.navigationService = navigationService;
+            this.ErrorMessage = string.Empty;
             this.LoginCommand = new RelayCommand<object>(this.Login);
             this.RegisterCommand = new RelayCommand<object>(this.Register);
             this.authApi = new AuthorizationApi();
@@ -30,10 +35,29 @@ namespace Schnacc.UserInterface.LoginView
             throw new NotImplementedException();
         }
 
-        private void Login(object obj)
+        private async void Login(object obj)
         {
-            PasswordBox pwBox = obj as PasswordBox;
-            this.navigationService.SessionToken = this.authApi.SignInWithEmail(this.Email, pwBox.Password);
+            string plainPassword = (obj as PasswordBox).Password;
+            if (string.IsNullOrEmpty(this.Email) || string.IsNullOrEmpty(plainPassword))
+            {
+                this.ErrorMessage = "You have to fill both fields with normal stuff, duh";
+                return;
+            }
+
+            try
+            {
+                this.navigationService.SessionToken = await this.authApi.SignInWithEmail(this.Email, plainPassword);
+            }
+            catch (Exception e) when (e is IFirebaseHandledException)
+            {
+                this.ErrorMessage = e.Message;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+            this.navigationService.NavigateTo(new LoginSuccessfulViewModel(this.navigationService));
         }
     }
 }

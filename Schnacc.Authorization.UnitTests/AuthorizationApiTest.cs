@@ -13,7 +13,7 @@
         private AuthorizationApi testee = new AuthorizationApi();
 
         [Fact]
-        private void userCanSignInWithEmailAndPassword()
+        private async void userCanSignInWithEmailAndPassword()
         {
             // Arrange
             string email = "hans.muster@mail.ch";
@@ -21,7 +21,7 @@
             string signInToken;
 
             // Act
-            signInToken = this.testee.SignInWithEmail(email, password);
+            signInToken = await this.testee.SignInWithEmail(email, password);
 
             // Assert
             signInToken.Should().NotBeNullOrEmpty();

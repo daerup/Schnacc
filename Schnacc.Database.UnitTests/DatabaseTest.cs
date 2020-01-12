@@ -1,4 +1,6 @@
-﻿namespace Schnacc.Database.UnitTests
+﻿using System.Threading.Tasks;
+
+namespace Schnacc.Database.UnitTests
 {
     using System;
     using System.Collections.Generic;
@@ -15,15 +17,15 @@
         private Database testee;
 
         [Fact]
-        private void userCanFetchHighscores()
+        private async void userCanFetchHighscores()
         {
             // Act
             string email = "hans.muster@mail.ch";
             string password = "testAccount01";
-            string signInToken;
-
+            AuthorizationApi authorizationApi = new AuthorizationApi();
+            Database database = this.testee = new Database(await authorizationApi.SignInWithEmail(email, password));
+            
             // Act
-            this.testee = new Database(new AuthorizationApi().SignInWithEmail(email, password));
             List<Highscore> highscores = this.testee.GetHighscores();
 
             highscores.Count.Should().BeGreaterThan(1);

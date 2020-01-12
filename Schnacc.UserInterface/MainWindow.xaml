@@ -13,7 +13,7 @@
         Height="450" 
         Width="800"
         mc:Ignorable="d"
-        Style="{StaticResource ArcadeClassicFont}">
+        Style="{StaticResource PressStartFontContent}">
 
     <Grid>
         <ContentControl Content="{Binding CurrentViewModel}">

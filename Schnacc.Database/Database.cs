@@ -1,4 +1,7 @@
-﻿namespace Schnacc.Database
+﻿using System.Reactive.Linq;
+using Firebase.Database.Streaming;
+
+namespace Schnacc.Database
 {
     using System;
     using System.Collections.Generic;
@@ -30,6 +33,14 @@
                 .OnceAsync<Highscore>().Result;
 
             return firebaseHighscores.Select(highscore => highscore.Object).ToList();
+        }
+
+        public IObservable<FirebaseEvent<Highscore>> GetObservableHighscores()
+        {
+            IObservable<FirebaseEvent<Highscore>> firebaseHighscores = this.firebaseClient
+                .Child(DatabaseConfig.DatabaseChild)
+                .AsObservable<Highscore>();
+            return firebaseHighscores;
         }
 
         public async void WriteHighscore(Highscore highscore)
