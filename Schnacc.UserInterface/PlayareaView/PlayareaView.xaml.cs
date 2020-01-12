@@ -1,5 +1,6 @@
-﻿using System.Windows;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 
 namespace Schnacc.UserInterface.PlayareaView
@@ -17,16 +18,7 @@ namespace Schnacc.UserInterface.PlayareaView
         private void GridLoaded(object sender, RoutedEventArgs e)
         {
             PlayareaViewModel playareaViewModel = (PlayareaViewModel)this.DataContext;
-            for (int i = 0; i < playareaViewModel.NumberOfColumns; i++)
-            {
-                this.Grid.ColumnDefinitions.Add(new ColumnDefinition());
-            }
-            for (int i = 0; i < playareaViewModel.NumberOfRows; i++)
-            {
-                this.Grid.RowDefinitions.Add(new RowDefinition());
-            }
 
-            this.Grid.Focus();
 
             EventManager.RegisterClassHandler(typeof(Window),
                 Keyboard.KeyDownEvent, new KeyEventHandler(playareaViewModel.UpdateSnakeDirectionTo), true);

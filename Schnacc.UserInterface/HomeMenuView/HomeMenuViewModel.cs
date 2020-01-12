@@ -7,6 +7,7 @@ using Schnacc.UserInterface.Infrastructure.Navigation;
 using Schnacc.UserInterface.Infrastructure.ViewModels;
 using Schnacc.UserInterface.LoginView;
 using Schnacc.UserInterface.PlayareaView;
+using Schnacc.UserInterface.RegisterView;
 
 namespace Schnacc.UserInterface.HomeMenuView
 {
@@ -14,12 +15,19 @@ namespace Schnacc.UserInterface.HomeMenuView
     {
         public RelayCommand GoToPlayareaView { get; }
         public RelayCommand GoToLoginView { get; }
+        public RelayCommand GoToRegisterView { get; }
 
         public HomeMenuViewModel(INavigationService navigationService)
         {
             this.navigationService = navigationService;
             this.GoToPlayareaView = new RelayCommand(this.NavigateToPlayarea);
             this.GoToLoginView = new RelayCommand(this.NavigateToLogin);
+            this.GoToRegisterView = new RelayCommand(this.NavigateToRegister);
+        }
+
+        private void NavigateToRegister()
+        {
+            this.navigationService.NavigateTo(new RegisterViewModel(this.navigationService));
         }
 
         private void NavigateToLogin()

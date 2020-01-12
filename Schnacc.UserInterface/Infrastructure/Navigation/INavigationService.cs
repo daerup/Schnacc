@@ -5,5 +5,6 @@
     {
         public void NavigateTo(INavigatableViewModel viewModel);
         public string SessionToken { get; set; }
+        public bool EmailIsVerified { get; set; }
     }
 }

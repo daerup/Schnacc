@@ -8,6 +8,7 @@
         xmlns:playareaView="clr-namespace:Schnacc.UserInterface.PlayareaView"
         xmlns:highscoreView="clr-namespace:Schnacc.UserInterface.HighscoreView"
         xmlns:loginView="clr-namespace:Schnacc.UserInterface.LoginView"
+        xmlns:registerView="clr-namespace:Schnacc.UserInterface.RegisterView"
         d:DataContext="{d:DesignInstance local:MainWindowViewModel}"
         Title="{Binding WindowTitle}" 
         Height="450" 
@@ -32,6 +33,9 @@
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type loginView:LoginSuccessfulViewModel}">
                     <loginView:LoginSuccessfulView/>
+                </DataTemplate>                
+                <DataTemplate DataType="{x:Type registerView:RegisterViewModel}">
+                    <registerView:RegisterView/>
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>

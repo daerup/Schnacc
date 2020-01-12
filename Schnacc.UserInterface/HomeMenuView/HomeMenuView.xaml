@@ -14,11 +14,13 @@
             <RowDefinition Height="125*"/>
             <RowDefinition Height="50*"/>
             <RowDefinition Height="125*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="125*"/>
             <RowDefinition Height="125*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100*"/>
-            <ColumnDefinition Width="200*"/>
+            <ColumnDefinition Width="100*"/>
             <ColumnDefinition Width="100*"/>
         </Grid.ColumnDefinitions>
         <Label 
@@ -31,22 +33,26 @@
             Grid.Column="1"/>
         <Button 
             Content="Play" 
-            HorizontalAlignment="Center" 
-            VerticalAlignment="Center" 
-            Height="89" 
-            Width="210"
+            HorizontalAlignment="Stretch" 
+            VerticalAlignment="Stretch"
             Grid.Row="1"
             Grid.Column="1"
             Command="{Binding GoToPlayareaView}"/>
 
         <Button 
             Content="Login" 
-            HorizontalAlignment="Center" 
-            VerticalAlignment="Center" 
-            Height="89" 
-            Width="210"
+            HorizontalAlignment="Stretch" 
+            VerticalAlignment="Stretch"
             Grid.Row="3"
             Grid.Column="1"
             Command="{Binding GoToLoginView}"/>
+
+        <Button 
+            Content="Register" 
+            HorizontalAlignment="Stretch" 
+            VerticalAlignment="Stretch"
+            Grid.Row="5"
+            Grid.Column="1"
+            Command="{Binding GoToRegisterView}"/>
     </Grid>
 </UserControl>

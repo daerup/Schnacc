@@ -7,6 +7,7 @@ using Schnacc.UserInterface.Infrastructure.Navigation;
 using Schnacc.UserInterface.Infrastructure.ViewModels;
 using Schnacc.Authorization;
 using Schnacc.Authorization.Exception;
+using Schnacc.UserInterface.RegisterView;
 
 namespace Schnacc.UserInterface.LoginView
 {
@@ -32,7 +33,7 @@ namespace Schnacc.UserInterface.LoginView
 
         private void Register(object obj)
         {
-            throw new NotImplementedException();
+            this.navigationService.NavigateTo(new RegisterViewModel(this.navigationService));
         }
 
         private async void Login(object obj)
@@ -47,6 +48,7 @@ namespace Schnacc.UserInterface.LoginView
             try
             {
                 this.navigationService.SessionToken = await this.authApi.SignInWithEmail(this.Email, plainPassword);
+                this.navigationService.EmailIsVerified = this.authApi.userHasVerifiedEmail();
                 this.navigationService.NavigateTo(new LoginSuccessfulViewModel(this.navigationService));
             }
             catch (Exception e) when (e is IFirebaseHandledException)

@@ -98,8 +98,8 @@
         {
             Position nextPosition = this.snake.GetNextHeadPosition();
             return
-                nextPosition.Column == -1 ||
-                nextPosition.Row == -1 ||
+                nextPosition.Column <= -1 ||
+                nextPosition.Row <= -1 ||
                 nextPosition.Column == this.getCorner().Column ||
                 nextPosition.Row == this.getCorner().Row;
         }

@@ -5,7 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Threading;
 using System.Windows.Input;
-
+using System.Windows.Media;
 using Schnacc.Domain.Snake;
 using Schnacc.UserInterface.Infrastructure.Commands;
 
@@ -35,12 +35,49 @@ namespace Schnacc.UserInterface.PlayareaView
 
         public INavigationService navigationService { get; set; }
 
+        public int Score { get; set; }
         public int NumberOfRows => this.playarea.Size.NumberOfRows;
         public int NumberOfColumns => this.playarea.Size.NumberOfColumns;
         public Position HeadPosition => this.playarea.Snake.Head.Position;
         public ObservableCollection<Position> BodyPositions => new ObservableCollection<Position>(this.playarea.Snake.Body.Select(bp => bp.Position));
         public Position FoodPosition => this.playarea.Food.Position;
         public AsyncRelayCommand<KeyEventArgs> UpdateSnakeDirection { get; }
+
+        public ObservableCollection<SolidColorBrush> items
+        {
+            get => fillPlayarea();
+        }
+
+        private ObservableCollection<SolidColorBrush> fillPlayarea()
+        {
+            ObservableCollection<SolidColorBrush> colors = new ObservableCollection<SolidColorBrush>();
+            for (int i = 0; i < this.NumberOfRows; i++)
+            {
+                for (int j = 0; j < this.NumberOfColumns; j++)
+                {
+                    Position p = new Position(i, j);
+
+                    colors.Add(this.positionToBrush(p));
+                }
+            }
+
+            return colors;
+        }
+
+        private SolidColorBrush positionToBrush(Position position)
+        {
+            if (this.playarea.Snake.Head.Position.Equals(position) || this.playarea.Snake.Body.Select(bp => bp.Position).Any(p => p.Equals(position)))
+            {
+                return Brushes.Green;
+            }else if (this.playarea.Food.Position.Equals(position))
+            {
+                return Brushes.Red;
+            }
+            else
+            {
+                return Brushes.White;
+            }
+        }
 
         private void InizializeTimer()
         {
@@ -49,7 +86,7 @@ namespace Schnacc.UserInterface.PlayareaView
             this.movementTimer = new Timer(this.Move, this.State, 0, this.gameSpeedInMilliSeconds);
         }
 
-        private async void Move(object? state)
+        private void Move(object? state)
         {
             this.playarea.MoveSnakeWhenAllowed();
 
@@ -60,9 +97,19 @@ namespace Schnacc.UserInterface.PlayareaView
             this.OnPropertyChanged(nameof(this.HeadPosition));
             this.OnPropertyChanged(nameof(this.BodyPositions));
             this.OnPropertyChanged(nameof(this.FoodPosition));
+            this.CheckForGameOver();
+            fillPlayarea();
         }
 
-        public async void UpdateSnakeDirectionTo(object sener, KeyEventArgs args)
+        private void CheckForGameOver()
+        {
+            if (this.playarea.CurrentGameState == Game.Over && this.navigationService.EmailIsVerified)
+            {
+                int s = 0;
+            }
+        }
+
+        public void UpdateSnakeDirectionTo(KeyEventArgs args)
         {
             Direction newDirection;
             switch (args.Key)
@@ -77,5 +124,23 @@ namespace Schnacc.UserInterface.PlayareaView
             this.playarea.UpdateSnakeDirection(newDirection);
         }
 
+        private void writeHighscore()
+        {
+        }
+
+        public void UpdateSnakeDirectionTo(object sender, KeyEventArgs args)
+        {
+            Direction newDirection;
+            switch (args.Key)
+            {
+                case Key.Right: newDirection = Direction.Right; break;
+                case Key.Left: newDirection = Direction.Left; break;
+                case Key.Up: newDirection = Direction.Up; break;
+                case Key.Down: newDirection = Direction.Down; break;
+                default: return;
+            }
+
+            this.playarea.UpdateSnakeDirection(newDirection);
+        }
     }
 }

@@ -78,7 +78,7 @@
             CommandParameter="{Binding ElementName=PasswordBox}" />
         <Button
             Grid.Column="0"
-            Content="Register"
+            Content="I don't have an account"
             Command="{Binding RegisterCommand}"        
             CommandParameter="{Binding ElementName=PasswordBox}" />
         </Grid>

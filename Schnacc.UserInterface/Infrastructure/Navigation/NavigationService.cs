@@ -17,5 +17,6 @@ namespace Schnacc.UserInterface.Infrastructure.Navigation
         }
 
         public string SessionToken { get; set; }
+        public bool EmailIsVerified { get; set; }
     }
 }
