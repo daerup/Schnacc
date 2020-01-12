@@ -4,5 +4,6 @@
     public interface INavigationService
     {
         public void NavigateTo(INavigatableViewModel viewModel);
+        public string SessionToken { get; set; }
     }
 }

@@ -9,14 +9,44 @@
              d:DataContext="{d:DesignInstance local:HomeMenuViewModel}"
              mc:Ignorable="d" >
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="200*"/>
+            <RowDefinition Height="125*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="125*"/>
+            <RowDefinition Height="125*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="200*"/>
+            <ColumnDefinition Width="100*"/>
+        </Grid.ColumnDefinitions>
+        <Label 
+            Content="Main Menu"
+            FontSize="60px"
+            HorizontalAlignment="Stretch" 
+            VerticalAlignment="Stretch"
+            HorizontalContentAlignment="Center"
+            Grid.Row="0"
+            Grid.Column="1"/>
         <Button 
-            Content="Button" 
+            Content="Play" 
             HorizontalAlignment="Center" 
-            Margin="0,161,0,0" 
-            VerticalAlignment="Top" 
+            VerticalAlignment="Center" 
             Height="89" 
             Width="210"
+            Grid.Row="1"
+            Grid.Column="1"
             Command="{Binding GoToPlayareaView}"/>
-        
+
+        <Button 
+            Content="Login" 
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Center" 
+            Height="89" 
+            Width="210"
+            Grid.Row="3"
+            Grid.Column="1"
+            Command="{Binding GoToLoginView}"/>
     </Grid>
 </UserControl>

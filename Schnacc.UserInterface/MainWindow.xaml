@@ -6,12 +6,14 @@
         xmlns:local="clr-namespace:Schnacc.UserInterface"
         xmlns:homeMenuView="clr-namespace:Schnacc.UserInterface.HomeMenuView"
         xmlns:playareaView="clr-namespace:Schnacc.UserInterface.PlayareaView"
+        xmlns:highscoreView="clr-namespace:Schnacc.UserInterface.HighscoreView"
+        xmlns:loginView="clr-namespace:Schnacc.UserInterface.LoginView"
         d:DataContext="{d:DesignInstance local:MainWindowViewModel}"
         Title="{Binding WindowTitle}" 
         Height="450" 
         Width="800"
-        mc:Ignorable="d">
-
+        mc:Ignorable="d"
+        Style="{StaticResource ArcadeClassicFont}">
 
     <Grid>
         <ContentControl Content="{Binding CurrentViewModel}">
@@ -21,6 +23,12 @@
                 </DataTemplate>                
                 <DataTemplate DataType="{x:Type playareaView:PlayareaViewModel}">
                     <playareaView:PlayareaView/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type highscoreView:HighscoreViewModel}">
+                    <highscoreView:HighscoreView/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type loginView:LoginViewModel}">
+                    <loginView:LoginView/>
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>

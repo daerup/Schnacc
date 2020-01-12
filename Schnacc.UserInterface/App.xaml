@@ -4,6 +4,11 @@
              xmlns:local="clr-namespace:Schnacc.UserInterface"
              Startup="OnStartup">
     <Application.Resources>
-         
+        <Style x:Key="ArcadeClassicFont">
+            <Setter Property="TextElement.FontFamily" 
+                    Value="pack://application:,,,/fonts/#ArcadeClassic" />
+            <Setter Property="TextElement.FontSize" 
+                    Value="30px"/>
+        </Style>
     </Application.Resources>
 </Application>

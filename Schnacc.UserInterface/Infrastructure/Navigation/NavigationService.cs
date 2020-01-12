@@ -1,4 +1,5 @@
-﻿using Schnacc.UserInterface.Infrastructure.ViewModels;
+﻿using System.Security.Cryptography.Pkcs;
+using Schnacc.UserInterface.Infrastructure.ViewModels;
 
 namespace Schnacc.UserInterface.Infrastructure.Navigation
 {
@@ -15,6 +16,6 @@ namespace Schnacc.UserInterface.Infrastructure.Navigation
             this.OnNavigation(this, new NavigationEventArgs(this.viewModelToNavigateTo));
         }
 
-
+        public string SessionToken { get; set; }
     }
 }

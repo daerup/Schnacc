@@ -5,6 +5,7 @@ using Schnacc.Domain.Snake;
 using Schnacc.UserInterface.Infrastructure.Commands;
 using Schnacc.UserInterface.Infrastructure.Navigation;
 using Schnacc.UserInterface.Infrastructure.ViewModels;
+using Schnacc.UserInterface.LoginView;
 using Schnacc.UserInterface.PlayareaView;
 
 namespace Schnacc.UserInterface.HomeMenuView
@@ -12,11 +13,18 @@ namespace Schnacc.UserInterface.HomeMenuView
     public class HomeMenuViewModel : ViewModelBase, INavigatableViewModel
     {
         public RelayCommand GoToPlayareaView { get; }
+        public RelayCommand GoToLoginView { get; }
 
         public HomeMenuViewModel(INavigationService navigationService)
         {
             this.navigationService = navigationService;
             this.GoToPlayareaView = new RelayCommand(this.NavigateToPlayarea);
+            this.GoToLoginView = new RelayCommand(this.NavigateToLogin);
+        }
+
+        private void NavigateToLogin()
+        {
+            this.navigationService.NavigateTo(new LoginViewModel());
         }
 
         public INavigationService navigationService { get; set; }
