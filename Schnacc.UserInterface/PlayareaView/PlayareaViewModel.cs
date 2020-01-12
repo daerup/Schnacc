@@ -7,7 +7,9 @@ using System.Threading;
 using System.Windows.Input;
 using System.Windows.Media;
 using Schnacc.Domain.Snake;
+using Schnacc.UserInterface.HighscoreView;
 using Schnacc.UserInterface.Infrastructure.Commands;
+using Schnacc.UserInterface.LoginView;
 
 namespace Schnacc.UserInterface.PlayareaView
 {
@@ -29,6 +31,8 @@ namespace Schnacc.UserInterface.PlayareaView
         {
             //this.UpdateSnakeDirection = new RelayCommand<KeyEventArgs>(this.UpdateSnakeDirectionTo);
             this.navigationService = navigationService;
+            this.HighscoreViewModel = new HighscoreViewModel(navigationService);
+            this.GoToLoginView = new RelayCommand(() => this.navigationService.NavigateTo(new LoginViewModel(this.navigationService)));
             this.playarea = playarea;
             this.InizializeTimer();
         }
@@ -36,6 +40,7 @@ namespace Schnacc.UserInterface.PlayareaView
         public INavigationService navigationService { get; set; }
 
         public int Score { get; set; }
+        public bool HighscoresVisible => !string.IsNullOrEmpty(this.navigationService.SessionToken);
         public int NumberOfRows => this.playarea.Size.NumberOfRows;
         public int NumberOfColumns => this.playarea.Size.NumberOfColumns;
         public Position HeadPosition => this.playarea.Snake.Head.Position;
@@ -47,6 +52,10 @@ namespace Schnacc.UserInterface.PlayareaView
         {
             get => fillPlayarea();
         }
+
+        public HighscoreViewModel HighscoreViewModel { get; }
+
+        public RelayCommand GoToLoginView { get; }
 
         private ObservableCollection<SolidColorBrush> fillPlayarea()
         {
@@ -66,16 +75,16 @@ namespace Schnacc.UserInterface.PlayareaView
 
         private SolidColorBrush positionToBrush(Position position)
         {
-            if (this.playarea.Snake.Head.Position.Equals(position) || this.playarea.Snake.Body.Select(bp => bp.Position).Any(p => p.Equals(position)))
+            //if (this.playarea.Snake.Head.Position.Equals(position) || this.playarea.Snake.Body.Select(bp => bp.Position).Any(p => p.Equals(position)))
+            //{
+            //    return Brushes.Green;
+            //}else if (this.playarea.Food.Position.Equals(position))
+            //{
+            //    return Brushes.Red;
+            //}
+            //else
             {
-                return Brushes.Green;
-            }else if (this.playarea.Food.Position.Equals(position))
-            {
-                return Brushes.Red;
-            }
-            else
-            {
-                return Brushes.White;
+                return Brushes.Blue;
             }
         }
 

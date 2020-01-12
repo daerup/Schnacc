@@ -6,14 +6,39 @@
              xmlns:local="clr-namespace:Schnacc.UserInterface.PlayareaView"
              xmlns:grid="clr-namespace:Schnacc.UserInterface.Infrastructure.AttachedProperties"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:highscoreView="clr-namespace:Schnacc.UserInterface.HighscoreView"
              xmlns:commands="clr-namespace:Schnacc.UserInterface.Infrastructure.Commands"
              d:DesignHeight="450" 
              d:DesignWidth="800"
              d:DataContext="{d:DesignInstance local:PlayareaViewModel}"
              mc:Ignorable="d">
-
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </UserControl.Resources>
     <Grid Loaded="GridLoaded" >
-        <ItemsControl ItemsSource="{Binding items}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="27*"/>
+            <ColumnDefinition Width="13*"/>
+        </Grid.ColumnDefinitions>
+        <Grid  Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="60*"/>
+                <RowDefinition Height="55*"/>
+                <RowDefinition Height="230*"/>
+            </Grid.RowDefinitions>
+            <Label Content="Highscores" Grid.Row="0" Style="{StaticResource PressStartFontContent}"/>
+            <Grid  Visibility="{Binding Path=HighscoresVisible, Converter={StaticResource BoolToVisibilityConverter}}" Grid.Row="1" ZIndex="10" Grid.RowSpan="3">
+                <highscoreView:HighscoreView  DataContext="{Binding HighscoreViewModel}" />
+            </Grid>
+            <TextBlock Text="Please Login to view the Highscores" Grid.Row="1" Style="{StaticResource InputFontContent}" TextWrapping="Wrap" LineHeight="10" Grid.RowSpan="3"/>
+            <Button 
+                Content="Login"
+                Grid.Row="2"
+                Command="{Binding GoToLoginView}" />
+        </Grid>
+
+        <ItemsControl ItemsSource="{Binding items}" Grid.Column="0">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <UniformGrid Rows="{Binding NumberOfRows}" Columns="{Binding NumberOfColumns}"/>

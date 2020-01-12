@@ -112,7 +112,7 @@
             </Grid.ColumnDefinitions>
             <Button
                 Grid.Column="0"
-                Content="I already have an account"
+                Content="{Binding LoginContent}"
                 Command="{Binding LoginCommand}"        
                 CommandParameter="{Binding ElementName=PasswordBox}" />
             <Button

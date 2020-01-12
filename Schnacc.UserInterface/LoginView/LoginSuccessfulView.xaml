@@ -7,13 +7,13 @@
              d:DataContext="{d:DesignInstance local:LoginSuccessfulViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="200*"/>
-            <RowDefinition Height="125*"/>
-            <RowDefinition Height="50*"/>
-            <RowDefinition Height="125*"/>
-            <RowDefinition Height="125*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="400*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100*"/>
@@ -24,28 +24,43 @@
             Content="Main Menu"
             Style="{StaticResource PressStartFontTitle}"
             HorizontalAlignment="Stretch" 
-            VerticalAlignment="Stretch"
+            VerticalAlignment="Center"
             HorizontalContentAlignment="Center"
             Grid.Row="0"
             Grid.Column="1"/>
-        <Button 
-            Content="Play" 
-            HorizontalAlignment="Center" 
-            VerticalAlignment="Center" 
-            Height="89" 
-            Width="210"
-            Grid.Row="1"
-            Grid.Column="1"
-            Command="{Binding GoToPlayareaView}"/>
-
-        <Button 
-            Content="Highscore" 
-            HorizontalAlignment="Center" 
-            VerticalAlignment="Center" 
-            Height="89" 
-            Width="210"
-            Grid.Row="3"
-            Grid.Column="1"
-            Command="{Binding GoToHighscoreView}"/>
+        <Grid Grid.Column="1" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20*"/>
+                <RowDefinition Height="80*"/>
+                <RowDefinition Height="20*"/>
+                <RowDefinition Height="80*"/>
+                <RowDefinition Height="20*"/>
+                <RowDefinition Height="100*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100*"/>
+                <ColumnDefinition Width="200*"/>
+                <ColumnDefinition Width="100*"/>
+            </Grid.ColumnDefinitions>
+            <Button 
+                Content="Play" 
+                Grid.Column="1"
+                Grid.Row="1"
+                Command="{Binding GoToPlayareaView}"/>
+            <Button 
+                Content="Highscore" 
+                Grid.Column="1"
+                Grid.Row="3"
+                Command="{Binding GoToHighscoreView}"/>
+            <TextBlock 
+                Text="Warning: You're E-Mail is not verified. You can't upload you're highscore unless your E-Mail is verified" 
+                Style="{StaticResource InputFontContent}" 
+                Foreground="OrangeRed" 
+                TextWrapping="Wrap" 
+                Grid.Row="5" 
+                Grid.Column="0" 
+                Grid.ColumnSpan="3" 
+                Visibility="{Binding Path=WarningIsVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
+        </Grid>
     </Grid>
 </UserControl>

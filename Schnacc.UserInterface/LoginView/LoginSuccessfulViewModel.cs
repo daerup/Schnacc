@@ -29,6 +29,8 @@ namespace Schnacc.UserInterface.LoginView
 
         public INavigationService navigationService { get; set; }
 
+        public bool WarningIsVisible => !this.navigationService.EmailIsVerified;
+
         private void NavigateToPlayarea()
         {
             int columns = 8;

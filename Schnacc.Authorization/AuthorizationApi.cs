@@ -27,7 +27,7 @@ namespace Schnacc.Authorization
             try
             {
                 FirebaseAuthLink authLink = (await this.authProvider.SignInWithEmailAndPasswordAsync(email, password));
-                this.loggedInUser = authLink.User;
+                this.loggedInUser = await this.authProvider.GetUserAsync(authLink);
                 return authLink.FirebaseToken;
             }
             catch (FirebaseAuthException e) when (e.Reason == AuthErrorReason.UnknownEmailAddress)

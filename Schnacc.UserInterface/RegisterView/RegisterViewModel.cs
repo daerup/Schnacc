@@ -42,6 +42,8 @@ namespace Schnacc.UserInterface.RegisterView
 
         public bool passwordMatch => !this.errorCheck.Equals("wrong") && !string.IsNullOrEmpty(this.Email) && string.IsNullOrEmpty(this.ErrorMessage);
 
+        public string LoginContent { get; set; }
+
         public RegisterViewModel(INavigationService navigationService)
         {
             this.navigationService = navigationService;
@@ -50,6 +52,7 @@ namespace Schnacc.UserInterface.RegisterView
             this.LoginCommand = new RelayCommand<object>(this.Login);
             this.RegisterCommand = new RelayCommand<object>(this.Register);
             this.authApi = new AuthorizationApi();
+            this.LoginContent = "I already have an account";
         }
 
         private void Register(object obj)
@@ -57,6 +60,7 @@ namespace Schnacc.UserInterface.RegisterView
             string plainPassword = (obj as PasswordBox).Password;
             this.authApi.RegisterWithEmail(this.Email, plainPassword, this.Username);
             this.ErrorMessage = "Please confirm our email";
+            this.LoginContent = "Login";
         }
 
         private async void Login(object obj)
