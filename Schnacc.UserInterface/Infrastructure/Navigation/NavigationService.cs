@@ -21,7 +21,7 @@ namespace Schnacc.UserInterface.Infrastructure.Navigation
 
         public string Username => this.authApi.Username;
 
-        public string SessionToken => this.authApi.AccessToken;
+        public string SessionToken { get; set; }
         public bool EmailIsVerified => this.authApi.EmailIsVerified;
         public void SetAuthApi(AuthorizationApi api)
         {

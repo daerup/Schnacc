@@ -153,7 +153,7 @@ namespace Schnacc.UserInterface.PlayareaView
             this.playarea.UpdateSnakeDirection(this.Direction);
             this.playarea.MoveSnakeWhenAllowed();
 
-            if (this.slowMotionTicks.Equals(0) == false)
+            if (this.slowMotionIsActive)
             {
                 this.slowMotionTicks -= 1;
             }
@@ -188,11 +188,10 @@ namespace Schnacc.UserInterface.PlayareaView
 
         private void CheckForGameOver()
         {
-            if (this.playarea.CurrentGameState == Game.Over && this.navigationService.EmailIsVerified)
+            if (this.playarea.CurrentGameState == Game.Over && this.HighscoresAreVisible)
             {
                 Highscore newHighscore = new Highscore(this.navigationService.Username, this.Score);
-                this.database.WriteHighscore(newHighscore);
-                this.movementTimer.Dispose();
+                //this.database.WriteHighscore(newHighscore);
             }
         }
 

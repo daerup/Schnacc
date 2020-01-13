@@ -49,7 +49,7 @@ namespace Schnacc.UserInterface.LoginView
 
             try
             {
-                await this.authApi.SignInWithEmail(this.Email, plainPassword);
+                this.navigationService.SessionToken = await this.authApi.SignInWithEmail(this.Email, plainPassword);
                 this.navigationService.NavigateTo(new LoginSuccessfulPageMenuViewModel(this.navigationService));
             }
             catch (Exception e) when (e is IFirebaseHandledException)
