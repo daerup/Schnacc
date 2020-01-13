@@ -11,7 +11,7 @@ using Schnacc.UserInterface.LoginView;
 
 namespace Schnacc.UserInterface.RegisterView
 {
-    public class RegisterViewModel : ViewModelBase, INavigatableViewModel
+    public class RegisterPageViewModel : ViewModelBase, INavigatableViewModel
     {
         private AuthorizationApi authApi;
         private string errorCheck;
@@ -44,7 +44,7 @@ namespace Schnacc.UserInterface.RegisterView
 
         public string LoginContent { get; set; }
 
-        public RegisterViewModel(INavigationService navigationService)
+        public RegisterPageViewModel(INavigationService navigationService)
         {
             this.navigationService = navigationService;
             this.ErrorMessage = string.Empty;
@@ -65,7 +65,7 @@ namespace Schnacc.UserInterface.RegisterView
 
         private async void Login(object obj)
         {
-            this.navigationService.NavigateTo(new LoginViewModel(this.navigationService));
+            this.navigationService.NavigateTo(new LoginPageViewModel(this.navigationService));
         }
     }
 }

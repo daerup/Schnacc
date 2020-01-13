@@ -11,7 +11,7 @@ using Schnacc.UserInterface.RegisterView;
 
 namespace Schnacc.UserInterface.LoginView
 {
-    class LoginViewModel : ViewModelBase, INavigatableViewModel
+    class LoginPageViewModel : ViewModelBase, INavigatableViewModel
     {
         private AuthorizationApi authApi;
         public INavigationService navigationService { get; set; }
@@ -22,7 +22,7 @@ namespace Schnacc.UserInterface.LoginView
 
         public string ErrorMessage { get; private set; }
 
-        public LoginViewModel(INavigationService navigationService)
+        public LoginPageViewModel(INavigationService navigationService)
         {
             this.navigationService = navigationService;
             this.ErrorMessage = string.Empty;
@@ -33,7 +33,7 @@ namespace Schnacc.UserInterface.LoginView
 
         private void Register(object obj)
         {
-            this.navigationService.NavigateTo(new RegisterViewModel(this.navigationService));
+            this.navigationService.NavigateTo(new RegisterPageViewModel(this.navigationService));
         }
 
         private async void Login(object obj)
@@ -49,7 +49,7 @@ namespace Schnacc.UserInterface.LoginView
             {
                 this.navigationService.SessionToken = await this.authApi.SignInWithEmail(this.Email, plainPassword);
                 this.navigationService.EmailIsVerified = this.authApi.userHasVerifiedEmail();
-                this.navigationService.NavigateTo(new LoginSuccessfulViewModel(this.navigationService));
+                this.navigationService.NavigateTo(new LoginSuccessfulPageViewModel(this.navigationService));
             }
             catch (Exception e) when (e is IFirebaseHandledException)
             {

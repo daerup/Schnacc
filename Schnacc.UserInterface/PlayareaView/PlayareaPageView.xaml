@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Schnacc.UserInterface.PlayareaView.PlayareaView"
+﻿<UserControl x:Class="Schnacc.UserInterface.PlayareaView.PlayareaPageView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -10,7 +10,7 @@
              xmlns:commands="clr-namespace:Schnacc.UserInterface.Infrastructure.Commands"
              d:DesignHeight="450" 
              d:DesignWidth="800"
-             d:DataContext="{d:DesignInstance local:PlayareaViewModel}"
+             d:DataContext="{d:DesignInstance local:PlayareaPageViewModel}"
              mc:Ignorable="d">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />

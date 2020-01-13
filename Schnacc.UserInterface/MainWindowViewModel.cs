@@ -9,21 +9,21 @@ namespace Schnacc.UserInterface
     {
         private readonly NavigationService navigationService;
 
-        public MainWindowViewModel(NavigationService navigationService, HomeMenuViewModel homeMenuViewModel)
+        public MainWindowViewModel(NavigationService navigationService, HomeMenuPageViewModel homeMenuPageViewModel)
         {
-            this.CurrentViewModel = homeMenuViewModel;
+            this.CurrentPageViewModel = homeMenuPageViewModel;
             this.navigationService = navigationService;
             this.navigationService.OnNavigation += this.Navigate;
         }
 
-        public IViewModel CurrentViewModel { get; private set; }
+        public IViewModel CurrentPageViewModel { get; private set; }
 
         public string WindowTitle => "Schnacc";
 
 
         private void Navigate(object sender, NavigationEventArgs navigationArguments)
         {
-            this.CurrentViewModel = navigationArguments.ViewModelToNavigateTo;
+            this.CurrentPageViewModel = navigationArguments.ViewModelToNavigateTo;
         }
     }
 }

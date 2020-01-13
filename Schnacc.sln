@@ -25,7 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Schnacc.Database", "Schnacc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Schnacc.Database.UnitTests", "Schnacc.Database.UnitTests\Schnacc.Database.UnitTests.csproj", "{11C9C27C-AFF7-43F5-8921-C5158FE45974}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Schnacc.UserInterface", "Schnacc.UserInterface\Schnacc.UserInterface.csproj", "{E572E496-E21C-44B9-AC0A-981365DE4A35}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Schnacc.UserInterface", "Schnacc.UserInterface\Schnacc.UserInterface.csproj", "{E572E496-E21C-44B9-AC0A-981365DE4A35}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

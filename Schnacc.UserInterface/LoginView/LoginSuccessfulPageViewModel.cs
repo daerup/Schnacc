@@ -9,13 +9,13 @@ using Schnacc.UserInterface.PlayareaView;
 
 namespace Schnacc.UserInterface.LoginView
 {
-    public class LoginSuccessfulViewModel : ViewModelBase, INavigatableViewModel
+    public class LoginSuccessfulPageViewModel : ViewModelBase, INavigatableViewModel
     {
         public RelayCommand GoToHighscoreView { get; }
 
         public RelayCommand GoToPlayareaView { get; }
 
-        public LoginSuccessfulViewModel(INavigationService navigationService)
+        public LoginSuccessfulPageViewModel(INavigationService navigationService)
         {
             this.navigationService = navigationService;
             this.GoToPlayareaView = new RelayCommand(this.NavigateToPlayarea);
@@ -24,7 +24,7 @@ namespace Schnacc.UserInterface.LoginView
 
         private void NavigateToHighscore()
         {
-            this.navigationService.NavigateTo(new HighscoreViewModel(this.navigationService));
+            this.navigationService.NavigateTo(new HighscorePageViewModel());
         }
 
         public INavigationService navigationService { get; set; }
@@ -41,7 +41,7 @@ namespace Schnacc.UserInterface.LoginView
             Snake snake = new Snake(starPosition);
 
             Playarea playarea = new Playarea(playareaSize, foodFactory, snake);
-            this.navigationService.NavigateTo(new PlayareaViewModel(this.navigationService, playarea));
+            this.navigationService.NavigateTo(new PlayareaPageViewModel(this.navigationService, playarea));
         }
     }
 }

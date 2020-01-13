@@ -16,9 +16,9 @@ namespace Schnacc.UserInterface.LoginView
     /// <summary>
     /// Interaction logic for LoginView.xaml
     /// </summary>
-    public partial class LoginView : UserControl
+    public partial class LoginPageView : UserControl
     {
-        public LoginView()
+        public LoginPageView()
         {
             InitializeComponent();
         }

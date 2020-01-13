@@ -11,14 +11,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Schnacc.UserInterface.LoginView
+namespace Schnacc.UserInterface.HighscoreView
 {
     /// <summary>
-    /// Interaction logic for LoginSuccessfulView.xaml
+    /// Interaction logic for HighscorePageView.xaml
     /// </summary>
-    public partial class LoginSuccessfulView : UserControl
+    public partial class HighscorePageView : UserControl
     {
-        public LoginSuccessfulView()
+        public HighscorePageView()
         {
             InitializeComponent();
         }

@@ -16,19 +16,21 @@ namespace Schnacc.UserInterface.PlayareaView
     using Infrastructure.ViewModels;
     using Domain.Playarea;
 
-    public class PlayareaViewModel : ViewModelBase, INavigatableViewModel
+    public class PlayareaPageViewModel : ViewModelBase, INavigatableViewModel
     {
         private readonly Playarea playarea;
         private Timer renderTimer;
         private Timer movementTimer;
         private readonly int renderSpeedInMilliSeconds = 100;
-        private readonly int gameSpeedInMilliSeconds = 300;
+        private readonly int gameSpeedInMilliSeconds;
         private object State;
         private List<Direction> directionsBuffer = new List<Direction>();
         private object directionLock = new object();
         private int moveCount;
         private Direction lastDirection = Direction.None;
         private DateTime lastDirectionChange;
+        private int slowMotionTicks = 0;
+        private bool slowMotionIsActive =>  !slowMotionTicks.Equals(0);
 
 
         private Direction Direction
@@ -60,6 +62,7 @@ namespace Schnacc.UserInterface.PlayareaView
                     {
                         this.directionsBuffer.Clear();
                     }
+
                     this.lastDirectionChange = DateTime.Now;
                     this.directionsBuffer.Add(value);
                     this.lastDirection = value;
@@ -67,15 +70,16 @@ namespace Schnacc.UserInterface.PlayareaView
             }
         }
 
-        public PlayareaViewModel(INavigationService navigationService, Playarea playarea)
+        public PlayareaPageViewModel(INavigationService navigationService, Playarea playarea)
         {
             this.navigationService = navigationService;
             this.HighscoreViewModel = new HighscoreViewModel(navigationService);
-            this.GoToLoginView = new RelayCommand(() => this.navigationService.NavigateTo(new LoginViewModel(this.navigationService)));
+            this.GoToLoginView = new RelayCommand(() => this.navigationService.NavigateTo(new LoginPageViewModel(this.navigationService)));
             this.playarea = playarea;
+            this.gameSpeedInMilliSeconds = this.CalculateGameSpeed();
             this.itemsOnPlayarea = new ObservableCollection<SolidColorBrush>();
             this.InizializePlayarea();
-            this.InizializeTimer();
+            this.InizializeTimers();
         }
 
         public INavigationService navigationService { get; set; }
@@ -112,7 +116,7 @@ namespace Schnacc.UserInterface.PlayareaView
             }
         }
 
-        private void InizializeTimer()
+        private void InizializeTimers()
         {
             this.State = new object();
             this.renderTimer = new Timer(this.OnRenderUpdate, this.State, 0, this.renderSpeedInMilliSeconds);
@@ -124,6 +128,15 @@ namespace Schnacc.UserInterface.PlayareaView
             this.playarea.UpdateSnakeDirection(this.Direction);
             this.playarea.MoveSnakeWhenAllowed();
             this.CheckForGameOver();
+
+            if (this.slowMotionTicks.Equals(0) == false)
+            {
+                this.slowMotionTicks -= 1;
+            }
+            else
+            {
+                this.movementTimer?.Change(this.CalculateGameSpeed(), this.CalculateGameSpeed());
+            }
         }
 
         private int GetIndexFromPosition(Position p)
@@ -133,16 +146,16 @@ namespace Schnacc.UserInterface.PlayareaView
 
         private void OnRenderUpdate(object? state)
         {
-            App.Current.Dispatcher.Invoke(delegate
+            App.Current?.Dispatcher.Invoke(delegate
             {
                 this.ClearPlayarea();
-                this.itemsOnPlayarea[GetIndexFromPosition(this.HeadPosition)] = Brushes.Green;
-                this.itemsOnPlayarea[GetIndexFromPosition(this.FoodPosition)] = Brushes.Red;
+                this.itemsOnPlayarea[GetIndexFromPosition(this.HeadPosition)] = !this.slowMotionIsActive ? Brushes.Green : Brushes.Gray;
+                this.itemsOnPlayarea[GetIndexFromPosition(this.FoodPosition)] = !this.slowMotionIsActive ? Brushes.Red : Brushes.DarkSlateGray;
 
                 for (int i = 0; i < this.playarea.Snake.Body.Count; i++)
                 {
                     int index = this.GetIndexFromPosition(this.playarea.Snake.Body[i].Position);
-                    this.itemsOnPlayarea[index] = Brushes.Green;
+                    this.itemsOnPlayarea[index] = !this.slowMotionIsActive ? Brushes.Green : Brushes.Gray;
                 }
             });
             this.OnPropertyChanged(nameof(this.Score));
@@ -157,6 +170,11 @@ namespace Schnacc.UserInterface.PlayareaView
             }
         }
 
+        private int CalculateGameSpeed()
+        {
+            return 80000 / Math.Max(this.playarea.Size.NumberOfColumns, this.playarea.Size.NumberOfRows) / ((7 + (this.playarea.Snake.Body.Count / 3)) * 3);
+        }
+
         public void UpdateSnakeDirectionTo(object sender, KeyEventArgs args)
         {
             switch (args.Key)
@@ -165,7 +183,18 @@ namespace Schnacc.UserInterface.PlayareaView
                 case Key.Left: this.Direction = Direction.Left; break;
                 case Key.Up: this.Direction = Direction.Up; break;
                 case Key.Down: this.Direction = Direction.Down; break;
+                case Key.Space: this.ActivateSlowMotion(); break;
                 default: return;
+            }
+        }
+
+        private void ActivateSlowMotion()
+        {
+            if (this.slowMotionIsActive == false && this.playarea.CurrentGameState.Equals(Game.Running))
+            {
+                this.movementTimer?.Change(0, (int)(this.CalculateGameSpeed() * 2.5));
+                this.slowMotionTicks = 5;
+                this.moveCount += 20; 
             }
         }
     }

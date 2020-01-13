@@ -16,9 +16,9 @@ namespace Schnacc.UserInterface.HomeMenuView
     /// <summary>
     /// Interaction logic for HomeMenuView.xaml
     /// </summary>
-    public partial class HomeMenuView : UserControl
+    public partial class HomeMenuPageView : UserControl
     {
-        public HomeMenuView()
+        public HomeMenuPageView()
         {
             InitializeComponent();
         }

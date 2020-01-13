@@ -17,25 +17,28 @@
         Style="{StaticResource PressStartFontContent}">
 
     <Grid>
-        <ContentControl Content="{Binding CurrentViewModel}">
+        <ContentControl Content="{Binding CurrentPageViewModel}">
             <ContentControl.Resources>
-                <DataTemplate DataType="{x:Type homeMenuView:HomeMenuViewModel}">
-                    <homeMenuView:HomeMenuView/>
+                <DataTemplate DataType="{x:Type homeMenuView:HomeMenuPageViewModel}">
+                    <homeMenuView:HomeMenuPageView/>
                 </DataTemplate>                
-                <DataTemplate DataType="{x:Type playareaView:PlayareaViewModel}">
-                    <playareaView:PlayareaView/>
+                <DataTemplate DataType="{x:Type playareaView:PlayareaPageViewModel}">
+                    <playareaView:PlayareaPageView/>
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type highscoreView:HighscoreViewModel}">
-                    <highscoreView:HighscoreView/>
+                <DataTemplate DataType="{x:Type highscoreView:HighscorePageViewModel}">
+                    <highscoreView:HighscorePageView/>
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type loginView:LoginViewModel}">
-                    <loginView:LoginView/>
+                <DataTemplate DataType="{x:Type loginView:LoginPageViewModel}">
+                    <loginView:LoginPageView/>
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type loginView:LoginSuccessfulViewModel}">
-                    <loginView:LoginSuccessfulView/>
+                <DataTemplate DataType="{x:Type loginView:LoginSuccessfulPageViewModel}">
+                    <loginView:LoginSuccessfulPageView/>
                 </DataTemplate>                
-                <DataTemplate DataType="{x:Type registerView:RegisterViewModel}">
-                    <registerView:RegisterView/>
+                <!--<DataTemplate DataType="{x:Type registerView:RegisterPageViewModel}">
+                    <registerView:RegisterPageView/>
+                </DataTemplate>-->
+                <DataTemplate DataType="{x:Type registerView:RegisterPageViewModel}">
+                    <registerView:RegisterPageView/>
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>

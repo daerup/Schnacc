@@ -8,18 +8,18 @@ namespace Schnacc.UserInterface.PlayareaView
     /// <summary>
     /// Interaction logic for PlayareaView.xaml
     /// </summary>
-    public partial class PlayareaView : UserControl
+    public partial class PlayareaPageView : UserControl
     {
-        public PlayareaView()
+        public PlayareaPageView()
         {
             InitializeComponent();
         }
 
         private void GridLoaded(object sender, RoutedEventArgs e)
         {
-            PlayareaViewModel playareaViewModel = (PlayareaViewModel)this.DataContext;
+            PlayareaPageViewModel playareaPageViewModel = (PlayareaPageViewModel)this.DataContext;
             EventManager.RegisterClassHandler(typeof(Window),
-                Keyboard.KeyDownEvent, new KeyEventHandler(playareaViewModel.UpdateSnakeDirectionTo), true);
+                Keyboard.KeyDownEvent, new KeyEventHandler(playareaPageViewModel.UpdateSnakeDirectionTo), true);
         }
     }
 }

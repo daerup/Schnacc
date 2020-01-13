@@ -7,8 +7,9 @@ using Schnacc.Database;
 
 namespace Schnacc.UserInterface.HighscoreView
 {
-    public class HighscoreViewModel : ViewModelBase, INavigatableViewModel
-    {
+    public class HighscoreViewModel : ViewModelBase 
+    { 
+
         private Database.Database db;
         public HighscoreViewModel(INavigationService navigationService)
         {

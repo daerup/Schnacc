@@ -9,7 +9,7 @@ namespace Schnacc.UserInterface
         private void OnStartup(object sender, StartupEventArgs e)
         {
             NavigationService navigationService = new NavigationService();
-            MainWindowViewModel mainWindowViewModel = new MainWindowViewModel(navigationService, new HomeMenuViewModel(navigationService));
+            MainWindowViewModel mainWindowViewModel = new MainWindowViewModel(navigationService, new HomeMenuPageViewModel(navigationService));
             MainWindow mainWindow = new MainWindow();
             mainWindow.DataContext = mainWindowViewModel;
             mainWindow.ShowDialog();
