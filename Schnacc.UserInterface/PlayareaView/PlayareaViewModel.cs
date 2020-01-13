@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Drawing;
 using System.Linq;
 using System.Threading;
 using System.Windows.Input;
@@ -25,131 +24,149 @@ namespace Schnacc.UserInterface.PlayareaView
         private readonly int renderSpeedInMilliSeconds = 100;
         private readonly int gameSpeedInMilliSeconds = 300;
         private object State;
+        private List<Direction> directionsBuffer = new List<Direction>();
+        private object directionLock = new object();
+        private int moveCount;
+        private Direction lastDirection = Direction.None;
+        private DateTime lastDirectionChange;
 
+
+        private Direction Direction
+        {
+            get
+            {
+                lock (this.directionLock)
+                {
+                    if (this.directionsBuffer.Count <= 0)
+                    {
+                        return Direction.None;
+                    }
+                    Direction o = this.directionsBuffer.First();
+                    this.directionsBuffer.Remove(o);
+                    this.moveCount++;
+                    return o;
+                }
+            }
+            set
+            {
+                if (value == this.lastDirection)
+                {
+                    return;
+                }
+
+                lock (this.directionLock)
+                {
+                    if (DateTime.Now.Subtract(this.lastDirectionChange) > TimeSpan.FromMilliseconds(500))
+                    {
+                        this.directionsBuffer.Clear();
+                    }
+                    this.lastDirectionChange = DateTime.Now;
+                    this.directionsBuffer.Add(value);
+                    this.lastDirection = value;
+                }
+            }
+        }
 
         public PlayareaViewModel(INavigationService navigationService, Playarea playarea)
         {
-            //this.UpdateSnakeDirection = new RelayCommand<KeyEventArgs>(this.UpdateSnakeDirectionTo);
             this.navigationService = navigationService;
             this.HighscoreViewModel = new HighscoreViewModel(navigationService);
             this.GoToLoginView = new RelayCommand(() => this.navigationService.NavigateTo(new LoginViewModel(this.navigationService)));
             this.playarea = playarea;
+            this.itemsOnPlayarea = new ObservableCollection<SolidColorBrush>();
+            this.InizializePlayarea();
             this.InizializeTimer();
         }
 
         public INavigationService navigationService { get; set; }
 
-        public int Score { get; set; }
+        public int Score => (this.playarea.Snake.Body.Count * 100) - (10 * this.moveCount);
         public bool HighscoresVisible => !string.IsNullOrEmpty(this.navigationService.SessionToken);
         public int NumberOfRows => this.playarea.Size.NumberOfRows;
         public int NumberOfColumns => this.playarea.Size.NumberOfColumns;
         public Position HeadPosition => this.playarea.Snake.Head.Position;
-        public ObservableCollection<Position> BodyPositions => new ObservableCollection<Position>(this.playarea.Snake.Body.Select(bp => bp.Position));
         public Position FoodPosition => this.playarea.Food.Position;
-        public AsyncRelayCommand<KeyEventArgs> UpdateSnakeDirection { get; }
 
-        public ObservableCollection<SolidColorBrush> items
-        {
-            get => fillPlayarea();
-        }
+        public ObservableCollection<SolidColorBrush> itemsOnPlayarea { get; private set; }
 
         public HighscoreViewModel HighscoreViewModel { get; }
 
         public RelayCommand GoToLoginView { get; }
 
-        private ObservableCollection<SolidColorBrush> fillPlayarea()
+        private void InizializePlayarea()
         {
-            ObservableCollection<SolidColorBrush> colors = new ObservableCollection<SolidColorBrush>();
             for (int i = 0; i < this.NumberOfRows; i++)
             {
                 for (int j = 0; j < this.NumberOfColumns; j++)
                 {
-                    Position p = new Position(i, j);
-
-                    colors.Add(this.positionToBrush(p));
+                    this.itemsOnPlayarea.Add(Brushes.White);
                 }
             }
-
-            return colors;
         }
 
-        private SolidColorBrush positionToBrush(Position position)
+        private void ClearPlayarea()
         {
-            //if (this.playarea.Snake.Head.Position.Equals(position) || this.playarea.Snake.Body.Select(bp => bp.Position).Any(p => p.Equals(position)))
-            //{
-            //    return Brushes.Green;
-            //}else if (this.playarea.Food.Position.Equals(position))
-            //{
-            //    return Brushes.Red;
-            //}
-            //else
+            for (var i = 0; i < this.itemsOnPlayarea.Count; i++)
             {
-                return Brushes.Blue;
+                this.itemsOnPlayarea[i] = Brushes.White;
             }
         }
 
         private void InizializeTimer()
         {
             this.State = new object();
-            this.renderTimer = new Timer(this.Render, this.State, 0, this.renderSpeedInMilliSeconds);
-            this.movementTimer = new Timer(this.Move, this.State, 0, this.gameSpeedInMilliSeconds);
+            this.renderTimer = new Timer(this.OnRenderUpdate, this.State, 0, this.renderSpeedInMilliSeconds);
+            this.movementTimer = new Timer(this.OnGameUpdate, this.State, 0, this.gameSpeedInMilliSeconds);
         }
 
-        private void Move(object? state)
+        private void OnGameUpdate(object? state)
         {
+            this.playarea.UpdateSnakeDirection(this.Direction);
             this.playarea.MoveSnakeWhenAllowed();
-
-        }
-
-        private async void Render(object? state)
-        {
-            this.OnPropertyChanged(nameof(this.HeadPosition));
-            this.OnPropertyChanged(nameof(this.BodyPositions));
-            this.OnPropertyChanged(nameof(this.FoodPosition));
             this.CheckForGameOver();
-            fillPlayarea();
         }
+
+        private int GetIndexFromPosition(Position p)
+        {
+            return p.Row * this.NumberOfColumns + p.Column;
+        }
+
+        private void OnRenderUpdate(object? state)
+        {
+            App.Current.Dispatcher.Invoke(delegate
+            {
+                this.ClearPlayarea();
+                this.itemsOnPlayarea[GetIndexFromPosition(this.HeadPosition)] = Brushes.Green;
+                this.itemsOnPlayarea[GetIndexFromPosition(this.FoodPosition)] = Brushes.Red;
+
+                for (int i = 0; i < this.playarea.Snake.Body.Count; i++)
+                {
+                    int index = this.GetIndexFromPosition(this.playarea.Snake.Body[i].Position);
+                    this.itemsOnPlayarea[index] = Brushes.Green;
+                }
+            });
+            this.OnPropertyChanged(nameof(this.Score));
+        }
+
 
         private void CheckForGameOver()
         {
-            if (this.playarea.CurrentGameState == Game.Over && this.navigationService.EmailIsVerified)
+            if (this.playarea.CurrentGameState == Game.Over)
             {
                 int s = 0;
             }
         }
 
-        public void UpdateSnakeDirectionTo(KeyEventArgs args)
-        {
-            Direction newDirection;
-            switch (args.Key)
-            {
-                case Key.Right: newDirection = Direction.Right; break;
-                case Key.Left: newDirection = Direction.Left; break;
-                case Key.Up: newDirection = Direction.Up; break;
-                case Key.Down: newDirection = Direction.Down; break;
-                default: return;
-            }
-
-            this.playarea.UpdateSnakeDirection(newDirection);
-        }
-
-        private void writeHighscore()
-        {
-        }
-
         public void UpdateSnakeDirectionTo(object sender, KeyEventArgs args)
         {
-            Direction newDirection;
             switch (args.Key)
             {
-                case Key.Right: newDirection = Direction.Right; break;
-                case Key.Left: newDirection = Direction.Left; break;
-                case Key.Up: newDirection = Direction.Up; break;
-                case Key.Down: newDirection = Direction.Down; break;
+                case Key.Right: this.Direction = Direction.Right; break;
+                case Key.Left: this.Direction = Direction.Left; break;
+                case Key.Up: this.Direction = Direction.Up; break;
+                case Key.Down: this.Direction = Direction.Down; break;
                 default: return;
             }
-
-            this.playarea.UpdateSnakeDirection(newDirection);
         }
     }
 }

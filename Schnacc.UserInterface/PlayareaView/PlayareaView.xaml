@@ -22,12 +22,28 @@
         </Grid.ColumnDefinitions>
         <Grid  Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="50*"/>
+                <RowDefinition Height="100*"/>
                 <RowDefinition Height="60*"/>
                 <RowDefinition Height="55*"/>
                 <RowDefinition Height="230*"/>
             </Grid.RowDefinitions>
-            <Label Content="Highscores" Grid.Row="0" Style="{StaticResource PressStartFontContent}"/>
+            <Grid Grid.Row="0" Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25*"/>
+                    <RowDefinition Height="25*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="25*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Viewbox  Grid.Row="0" Grid.Column="0" VerticalAlignment="Top">
+                    <TextBlock Text="{Binding Score, StringFormat={}Your Score: {0}}" />
+                </Viewbox>
+                <Viewbox  Grid.Row="1" Grid.Column="0">
+                    <TextBlock Text="Highscores" />
+                </Viewbox>
+            </Grid>
+
             <Grid  Visibility="{Binding Path=HighscoresVisible, Converter={StaticResource BoolToVisibilityConverter}}" Grid.Row="1" ZIndex="10" Grid.RowSpan="3">
                 <highscoreView:HighscoreView  DataContext="{Binding HighscoreViewModel}" />
             </Grid>
@@ -38,7 +54,7 @@
                 Command="{Binding GoToLoginView}" />
         </Grid>
 
-        <ItemsControl ItemsSource="{Binding items}" Grid.Column="0">
+        <ItemsControl ItemsSource="{Binding itemsOnPlayarea}" Grid.Column="0">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <UniformGrid Rows="{Binding NumberOfRows}" Columns="{Binding NumberOfColumns}"/>
@@ -54,5 +70,12 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
+        <!--<Border BorderThickness="1" BorderBrush="Black">
+        <Grid Name="Grid">
+            <Rectangle Fill="Green" Grid.Column="{Binding HeadPosition.Column}" Grid.Row="{Binding HeadPosition.Row}"/>
+            <Rectangle Fill="Red" Grid.Column="{Binding FoodPosition.Column}" Grid.Row="{Binding FoodPosition.Row}"/>
+        </Grid>
+        </Border>-->
+
     </Grid>
 </UserControl>

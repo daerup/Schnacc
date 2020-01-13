@@ -133,7 +133,7 @@
             {
                 randomFood = this.factory.CreateRandomFoodBetweenBoundaries(this.getCorner());
             }
-            while (allUsedPositions.Contains(randomFood.Position));
+            while (allUsedPositions.Any(up => up.Equals(randomFood.Position)));
 
             return randomFood;
         }

@@ -18,8 +18,6 @@ namespace Schnacc.UserInterface.PlayareaView
         private void GridLoaded(object sender, RoutedEventArgs e)
         {
             PlayareaViewModel playareaViewModel = (PlayareaViewModel)this.DataContext;
-
-
             EventManager.RegisterClassHandler(typeof(Window),
                 Keyboard.KeyDownEvent, new KeyEventHandler(playareaViewModel.UpdateSnakeDirectionTo), true);
         }
