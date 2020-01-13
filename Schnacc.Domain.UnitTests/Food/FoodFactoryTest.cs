@@ -1,6 +1,11 @@
 ﻿namespace Schnacc.Domain.UnitTests.Food
 {
+    using System;
+
     using FluentAssertions;
+
+    using FsCheck;
+    using FsCheck.Xunit;
 
     using Schnacc.Domain.Food;
     using Schnacc.Domain.Snake;
@@ -40,6 +45,20 @@
                 createdFood.Position.Row.Should().BeInRange(1, 9);
                 createdFood.Position.Column.Should().BeInRange(1, 9); 
             }
+        }
+
+        [Property]
+        public Property CreatedFoodShouldBe_TODO(int x, int y )
+        {
+            Func<bool> func = () =>
+                {
+                    this.testee = new FoodFactory();
+                    IFood createdFood = this.testee.CreateRandomFoodBetweenBoundaries(new Position(x, y));
+
+                    return (1 <= createdFood.Position.Row && createdFood.Position.Row <= x && 1 <= createdFood.Position.Column && createdFood.Position.Column <= y);
+                };
+
+            return func.When(x > 0 && y > 0);
         }
     }
 }
