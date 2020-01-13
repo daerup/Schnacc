@@ -44,6 +44,8 @@ namespace Schnacc.UserInterface.RegisterView
 
         public string LoginContent { get; set; }
 
+        public int LoginContentFontSize { get;  private set; }
+
         public RegisterPageViewModel(INavigationService navigationService)
         {
             this.navigationService = navigationService;
@@ -53,6 +55,7 @@ namespace Schnacc.UserInterface.RegisterView
             this.RegisterCommand = new RelayCommand<object>(this.Register);
             this.authApi = new AuthorizationApi();
             this.LoginContent = "I already have an account";
+            this.LoginContentFontSize = 12;
         }
 
         private void Register(object obj)
@@ -61,6 +64,7 @@ namespace Schnacc.UserInterface.RegisterView
             this.authApi.RegisterWithEmail(this.Email, plainPassword, this.Username);
             this.ErrorMessage = "Please confirm our email";
             this.LoginContent = "Login";
+            this.LoginContentFontSize = 20;
         }
 
         private async void Login(object obj)

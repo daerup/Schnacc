@@ -31,7 +31,7 @@
             Grid.Column="1" 
             Grid.Row="0" 
             HorizontalAlignment="Stretch" 
-            VerticalAlignment="Stretch"
+            VerticalAlignment="Center"
             HorizontalContentAlignment="Center"/>
         <Label 
             Content="E-Mail" 
@@ -73,14 +73,16 @@
         </Grid.ColumnDefinitions>
         <Button
             Grid.Column="2"
-            Content="Login"
+            Content="Connect"
             Command="{Binding LoginCommand}"        
             CommandParameter="{Binding ElementName=PasswordBox}" />
         <Button
             Grid.Column="0"
-            Content="I don't have an account"
+            FontSize="15"
             Command="{Binding RegisterCommand}"        
-            CommandParameter="{Binding ElementName=PasswordBox}" />
+            CommandParameter="{Binding ElementName=PasswordBox}">
+            <TextBlock Text="I don't have an account" TextWrapping="Wrap" />
+        </Button>
         </Grid>
     </Grid>
 </UserControl>

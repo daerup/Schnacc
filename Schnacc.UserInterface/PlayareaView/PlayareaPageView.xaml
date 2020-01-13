@@ -10,7 +10,7 @@
              xmlns:commands="clr-namespace:Schnacc.UserInterface.Infrastructure.Commands"
              d:DesignHeight="450" 
              d:DesignWidth="800"
-             d:DataContext="{d:DesignInstance local:PlayareaPageViewModel}"
+             d:DataContext="{d:DesignInstance local:PlayareaViewModel}"
              mc:Ignorable="d">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
@@ -20,12 +20,13 @@
             <ColumnDefinition Width="27*"/>
             <ColumnDefinition Width="13*"/>
         </Grid.ColumnDefinitions>
-        <Grid  Grid.Column="1">
+        <Grid  Grid.Column="1" Grid.RowSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="100*"/>
                 <RowDefinition Height="60*"/>
                 <RowDefinition Height="55*"/>
-                <RowDefinition Height="230*"/>
+                <RowDefinition Height="175*"/>
+                <RowDefinition Height="55*"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" Grid.Column="0">
                 <Grid.RowDefinitions>
@@ -44,17 +45,25 @@
                 </Viewbox>
             </Grid>
 
-            <Grid  Visibility="{Binding Path=HighscoresVisible, Converter={StaticResource BoolToVisibilityConverter}}" Grid.Row="1" ZIndex="10" Grid.RowSpan="3">
+            <Grid  Visibility="{Binding Path=HighscoresAreVisible, Converter={StaticResource BoolToVisibilityConverter}}" ZIndex="10" Grid.RowSpan="4">
                 <highscoreView:HighscoreView  DataContext="{Binding HighscoreViewModel}" />
             </Grid>
-            <TextBlock Text="Please Login to view the Highscores" Grid.Row="1" Style="{StaticResource InputFontContent}" TextWrapping="Wrap" LineHeight="10" Grid.RowSpan="3"/>
+            <TextBlock 
+                Text="Please Login to view the Highscores" 
+                Style="{StaticResource InputFontContent}" 
+                TextWrapping="Wrap" 
+                LineHeight="10" 
+                Grid.Row="1"/>
             <Button 
                 Content="Login"
                 Grid.Row="2"
                 Command="{Binding GoToLoginView}" />
+            <Button 
+                Content="Main Menu"
+                Grid.Row="4"
+                Command="{Binding GoToMenuView}"/>
         </Grid>
-
-        <ItemsControl ItemsSource="{Binding itemsOnPlayarea}" Grid.Column="0">
+        <ItemsControl ItemsSource="{Binding itemsOnPlayarea}" Grid.Column="0" Grid.Row="0"  Grid.RowSpan="2">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <UniformGrid Rows="{Binding NumberOfRows}" Columns="{Binding NumberOfColumns}"/>

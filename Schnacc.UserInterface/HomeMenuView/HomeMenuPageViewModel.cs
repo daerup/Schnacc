@@ -15,7 +15,7 @@ namespace Schnacc.UserInterface.HomeMenuView
 {
     public class HomeMenuPageViewModel : ViewModelBase, INavigatableViewModel
     {
-        public RelayCommand GoToPlayareaView { get; }
+        public RelayCommand GoToPlayareaSettingsView { get; }
         public RelayCommand GoToHighscoresView { get; }
         public RelayCommand GoToLoginView { get; }
         public RelayCommand GoToRegisterView { get; }
@@ -23,7 +23,7 @@ namespace Schnacc.UserInterface.HomeMenuView
         public HomeMenuPageViewModel(INavigationService navigationService)
         {
             this.navigationService = navigationService;
-            this.GoToPlayareaView = new RelayCommand(this.NavigateToPlayarea);
+            this.GoToPlayareaSettingsView = new RelayCommand(this.NavigateToPlayareaSettings);
             this.GoToHighscoresView = new RelayCommand(this.NavigateToHighscores);
             this.GoToLoginView = new RelayCommand(this.NavigateToLogin);
             this.GoToRegisterView = new RelayCommand(this.NavigateToRegister);
@@ -43,7 +43,7 @@ namespace Schnacc.UserInterface.HomeMenuView
                 this.NavigateToLogin();
                 return;
             }
-            this.navigationService.NavigateTo(new HighscorePageViewModel());
+            this.navigationService.NavigateTo(new HighscorePageViewModel(this.navigationService));
         }
 
         private void NavigateToRegister()
@@ -56,17 +56,9 @@ namespace Schnacc.UserInterface.HomeMenuView
             this.navigationService.NavigateTo(new LoginPageViewModel(this.navigationService));
         }
 
-        private void NavigateToPlayarea()
+        private void NavigateToPlayareaSettings()
         {
-            int columns = 8;
-            int rows = 10;
-            PlayareaSize playareaSize = new PlayareaSize(columns, rows);
-            FoodFactory foodFactory = new FoodFactory();
-            Position starPosition = new Position(columns/2, rows/2);
-            Snake snake = new Snake(starPosition);
-
-            Playarea playarea = new Playarea(playareaSize, foodFactory, snake);
-            this.navigationService.NavigateTo(new PlayareaPageViewModel(this.navigationService, playarea));
+            this.navigationService.NavigateTo(new PlayareaSettingsPageViewModel(this.navigationService));
         }
     };
 }

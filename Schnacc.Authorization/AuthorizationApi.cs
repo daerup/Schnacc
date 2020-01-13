@@ -10,7 +10,12 @@ namespace Schnacc.Authorization
     public class AuthorizationApi
     {
         private readonly FirebaseAuthProvider authProvider;
-        private User loggedInUser;
+        public string AccessToken { get; private set; }
+        public string Username { get; private set; }
+
+        public bool EmailIsVerified =>
+            this.authProvider.GetUserAsync(this.AccessToken).GetAwaiter().GetResult().IsEmailVerified;
+
         public AuthorizationApi()
         {
             this.authProvider = new FirebaseAuthProvider(new FirebaseConfig(AuthConfig.ApiKey));
@@ -27,8 +32,9 @@ namespace Schnacc.Authorization
             try
             {
                 FirebaseAuthLink authLink = (await this.authProvider.SignInWithEmailAndPasswordAsync(email, password));
-                this.loggedInUser = await this.authProvider.GetUserAsync(authLink);
-                return authLink.FirebaseToken;
+                this.AccessToken = authLink.FirebaseToken;
+                this.Username = authLink.User.DisplayName;
+                return this.AccessToken;
             }
             catch (FirebaseAuthException e) when (e.Reason == AuthErrorReason.UnknownEmailAddress)
             {
@@ -50,11 +56,6 @@ namespace Schnacc.Authorization
             {
                 throw e;
             }
-        }
-
-        public bool userHasVerifiedEmail()
-        {
-            return this.loggedInUser.IsEmailVerified;
         }
     }
 }

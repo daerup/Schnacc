@@ -39,7 +39,7 @@
             VerticalAlignment="Stretch"
             Grid.Row="1"
             Grid.Column="1"
-            Command="{Binding GoToPlayareaView}"/>
+            Command="{Binding GoToPlayareaSettingsView}"/>
         
         <Button 
             Content="Highscore" 

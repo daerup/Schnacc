@@ -38,7 +38,7 @@
             Grid.Column="1" 
             Grid.Row="0" 
             HorizontalAlignment="Stretch" 
-            VerticalAlignment="Stretch"
+            VerticalAlignment="Center"
             HorizontalContentAlignment="Center"/>
         <Label 
             Content="Username" 
@@ -112,9 +112,11 @@
             </Grid.ColumnDefinitions>
             <Button
                 Grid.Column="0"
-                Content="{Binding LoginContent}"
+                FontSize="{Binding LoginContentFontSize}"
                 Command="{Binding LoginCommand}"        
-                CommandParameter="{Binding ElementName=PasswordBox}" />
+                CommandParameter="{Binding ElementName=PasswordBox}">
+                <TextBlock Text="{Binding LoginContent}" TextWrapping="Wrap" />
+            </Button>
             <Button
                 Grid.Column="2"
                 Content="Register"

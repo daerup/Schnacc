@@ -15,6 +15,7 @@ namespace Schnacc.UserInterface.LoginView
     {
         private AuthorizationApi authApi;
         public INavigationService navigationService { get; set; }
+
         public RelayCommand<object> LoginCommand { get; }
         public RelayCommand<object> RegisterCommand { get; }
 
@@ -29,6 +30,7 @@ namespace Schnacc.UserInterface.LoginView
             this.LoginCommand = new RelayCommand<object>(this.Login);
             this.RegisterCommand = new RelayCommand<object>(this.Register);
             this.authApi = new AuthorizationApi();
+            this.navigationService.SetAuthApi(this.authApi);
         }
 
         private void Register(object obj)
@@ -47,9 +49,8 @@ namespace Schnacc.UserInterface.LoginView
 
             try
             {
-                this.navigationService.SessionToken = await this.authApi.SignInWithEmail(this.Email, plainPassword);
-                this.navigationService.EmailIsVerified = this.authApi.userHasVerifiedEmail();
-                this.navigationService.NavigateTo(new LoginSuccessfulPageViewModel(this.navigationService));
+                await this.authApi.SignInWithEmail(this.Email, plainPassword);
+                this.navigationService.NavigateTo(new LoginSuccessfulPageMenuViewModel(this.navigationService));
             }
             catch (Exception e) when (e is IFirebaseHandledException)
             {

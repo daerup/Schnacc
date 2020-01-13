@@ -11,7 +11,7 @@ namespace Schnacc.UserInterface.HighscoreView
     { 
 
         private Database.Database db;
-        public HighscoreViewModel(INavigationService navigationService)
+        public HighscoreViewModel(INavigationService navigationService, Database.Database db)
         {
             this.navigationService = navigationService;
 
@@ -19,20 +19,20 @@ namespace Schnacc.UserInterface.HighscoreView
             {
                 return;
             }
-            this.db = new Database.Database(this.navigationService.SessionToken);
+
+            this.db = db;
             this.Highscores = this.db.GetHighscores();
             this.db.GetObservableHighscores().Subscribe(s => this.UpdateHighscores(s)); ;
-            
         }
+
+        public INavigationService navigationService { get; set; }
+
+        public List<Highscore> Highscores { get; private set;}
 
         private void UpdateHighscores(FirebaseEvent<Highscore> firebaseEvent)
         {
             this.Highscores = this.db.GetHighscores();
         }
 
-
-        public INavigationService navigationService { get; set; }
-
-        public List<Highscore> Highscores { get; private set;}
     }
 }

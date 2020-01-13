@@ -22,8 +22,11 @@
                 <DataTemplate DataType="{x:Type homeMenuView:HomeMenuPageViewModel}">
                     <homeMenuView:HomeMenuPageView/>
                 </DataTemplate>                
-                <DataTemplate DataType="{x:Type playareaView:PlayareaPageViewModel}">
+                <DataTemplate DataType="{x:Type playareaView:PlayareaViewModel}">
                     <playareaView:PlayareaPageView/>
+                </DataTemplate>                
+                <DataTemplate DataType="{x:Type playareaView:PlayareaSettingsPageViewModel}">
+                    <playareaView:PlayareaSettingsPageView/>
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type highscoreView:HighscorePageViewModel}">
                     <highscoreView:HighscorePageView/>
@@ -31,12 +34,9 @@
                 <DataTemplate DataType="{x:Type loginView:LoginPageViewModel}">
                     <loginView:LoginPageView/>
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type loginView:LoginSuccessfulPageViewModel}">
+                <DataTemplate DataType="{x:Type loginView:LoginSuccessfulPageMenuViewModel}">
                     <loginView:LoginSuccessfulPageView/>
                 </DataTemplate>                
-                <!--<DataTemplate DataType="{x:Type registerView:RegisterPageViewModel}">
-                    <registerView:RegisterPageView/>
-                </DataTemplate>-->
                 <DataTemplate DataType="{x:Type registerView:RegisterPageViewModel}">
                     <registerView:RegisterPageView/>
                 </DataTemplate>
