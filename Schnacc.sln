@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.757
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestsProjects", "TestsProjects", "{896B8B71-42BD-4AC8-A1EB-91BECA37B53A}"
 EndProject
@@ -12,6 +12,20 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Schnacc.Domain.IntegrationTests", "Schnacc.Domain.IntegrationTests\Schnacc.Domain.IntegrationTests.csproj", "{B70AD4A0-2302-469E-B963-65C4FBF8B61A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Schnacc.Domain", "Schnacc.Domain", "{72E3340B-E05F-4322-9863-CEB910E7E46E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Schnacc.Authorization", "Schnacc.Authorization\Schnacc.Authorization.csproj", "{C6B7768F-8A08-4416-B6A6-8C5484DCE2D1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Schnacc.Database", "Schnacc.Database\Schnacc.Database.csproj", "{26AE198E-64EB-401A-B899-FF7999C95861}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Schnacc.Authorization", "Schnacc.Authorization", "{B7ADB0CD-0744-4050-938F-1264567D7521}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Schnacc.Authorization.UnitTests", "Schnacc.Authorization.UnitTests\Schnacc.Authorization.UnitTests.csproj", "{064213D9-2224-43FD-86B7-03EB0B6F87EF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Schnacc.Database", "Schnacc.Database", "{FC3F5CD8-75B1-45AD-AB59-B7C33ACFEA25}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Schnacc.Database.UnitTests", "Schnacc.Database.UnitTests\Schnacc.Database.UnitTests.csproj", "{11C9C27C-AFF7-43F5-8921-C5158FE45974}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Schnacc.UserInterface", "Schnacc.UserInterface\Schnacc.UserInterface.csproj", "{E572E496-E21C-44B9-AC0A-981365DE4A35}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +45,26 @@ Global
 		{B70AD4A0-2302-469E-B963-65C4FBF8B61A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B70AD4A0-2302-469E-B963-65C4FBF8B61A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B70AD4A0-2302-469E-B963-65C4FBF8B61A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6B7768F-8A08-4416-B6A6-8C5484DCE2D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6B7768F-8A08-4416-B6A6-8C5484DCE2D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6B7768F-8A08-4416-B6A6-8C5484DCE2D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6B7768F-8A08-4416-B6A6-8C5484DCE2D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26AE198E-64EB-401A-B899-FF7999C95861}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26AE198E-64EB-401A-B899-FF7999C95861}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26AE198E-64EB-401A-B899-FF7999C95861}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26AE198E-64EB-401A-B899-FF7999C95861}.Release|Any CPU.Build.0 = Release|Any CPU
+		{064213D9-2224-43FD-86B7-03EB0B6F87EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{064213D9-2224-43FD-86B7-03EB0B6F87EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{064213D9-2224-43FD-86B7-03EB0B6F87EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{064213D9-2224-43FD-86B7-03EB0B6F87EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11C9C27C-AFF7-43F5-8921-C5158FE45974}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11C9C27C-AFF7-43F5-8921-C5158FE45974}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11C9C27C-AFF7-43F5-8921-C5158FE45974}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11C9C27C-AFF7-43F5-8921-C5158FE45974}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E572E496-E21C-44B9-AC0A-981365DE4A35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E572E496-E21C-44B9-AC0A-981365DE4A35}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E572E496-E21C-44B9-AC0A-981365DE4A35}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E572E496-E21C-44B9-AC0A-981365DE4A35}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -39,6 +73,10 @@ Global
 		{24ECCB92-CB78-4E3E-9D9F-241856E678A5} = {72E3340B-E05F-4322-9863-CEB910E7E46E}
 		{B70AD4A0-2302-469E-B963-65C4FBF8B61A} = {72E3340B-E05F-4322-9863-CEB910E7E46E}
 		{72E3340B-E05F-4322-9863-CEB910E7E46E} = {896B8B71-42BD-4AC8-A1EB-91BECA37B53A}
+		{B7ADB0CD-0744-4050-938F-1264567D7521} = {896B8B71-42BD-4AC8-A1EB-91BECA37B53A}
+		{064213D9-2224-43FD-86B7-03EB0B6F87EF} = {B7ADB0CD-0744-4050-938F-1264567D7521}
+		{FC3F5CD8-75B1-45AD-AB59-B7C33ACFEA25} = {896B8B71-42BD-4AC8-A1EB-91BECA37B53A}
+		{11C9C27C-AFF7-43F5-8921-C5158FE45974} = {FC3F5CD8-75B1-45AD-AB59-B7C33ACFEA25}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {187B0A43-E7D3-4240-B8D4-2B49BD9D57E0}

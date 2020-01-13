@@ -34,7 +34,7 @@
         [Fact]
         private void createRandomFoodShouldCreateFoodAtRandomPosition()
         {
-            for (int i = 0; i < 30; i++)
+            for (int i = 0; i < 300; i++)
             {
                 // Act
                 this.testee = new FoodFactory();
@@ -42,8 +42,8 @@
 
                 // Assert
                 createdFood.Should().NotBeNull();
-                createdFood.Position.Row.Should().BeInRange(1, 9);
-                createdFood.Position.Column.Should().BeInRange(1, 9); 
+                createdFood.Position.Row.Should().BeInRange(0, 9);
+                createdFood.Position.Column.Should().BeInRange(0, 9); 
             }
         }
 

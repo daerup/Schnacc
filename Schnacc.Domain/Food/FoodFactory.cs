@@ -13,8 +13,8 @@
         public Food CreateRandomFoodBetweenBoundaries(Position boundaries)
         {
             List<Type> allFoodTypes = this.getAllFoodTypes();
-            int randomRow = this.getRandomInt(1, boundaries.Row);
-            int randomColumn = this.getRandomInt(1, boundaries.Column);
+            int randomRow = this.getRandomInt(0, boundaries.Row);
+            int randomColumn = this.getRandomInt(0, boundaries.Column);
             return (Food)Activator.CreateInstance(allFoodTypes.ElementAt(this.getRandomInt(0, allFoodTypes.Count)), new Position(randomRow, randomColumn));
         }
 
