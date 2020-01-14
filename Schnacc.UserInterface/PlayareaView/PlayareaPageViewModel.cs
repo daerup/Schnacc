@@ -102,6 +102,7 @@ namespace Schnacc.UserInterface.PlayareaView
 
         public int Score => (this.playarea.Snake.Body.Count * 100) - (10 * this.moveCount);
         public bool HighscoresAreVisible => !string.IsNullOrEmpty(this.NavigationService.SessionToken);
+        public bool ErrorIsVisible => !this.HighscoresAreVisible;
         public int NumberOfRows => this.playarea.Size.NumberOfRows;
         public int NumberOfColumns => this.playarea.Size.NumberOfColumns;
 
@@ -157,7 +158,7 @@ namespace Schnacc.UserInterface.PlayareaView
             this.movementTimer = new Timer(this.OnGameUpdate, this.state, 0, this.gameSpeedInMilliSeconds);
         }
 
-        private void OnGameUpdate(object? state)
+        private void OnGameUpdate(object state)
         {
             this.CheckForGameOver();
             this.playarea.UpdateSnakeDirection(this.Direction);
@@ -178,7 +179,7 @@ namespace Schnacc.UserInterface.PlayareaView
             return p.Row * this.NumberOfColumns + p.Column;
         }
 
-        private void OnRenderUpdate(object? state)
+        private void OnRenderUpdate(object state)
         {
             Application.Current?.Dispatcher?.Invoke(delegate
             {

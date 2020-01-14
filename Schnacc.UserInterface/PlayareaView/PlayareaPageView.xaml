@@ -17,24 +17,21 @@
     </UserControl.Resources>
     <Grid Loaded="GridLoaded" >
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="27*"/>
-            <ColumnDefinition Width="13*"/>
+            <ColumnDefinition Width="60*"/>
+            <ColumnDefinition Width="20*"/>
         </Grid.ColumnDefinitions>
-        <Grid  Grid.Column="1" Grid.RowSpan="2">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="20*"/>
+        </Grid.RowDefinitions>
+        <Grid Column="1" Visibility="{Binding Path=ErrorIsVisible, Converter={StaticResource BoolToVisibilityConverter}}">
             <Grid.RowDefinitions>
-                <RowDefinition Height="100*"/>
-                <RowDefinition Height="100*"/>
+                <RowDefinition Height="30*"/>
+                <RowDefinition Height="20*"/>
+                <RowDefinition Height="20*"/>
                 <RowDefinition Height="60*"/>
-                <RowDefinition Height="55*"/>
-                <RowDefinition Height="175*"/>
-                <RowDefinition Height="55*"/>
+                <RowDefinition Height="20*"/>
             </Grid.RowDefinitions>
-            <Viewbox  Grid.Row="0" Grid.Column="0" VerticalAlignment="Top">
-                <TextBlock Text="{Binding Score, StringFormat={}Your Score: {0}}" />
-            </Viewbox>
-            <Grid  Grid.Row="1" Grid.Column="0" Visibility="{Binding Path=HighscoresAreVisible, Converter={StaticResource BoolToVisibilityConverter}}" ZIndex="10" Grid.RowSpan="4">
-                <highscoreView:HighscoreView  DataContext="{Binding HighscoreViewModel}" />
-            </Grid>
             <TextBlock 
                 Text="Please Login to view the Highscores" 
                 Style="{StaticResource InputFontContent}" 
@@ -45,12 +42,21 @@
                 Content="Login"
                 Grid.Row="2"
                 Command="{Binding GoToLoginView}" />
-            <Button 
-                Content="Main Menu"
-                Grid.Row="4"
-                Command="{Binding GoToMenuView}"/>
         </Grid>
-        <ItemsControl ItemsSource="{Binding ItemsOnPlayarea}" Grid.Column="0" Grid.Row="0"  Grid.RowSpan="2">
+        <StackPanel Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="1">
+            <Viewbox>
+                <TextBlock Text="{Binding Score, StringFormat={}Your Score: {0}}" Margin="0,0,0,50"/>
+            </Viewbox>
+            <Grid Visibility="{Binding Path=HighscoresAreVisible, Converter={StaticResource BoolToVisibilityConverter}}" ZIndex="10" Grid.RowSpan="4">
+                <highscoreView:HighscoreView  DataContext="{Binding HighscoreViewModel}" />
+            </Grid>
+        </StackPanel>
+        <Button 
+            Content="Main Menu"
+            Grid.Row="1"
+            Grid.Column="1"
+            Command="{Binding GoToMenuView}"/>
+        <ItemsControl ItemsSource="{Binding ItemsOnPlayarea}" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <UniformGrid Rows="{Binding NumberOfRows}" Columns="{Binding NumberOfColumns}"/>

@@ -20,7 +20,7 @@
             <RowDefinition Height="15*"/>
             <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
-        <local:HighscoreView DataContext="{Binding HighscoreViewModel}" Grid.Column="0" Grid.ColumnSpan="5"/>
+        <local:HighscoreView DataContext="{Binding HighscoreViewModel}" Grid.Column="1" Grid.ColumnSpan="3"/>
 
         <Button 
             Content="Back"
