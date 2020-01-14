@@ -20,25 +20,24 @@
         [InlineData(3, 2)]
         [InlineData(4, 4)]
         [InlineData(4, 0)]
-        private void playareaSizeIsAtLeast4RowsAnd4Columns(int numberOfRows, int numberOfColumns)
+        private void PlayareaSizeIsAtLeast4RowsAnd4Columns(int numberOfRows, int numberOfColumns)
         {
             // Arrange
             PlayareaSize size = new PlayareaSize(numberOfRows, numberOfColumns);
             FoodFactory factory = A.Dummy<FoodFactory>();
-            Snake snake = A.Dummy<Snake>();
 
             // Act
-            this.testee = new Playarea(size, factory, snake);
+            this.testee = new Playarea(size, factory);
 
             // Assert
             this.testee.Size.Should().BeEquivalentTo(new PlayareaSize(4, 4));
         }
 
         [Fact]
-        private void newlyCreatedPlaygroundShouldHaveStartGamestate()
+        private void NewlyCreatedPlaygroundShouldHaveStartGamestate()
         {
             // Act
-            this.testee = new Playarea(new PlayareaSize(10, 10), A.Dummy<IFoodFactory>(), new Snake(new Position(5, 5)));
+            this.testee = new Playarea(new PlayareaSize(10, 10), A.Dummy<IFoodFactory>());
 
             // Assert
             this.testee.CurrentGameState.Should().Be(Game.Start);
@@ -49,10 +48,10 @@
         [InlineData(Direction.Left)]
         [InlineData(Direction.Up)]
         [InlineData(Direction.Down)]
-        private void whenDirectionOfSnakeSetPlaygroundShouldHaveRunningGamestate(Direction newFacingDirection)
+        private void WhenDirectionOfSnakeSetPlaygroundShouldHaveRunningGamestate(Direction newFacingDirection)
         {
             // Arrange
-            this.testee = new Playarea(new PlayareaSize(10, 10), A.Dummy<IFoodFactory>(), new Snake(new Position(5, 5)));
+            this.testee = new Playarea(new PlayareaSize(10, 10), A.Dummy<IFoodFactory>());
 
             // Act
             this.testee.UpdateSnakeDirection(newFacingDirection);
@@ -62,13 +61,12 @@
         }
 
         [Fact]
-        private void snakeShouldNotMoveWhenDirectionIsNeverUpdated()
+        private void SnakeShouldNotMoveWhenDirectionIsNeverUpdated()
         {
             // Arrange
             PlayareaSize size = new PlayareaSize(10, 10);
             IFoodFactory foodFactory = A.Dummy<IFoodFactory>();
-            Snake snake = new Snake(new Position(5, 5));
-            this.testee = new Playarea(size, foodFactory, snake);
+            this.testee = new Playarea(size, foodFactory);
             Position previousHeadPosition = this.testee.Snake.Head.Position;
 
             // Act

@@ -6,7 +6,7 @@ using System.Windows.Media;
 namespace Schnacc.UserInterface.RegisterView {
     public class PasswordValidator : FrameworkElement
     {
-        static IDictionary<PasswordBox, Brush> _passwordBoxes = new Dictionary<PasswordBox, Brush>();
+        static IDictionary<PasswordBox, Brush> passwordBoxes = new Dictionary<PasswordBox, Brush>();
 
         public static readonly DependencyProperty Box1Property = DependencyProperty.Register("Box1", typeof(PasswordBox), typeof(PasswordValidator), new PropertyMetadata(Box1Changed));
         public static readonly DependencyProperty Box2Property = DependencyProperty.Register("Box2", typeof(PasswordBox), typeof(PasswordValidator), new PropertyMetadata(Box2Changed));

@@ -12,14 +12,14 @@ namespace Schnacc.UserInterface.PlayareaView
 {
     public class PlayareaSettingsPageViewModel : ViewModelBase, INavigatableViewModel
     {
-        public INavigationService navigationService { get; set; }
+        public INavigationService NavigationService { get; set; }
 
         public RelayCommand GoToMenuView { get; set; }
         public RelayCommand GoToPlayareaView { get; set; }
 
         public PlayareaSettingsPageViewModel(INavigationService navigationService)
         {
-            this.navigationService = navigationService;
+            this.NavigationService = navigationService;
             this.GoToMenuView = new RelayCommand(this.NavigateToMenuView);
             this.GoToPlayareaView = new RelayCommand(this.NavigatePlayarea);
         }
@@ -32,21 +32,20 @@ namespace Schnacc.UserInterface.PlayareaView
             PlayareaSize playareaSize = new PlayareaSize(columns, rows);
             FoodFactory foodFactory = new FoodFactory();
             Position starPosition = new Position(columns / 2, rows / 2);
-            Snake snake = new Snake(starPosition);
 
-            Playarea playarea = new Playarea(playareaSize, foodFactory, snake);
-            this.navigationService.NavigateTo(new PlayareaViewModel(this.navigationService, playarea));
+            Playarea playarea = new Playarea(playareaSize, foodFactory);
+            this.NavigationService.NavigateTo(new PlayareaViewModel(this.NavigationService, playarea));
         }
 
         private void NavigateToMenuView()
         {
-            if (string.IsNullOrEmpty(this.navigationService.SessionToken))
+            if (string.IsNullOrEmpty(this.NavigationService.SessionToken))
             {
-                this.navigationService.NavigateTo(new HomeMenuPageViewModel(this.navigationService));
+                this.NavigationService.NavigateTo(new HomeMenuPageViewModel(this.NavigationService));
             }
             else
             {
-                this.navigationService.NavigateTo(new LoginSuccessfulPageMenuViewModel(this.navigationService));
+                this.NavigationService.NavigateTo(new LoginSuccessfulPageMenuViewModel(this.NavigationService));
             }
         }
     }

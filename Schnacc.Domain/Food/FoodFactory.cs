@@ -12,19 +12,19 @@
     {
         public Food CreateRandomFoodBetweenBoundaries(Position boundaries)
         {
-            List<Type> allFoodTypes = this.getAllFoodTypes();
-            int randomRow = this.getRandomInt(0, boundaries.Row);
-            int randomColumn = this.getRandomInt(0, boundaries.Column);
-            return (Food)Activator.CreateInstance(allFoodTypes.ElementAt(this.getRandomInt(0, allFoodTypes.Count)), new Position(randomRow, randomColumn));
+            List<Type> allFoodTypes = this.GetAllFoodTypes();
+            int randomRow = this.GetRandomInt(0, boundaries.Row);
+            int randomColumn = this.GetRandomInt(0, boundaries.Column);
+            return (Food)Activator.CreateInstance(allFoodTypes.ElementAt(this.GetRandomInt(0, allFoodTypes.Count)), new Position(randomRow, randomColumn));
         }
 
-        private List<Type> getAllFoodTypes()
+        private List<Type> GetAllFoodTypes()
         {
             Type derivedType = typeof(Food);
             return Assembly.GetAssembly(typeof(Food)).GetTypes().Where(t => t != derivedType && derivedType.IsAssignableFrom(t)).ToList();
         }
 
-        private int getRandomInt(int smallestPossibleNumber, int smallestOutOfRangeNumber)
+        private int GetRandomInt(int smallestPossibleNumber, int smallestOutOfRangeNumber)
         {
             using (RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider())
             {

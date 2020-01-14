@@ -120,7 +120,7 @@
             <Button
                 Grid.Column="2"
                 Content="Register"
-                IsEnabled="{Binding passwordMatch}"
+                IsEnabled="{Binding PasswordMatch}"
                 Command="{Binding RegisterCommand}"        
                 CommandParameter="{Binding ElementName=PasswordBox}" />
         </Grid>

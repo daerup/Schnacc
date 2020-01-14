@@ -14,7 +14,7 @@
         private readonly IFood testee = new Apple(A.Dummy<Position>());
 
         [Fact]
-        private void appleInstanceShouldBeNamedApple()
+        private void AppleInstanceShouldBeNamedApple()
         {
             // Assert
             this.testee.Name.Should().Be("Apple");

@@ -17,23 +17,23 @@ namespace Schnacc.UserInterface.LoginView
 
         public LoginSuccessfulPageMenuViewModel(INavigationService navigationService)
         {
-            this.navigationService = navigationService;
+            this.NavigationService = navigationService;
             this.GoToPlayareaView = new RelayCommand(this.NavigateToPlayareaSettings);
             this.GoToHighscoreView = new RelayCommand(this.NavigateToHighscore);
         }
 
         private void NavigateToHighscore()
         {
-            this.navigationService.NavigateTo(new HighscorePageViewModel(this.navigationService));
+            this.NavigationService.NavigateTo(new HighscorePageViewModel(this.NavigationService));
         }
 
-        public INavigationService navigationService { get; set; }
+        public INavigationService NavigationService { get; set; }
 
-        public bool WarningIsVisible => !this.navigationService.EmailIsVerified;
+        public bool WarningIsVisible => !this.NavigationService.EmailIsVerified;
 
         private void NavigateToPlayareaSettings()
         {
-            this.navigationService.NavigateTo(new PlayareaSettingsPageViewModel(this.navigationService));
+            this.NavigationService.NavigateTo(new PlayareaSettingsPageViewModel(this.NavigationService));
         }
     }
 }

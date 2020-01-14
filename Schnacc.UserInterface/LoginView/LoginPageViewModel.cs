@@ -14,7 +14,7 @@ namespace Schnacc.UserInterface.LoginView
     class LoginPageViewModel : ViewModelBase, INavigatableViewModel
     {
         private AuthorizationApi authApi;
-        public INavigationService navigationService { get; set; }
+        public INavigationService NavigationService { get; set; }
 
         public RelayCommand<object> LoginCommand { get; }
         public RelayCommand<object> RegisterCommand { get; }
@@ -25,17 +25,17 @@ namespace Schnacc.UserInterface.LoginView
 
         public LoginPageViewModel(INavigationService navigationService)
         {
-            this.navigationService = navigationService;
+            this.NavigationService = navigationService;
             this.ErrorMessage = string.Empty;
             this.LoginCommand = new RelayCommand<object>(this.Login);
             this.RegisterCommand = new RelayCommand<object>(this.Register);
             this.authApi = new AuthorizationApi();
-            this.navigationService.SetAuthApi(this.authApi);
+            this.NavigationService.SetAuthApi(this.authApi);
         }
 
         private void Register(object obj)
         {
-            this.navigationService.NavigateTo(new RegisterPageViewModel(this.navigationService));
+            this.NavigationService.NavigateTo(new RegisterPageViewModel(this.NavigationService));
         }
 
         private async void Login(object obj)
@@ -49,8 +49,8 @@ namespace Schnacc.UserInterface.LoginView
 
             try
             {
-                this.navigationService.SessionToken = await this.authApi.SignInWithEmail(this.Email, plainPassword);
-                this.navigationService.NavigateTo(new LoginSuccessfulPageMenuViewModel(this.navigationService));
+                this.NavigationService.SessionToken = await this.authApi.SignInWithEmail(this.Email, plainPassword);
+                this.NavigationService.NavigateTo(new LoginSuccessfulPageMenuViewModel(this.NavigationService));
             }
             catch (Exception e) when (e is IFirebaseHandledException)
             {

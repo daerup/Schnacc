@@ -15,7 +15,7 @@ namespace Schnacc.UserInterface.RegisterView
     {
         private AuthorizationApi authApi;
         private string errorCheck;
-        public INavigationService navigationService { get; set; }
+        public INavigationService NavigationService { get; set; }
         public RelayCommand<object> LoginCommand { get; }
         public RelayCommand<object> RegisterCommand { get; }
 
@@ -40,7 +40,7 @@ namespace Schnacc.UserInterface.RegisterView
             }
         }
 
-        public bool passwordMatch => !this.errorCheck.Equals("wrong") && !string.IsNullOrEmpty(this.Email) && string.IsNullOrEmpty(this.ErrorMessage);
+        public bool PasswordMatch => !this.errorCheck.Equals("wrong") && !string.IsNullOrEmpty(this.Email) && string.IsNullOrEmpty(this.ErrorMessage);
 
         public string LoginContent { get; set; }
 
@@ -48,7 +48,7 @@ namespace Schnacc.UserInterface.RegisterView
 
         public RegisterPageViewModel(INavigationService navigationService)
         {
-            this.navigationService = navigationService;
+            this.NavigationService = navigationService;
             this.ErrorMessage = string.Empty;
             this.ErrorCheck = "wrong";
             this.LoginCommand = new RelayCommand<object>(this.Login);
@@ -69,7 +69,7 @@ namespace Schnacc.UserInterface.RegisterView
 
         private async void Login(object obj)
         {
-            this.navigationService.NavigateTo(new LoginPageViewModel(this.navigationService));
+            this.NavigationService.NavigateTo(new LoginPageViewModel(this.NavigationService));
         }
     }
 }

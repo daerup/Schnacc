@@ -17,7 +17,7 @@
         private FoodFactory testee;
 
         [Fact]
-        private void createRandomFoodShouldCreateFoodType()
+        private void CreateRandomFoodShouldCreateFoodType()
         {
             for (int i = 0; i < 30; i++)
             {
@@ -32,9 +32,9 @@
         }
 
         [Fact]
-        private void createRandomFoodShouldCreateFoodAtRandomPosition()
+        private void CreateRandomFoodShouldCreateFoodAtRandomPosition()
         {
-            for (int i = 0; i < 300; i++)
+            for (int i = 0; i < 30; i++)
             {
                 // Act
                 this.testee = new FoodFactory();
@@ -48,17 +48,17 @@
         }
 
         [Property]
-        public Property CreatedFoodShouldBe_TODO(int x, int y )
+        public Property CreatedFoodShouldBeBetweenBounderies(int row, int column )
         {
             Func<bool> func = () =>
                 {
                     this.testee = new FoodFactory();
-                    IFood createdFood = this.testee.CreateRandomFoodBetweenBoundaries(new Position(x, y));
+                    IFood createdFood = this.testee.CreateRandomFoodBetweenBoundaries(new Position(row, column));
 
-                    return (1 <= createdFood.Position.Row && createdFood.Position.Row <= x && 1 <= createdFood.Position.Column && createdFood.Position.Column <= y);
+                    return (0 <= createdFood.Position.Row && createdFood.Position.Row <= row && 0 <= createdFood.Position.Column && createdFood.Position.Column <= column);
                 };
 
-            return func.When(x > 0 && y > 0);
+            return func.When(row > 0 && column > 0);
         }
     }
 }

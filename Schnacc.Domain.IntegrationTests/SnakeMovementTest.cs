@@ -11,7 +11,7 @@
     {
         private Snake testee;
 
-        private void givingASnakeWithABodyFacingInACertainDirection(int startRow, int startColumn, Direction certainDirection)
+        private void GivingASnakeWithABodyFacingInACertainDirection(int startRow, int startColumn, Direction certainDirection)
         {
             "Given a snake"
                 .x(() => this.testee = new Snake(new Position(startRow, startColumn)));
@@ -21,7 +21,7 @@
                 .x(() => this.testee.Grow());
         }
 
-        private void whenASnakeGrowsASnakeBodyPartShouldBeAdded()
+        private void WhenASnakeGrowsASnakeBodyPartShouldBeAdded()
         {
             int previousCount = 0;
             "Given the previous body length"
@@ -36,9 +36,9 @@
 
         [Scenario]
         [Example(0, 0)]
-        private void bodyOfSnakeIsFollowingTheSnakeHeadRightwards(int startRow, int startColumn)
+        private void BodyOfSnakeIsFollowingTheSnakeHeadRightwards(int startRow, int startColumn)
         {
-            this.givingASnakeWithABodyFacingInACertainDirection(startRow, startColumn, Direction.Right);
+            this.GivingASnakeWithABodyFacingInACertainDirection(startRow, startColumn, Direction.Right);
 
             "When the snake moves"
                 .x(() => this.testee.Move());
@@ -47,7 +47,7 @@
             "And then the body of the snake has not moved yet"
                 .x(() => this.testee.Body[0].Position.Should().BeEquivalentTo(new Position(startRow, startColumn)));
 
-            this.whenASnakeGrowsASnakeBodyPartShouldBeAdded();
+            this.WhenASnakeGrowsASnakeBodyPartShouldBeAdded();
 
             "When the snake moves again"
                 .x(() => this.testee.Move());
@@ -58,7 +58,7 @@
             "And then the second body part of the snake has moved 0 Rows and 0 Columns"
                 .x(() => this.testee.Body[1].Position.Should().BeEquivalentTo(new Position(startRow, startColumn)));
 
-            this.whenASnakeGrowsASnakeBodyPartShouldBeAdded();
+            this.WhenASnakeGrowsASnakeBodyPartShouldBeAdded();
 
             "When the snake moves again"
                 .x(() => this.testee.Move());
@@ -74,9 +74,9 @@
 
         [Scenario]
         [Example(0, 0)]
-        private void bodyOfSnakeIsFollowingTheSnakeHeadLeftwards(int startRow, int startColumn)
+        private void BodyOfSnakeIsFollowingTheSnakeHeadLeftwards(int startRow, int startColumn)
         {
-            this.givingASnakeWithABodyFacingInACertainDirection(startRow, startColumn, Direction.Left);
+            this.GivingASnakeWithABodyFacingInACertainDirection(startRow, startColumn, Direction.Left);
 
             "When the snake moves"
                 .x(() => this.testee.Move());
@@ -85,7 +85,7 @@
             "And then the body of the snake has not moved yet"
                 .x(() => this.testee.Body[0].Position.Should().BeEquivalentTo(new Position(startRow, startColumn)));
 
-            this.whenASnakeGrowsASnakeBodyPartShouldBeAdded();
+            this.WhenASnakeGrowsASnakeBodyPartShouldBeAdded();
 
             "When the snake moves again"
                 .x(() => this.testee.Move());
@@ -96,7 +96,7 @@
             "And then the second body part of the snake has moved 0 Rows and 0 Columns"
                 .x(() => this.testee.Body[1].Position.Should().BeEquivalentTo(new Position(startRow, startColumn)));
 
-            this.whenASnakeGrowsASnakeBodyPartShouldBeAdded();
+            this.WhenASnakeGrowsASnakeBodyPartShouldBeAdded();
 
             "When the snake moves again"
                 .x(() => this.testee.Move());
@@ -112,9 +112,9 @@
 
         [Scenario]
         [Example(0, 0)]
-        private void bodyOfSnakeIsFollowingTheSnakeHeadUpwards(int startRow, int startColumn)
+        private void BodyOfSnakeIsFollowingTheSnakeHeadUpwards(int startRow, int startColumn)
         {
-            this.givingASnakeWithABodyFacingInACertainDirection(startRow, startColumn, Direction.Up);
+            this.GivingASnakeWithABodyFacingInACertainDirection(startRow, startColumn, Direction.Up);
 
             "When the snake moves"
                 .x(() => this.testee.Move());
@@ -123,7 +123,7 @@
             "And then the body of the snake has not moved yet"
                 .x(() => this.testee.Body.First().Position.Should().BeEquivalentTo(new Position(startRow, startColumn)));
 
-            this.whenASnakeGrowsASnakeBodyPartShouldBeAdded();
+            this.WhenASnakeGrowsASnakeBodyPartShouldBeAdded();
 
             "When the snake moves again"
                 .x(() => this.testee.Move());
@@ -134,7 +134,7 @@
             "And then the second body part of the snake has moved 0 Rows and 0 Columns"
                 .x(() => this.testee.Body[1].Position.Should().BeEquivalentTo(new Position(startRow, startColumn)));
 
-            this.whenASnakeGrowsASnakeBodyPartShouldBeAdded();
+            this.WhenASnakeGrowsASnakeBodyPartShouldBeAdded();
 
             "When the snake moves again"
                 .x(() => this.testee.Move());
@@ -150,9 +150,9 @@
 
         [Scenario]
         [Example(0, 0)]
-        private void bodyOfSnakeIsFollowingTheSnakeHeadDownwards(int startRow, int startColumn)
+        private void BodyOfSnakeIsFollowingTheSnakeHeadDownwards(int startRow, int startColumn)
         {
-            this.givingASnakeWithABodyFacingInACertainDirection(startRow, startColumn, Direction.Down);
+            this.GivingASnakeWithABodyFacingInACertainDirection(startRow, startColumn, Direction.Down);
 
             "When the snake moves"
                 .x(() => this.testee.Move());
@@ -161,7 +161,7 @@
             "And then the body of the snake has not moved yet"
                 .x(() => this.testee.Body.First().Position.Should().BeEquivalentTo(new Position(startRow, startColumn)));
 
-            this.whenASnakeGrowsASnakeBodyPartShouldBeAdded();
+            this.WhenASnakeGrowsASnakeBodyPartShouldBeAdded();
 
             "When the snake moves again"
                 .x(() => this.testee.Move());
@@ -172,7 +172,7 @@
             "And then the second body part of the snake has moved 0 Rows and 0 Columns"
                 .x(() => this.testee.Body[1].Position.Should().BeEquivalentTo(new Position(startRow, startColumn)));
 
-            this.whenASnakeGrowsASnakeBodyPartShouldBeAdded();
+            this.WhenASnakeGrowsASnakeBodyPartShouldBeAdded();
 
             "When the snake moves again"
                 .x(() => this.testee.Move());
@@ -188,9 +188,9 @@
 
         [Scenario]
         [Example(0, 0)]
-        private void bodyOfSnakeIsCapableOfMovingInCircularMotions(int startRow, int startColumn)
+        private void BodyOfSnakeIsCapableOfMovingInCircularMotions(int startRow, int startColumn)
         {
-            this.givingASnakeWithABodyFacingInACertainDirection(startRow, startColumn, Direction.Right);
+            this.GivingASnakeWithABodyFacingInACertainDirection(startRow, startColumn, Direction.Right);
 
             "When the snake moves"
                 .x(() => this.testee.Move());
@@ -201,7 +201,7 @@
             "And then the snake has not collided with it self yet"
                 .x(() => this.testee.HasCollidedWithItSelf.Should().Be(false));
 
-            this.whenASnakeGrowsASnakeBodyPartShouldBeAdded();
+            this.WhenASnakeGrowsASnakeBodyPartShouldBeAdded();
 
             "When the snake turns by 90 degrees"
                 .x(() => this.testee.UpdateFacingDirection(Direction.Down));
@@ -216,7 +216,7 @@
             "And then the snake has not collided with it self yet"
                 .x(() => this.testee.HasCollidedWithItSelf.Should().Be(false));
 
-            this.whenASnakeGrowsASnakeBodyPartShouldBeAdded();
+            this.WhenASnakeGrowsASnakeBodyPartShouldBeAdded();
 
             "When the snake turns by 90 degrees"
                 .x(() => this.testee.UpdateFacingDirection(Direction.Left));
@@ -233,7 +233,7 @@
             "And then the snake has not collided with it self yet"
                 .x(() => this.testee.HasCollidedWithItSelf.Should().Be(false));
 
-            this.whenASnakeGrowsASnakeBodyPartShouldBeAdded();
+            this.WhenASnakeGrowsASnakeBodyPartShouldBeAdded();
 
             "When the snake turns by 90 degrees"
                 .x(() => this.testee.UpdateFacingDirection(Direction.Up));

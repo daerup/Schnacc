@@ -6,10 +6,10 @@
 
         public int NumberOfColumns { get; private set; }
 
-        public PlayareaSize(int numberOfColumns, int numberOfRows)
+        public PlayareaSize(int numberOfRows, int numberOfColumns)
         {
-            this.NumberOfColumns = numberOfColumns;
             this.NumberOfRows = numberOfRows;
+            this.NumberOfColumns = numberOfColumns;
         }
     }
 }

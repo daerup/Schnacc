@@ -15,7 +15,7 @@ namespace Schnacc.Authorization.UnitTests
         private AuthorizationApi testee = new AuthorizationApi();
 
         [Fact]
-        private async void userCanSignInWithEmailAndPassword()
+        private async void UserCanSignInWithEmailAndPassword()
         {
             // Arrange
             string email = "hans.muster@mail.ch";
@@ -30,7 +30,7 @@ namespace Schnacc.Authorization.UnitTests
         }
 
         [Fact]
-        private async void whenNotRegisteredUserCanNotSignIn()
+        private async void WhenNotRegisteredUserCanNotSignIn()
         {
             // Arrange
             string email = "hans.muster@notRegistered.ch";

@@ -13,9 +13,9 @@ namespace Schnacc.UserInterface.HighscoreView
         private Database.Database db;
         public HighscoreViewModel(INavigationService navigationService, Database.Database db)
         {
-            this.navigationService = navigationService;
+            this.NavigationService = navigationService;
 
-            if (string.IsNullOrEmpty(this.navigationService.SessionToken))
+            if (string.IsNullOrEmpty(this.NavigationService.SessionToken))
             {
                 return;
             }
@@ -25,7 +25,7 @@ namespace Schnacc.UserInterface.HighscoreView
             this.db.GetObservableHighscores().Subscribe(s => this.UpdateHighscores(s)); ;
         }
 
-        public INavigationService navigationService { get; set; }
+        public INavigationService NavigationService { get; set; }
 
         public List<Highscore> Highscores { get; private set;}
 

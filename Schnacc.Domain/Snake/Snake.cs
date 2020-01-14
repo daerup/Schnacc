@@ -6,9 +6,11 @@
 
     public class Snake : ISnake
     {
-        public Snake(Position starPosition)
+        private Position startPosition;
+        public Snake(Position startPosition)
         {
-            this.instantiateSnake(starPosition);
+            this.startPosition = startPosition;
+            this.InstantiateSnake();
         }
 
         public IDirectionState FacingDirection { private get; set; }
@@ -23,9 +25,9 @@
 
         public List<SnakeBodyPart> Body { get; private set; }
 
-        public void ResetSnakeToPosition(Position startPosition)
+        public void ResetSnakeToStartPosition()
         {
-            this.instantiateSnake(startPosition);
+            this.InstantiateSnake();
         }
 
         public void Move()
@@ -36,7 +38,7 @@
 
         public void Grow()
         {
-            this.addBodyPart();
+            this.AddBodyPart();
         }
 
         public void UpdateFacingDirection(Direction newDirection)
@@ -44,7 +46,7 @@
             this.FacingDirection.TryChangeDirection(newDirection);
         }
 
-        private void addBodyPart()
+        private void AddBodyPart()
         {
             if (this.Body.Any())
             {
@@ -55,10 +57,10 @@
             this.Body.Add(new SnakeBodyPart(this.Head.Position));
         }
 
-        private void instantiateSnake(Position startPosition)
+        private void InstantiateSnake()
         {
             this.FacingDirection = new NoDirection(this);
-            this.Head = new SnakeHead(startPosition);
+            this.Head = new SnakeHead(this.startPosition);
             this.Body = new List<SnakeBodyPart>();
             this.UpdateFacingDirection(Direction.None);
         }

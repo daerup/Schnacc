@@ -15,13 +15,14 @@
 
         private readonly Snake snake;
 
-        public Playarea(PlayareaSize size, IFoodFactory factory, Snake snake)
+        public Playarea(PlayareaSize size, IFoodFactory factory)
         {
-            this.Size = this.getValidFieldSize(size);
+            this.Size = this.GetValidFieldSize(size);
             this.factory = factory;
-            this.snake = snake;
-            this.Food = this.getRandomFoodInUniquePosition();
-            this.setGameState();
+            Position startPosition = new Position(this.Size.NumberOfRows / 2, this.Size.NumberOfColumns / 2);
+            this.snake = new Snake(startPosition);
+            this.Food = this.GetRandomFoodInUniquePosition();
+            this.SetGameState();
         }
 
         public IFood Food { get; private set; }
@@ -34,7 +35,7 @@
 
         public void MoveSnakeWhenAllowed()
         {
-            this.setGameState();
+            this.SetGameState();
             if (this.CurrentGameState.Equals(Game.Over))
             {
                 return;
@@ -45,7 +46,7 @@
             if (this.SnakeCollidedWithFood)
             {
                 this.snake.Grow();
-                this.Food = this.getRandomFoodInUniquePosition();
+                this.Food = this.GetRandomFoodInUniquePosition();
             }
         }
 
@@ -54,19 +55,19 @@
             if (this.CurrentGameState.Equals(Game.Over) == false)
             {
                 this.snake.UpdateFacingDirection(newDirection);
-                this.setGameState();
+                this.SetGameState();
             }
         }
 
-        public void RestartGame(Position snakeStartPosition)
+        public void RestartGame()
         {
             if (this.CurrentGameState.Equals(Game.Over))
             {
-                this.snake.ResetSnakeToPosition(snakeStartPosition);
+                this.snake.ResetSnakeToStartPosition();
             }
         }
 
-        private void setGameState()
+        private void SetGameState()
         {
             if (this.snake.CurrentDirection.Equals(Direction.None))
             {
@@ -74,7 +75,7 @@
                 return;
             }
 
-            if (this.nextPositionIsValid() == false)
+            if (this.NextPositionIsValid() == false)
             {
                 this.CurrentGameState = Game.Over;
                 return;
@@ -83,28 +84,28 @@
             this.CurrentGameState = Game.Running;
         }
 
-        private bool nextPositionIsValid()
+        private bool NextPositionIsValid()
         {
-            return !this.nextPositionCollidesWithSnakeBody() && !this.nextPositionCollidesWithWalls();
+            return !this.NextPositionCollidesWithSnakeBody() && !this.NextPositionCollidesWithWalls();
         }
 
-        private bool nextPositionCollidesWithSnakeBody()
+        private bool NextPositionCollidesWithSnakeBody()
         {
             Position nextHeadPosition = this.snake.GetNextHeadPosition();
             return this.snake.Body.Select(sb => sb.Position).Any(p => p.Equals(nextHeadPosition));
         }
 
-        private bool nextPositionCollidesWithWalls()
+        private bool NextPositionCollidesWithWalls()
         {
             Position nextPosition = this.snake.GetNextHeadPosition();
             return
                 nextPosition.Column <= -1 ||
                 nextPosition.Row <= -1 ||
-                nextPosition.Column == this.getCorner().Column ||
-                nextPosition.Row == this.getCorner().Row;
+                nextPosition.Column == this.GetCorner().Column ||
+                nextPosition.Row == this.GetCorner().Row;
         }
 
-        private PlayareaSize getValidFieldSize(PlayareaSize size)
+        private PlayareaSize GetValidFieldSize(PlayareaSize size)
         {
             int row = size.NumberOfRows;
             int column = size.NumberOfColumns;
@@ -121,9 +122,9 @@
             return new PlayareaSize(row, column);
         }
 
-        private Position getCorner() => new Position(this.Size.NumberOfRows, this.Size.NumberOfColumns);
+        private Position GetCorner() => new Position(this.Size.NumberOfRows, this.Size.NumberOfColumns);
 
-        private IFood getRandomFoodInUniquePosition()
+        private IFood GetRandomFoodInUniquePosition()
         {
             List<Position> allUsedPositions = this.snake.Body.Select(bp => bp.Position).ToList();
             allUsedPositions.Add(this.snake.Head.Position);
@@ -131,7 +132,7 @@
 
             do
             {
-                randomFood = this.factory.CreateRandomFoodBetweenBoundaries(this.getCorner());
+                randomFood = this.factory.CreateRandomFoodBetweenBoundaries(this.GetCorner());
             }
             while (allUsedPositions.Any(up => up.Equals(randomFood.Position)));
 

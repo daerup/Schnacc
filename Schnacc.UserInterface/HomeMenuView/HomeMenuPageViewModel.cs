@@ -22,18 +22,18 @@ namespace Schnacc.UserInterface.HomeMenuView
 
         public HomeMenuPageViewModel(INavigationService navigationService)
         {
-            this.navigationService = navigationService;
+            this.NavigationService = navigationService;
             this.GoToPlayareaSettingsView = new RelayCommand(this.NavigateToPlayareaSettings);
             this.GoToHighscoresView = new RelayCommand(this.NavigateToHighscores);
             this.GoToLoginView = new RelayCommand(this.NavigateToLogin);
             this.GoToRegisterView = new RelayCommand(this.NavigateToRegister);
         }
 
-        public INavigationService navigationService { get; set; }
+        public INavigationService NavigationService { get; set; }
 
         private void NavigateToHighscores()
         {
-            if (string.IsNullOrEmpty(this.navigationService.SessionToken))
+            if (string.IsNullOrEmpty(this.NavigationService.SessionToken))
             {
                 MessageBox.Show(
                     "Highscores is a premium feature and can only be used by logged in users",
@@ -43,22 +43,22 @@ namespace Schnacc.UserInterface.HomeMenuView
                 this.NavigateToLogin();
                 return;
             }
-            this.navigationService.NavigateTo(new HighscorePageViewModel(this.navigationService));
+            this.NavigationService.NavigateTo(new HighscorePageViewModel(this.NavigationService));
         }
 
         private void NavigateToRegister()
         {
-            this.navigationService.NavigateTo(new RegisterPageViewModel(this.navigationService));
+            this.NavigationService.NavigateTo(new RegisterPageViewModel(this.NavigationService));
         }
 
         private void NavigateToLogin()
         {
-            this.navigationService.NavigateTo(new LoginPageViewModel(this.navigationService));
+            this.NavigationService.NavigateTo(new LoginPageViewModel(this.NavigationService));
         }
 
         private void NavigateToPlayareaSettings()
         {
-            this.navigationService.NavigateTo(new PlayareaSettingsPageViewModel(this.navigationService));
+            this.NavigationService.NavigateTo(new PlayareaSettingsPageViewModel(this.NavigationService));
         }
     };
 }

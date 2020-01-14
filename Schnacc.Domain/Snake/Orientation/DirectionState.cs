@@ -27,9 +27,9 @@
         // ReSharper disable once FlagArgument
         public void TryChangeDirection(Direction newDirection)
         {
-            if (this.newDirectionIsValid(newDirection))
+            if (this.NewDirectionIsValid(newDirection))
             {
-                this.Snake.FacingDirection = this.getNewOrientationState(newDirection, this);
+                this.Snake.FacingDirection = this.GetNewOrientationState(newDirection, this);
             }
         }
 
@@ -44,10 +44,10 @@
                 return;
             }
 
-            this.moveBodyParts();
+            this.MoveBodyParts();
         }
 
-        private void moveBodyParts()
+        private void MoveBodyParts()
         {
             for (int i = this.Snake.Body.Count - 1; i >= 0; i--)
             {
@@ -61,12 +61,12 @@
             }
         }
 
-        private bool newDirectionIsValid(Direction newDirection)
+        private bool NewDirectionIsValid(Direction newDirection)
         {
             return this.ValidNewDirections.Contains(newDirection);
         }
 
-        private DirectionState getNewOrientationState(Direction newDirection, DirectionState caller)
+        private DirectionState GetNewOrientationState(Direction newDirection, DirectionState caller)
         {
             return (DirectionState)Activator.CreateInstance(this.directionToTypeMapper[newDirection], caller);
         }

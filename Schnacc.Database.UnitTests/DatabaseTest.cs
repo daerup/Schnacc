@@ -17,7 +17,7 @@ namespace Schnacc.Database.UnitTests
         private Database testee;
 
         [Fact]
-        private async void userCanFetchHighscores()
+        private async void UserCanFetchHighscores()
         {
             // Act
             string email = "hans.muster@mail.ch";
@@ -28,8 +28,7 @@ namespace Schnacc.Database.UnitTests
             // Act
             List<Highscore> highscores = this.testee.GetHighscores();
 
-            highscores.Count.Should().BeGreaterThan(1);
-            this.testee.WriteHighscore(new Highscore(email, 123456));
+            highscores.Count.Should().BeGreaterOrEqualTo(1);
         }
     }
 }

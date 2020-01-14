@@ -63,7 +63,7 @@
                 Grid.Row="4"
                 Command="{Binding GoToMenuView}"/>
         </Grid>
-        <ItemsControl ItemsSource="{Binding itemsOnPlayarea}" Grid.Column="0" Grid.Row="0"  Grid.RowSpan="2">
+        <ItemsControl ItemsSource="{Binding ItemsOnPlayarea}" Grid.Column="0" Grid.Row="0"  Grid.RowSpan="2">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <UniformGrid Rows="{Binding NumberOfRows}" Columns="{Binding NumberOfColumns}"/>
