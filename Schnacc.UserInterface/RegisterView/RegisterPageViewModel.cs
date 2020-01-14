@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Configuration;
-using System.Windows.Controls;
-using System.Windows.Media;
-using Schnacc.Authorization;
 using Schnacc.Authorization.Exception;
-using Schnacc.UserInterface.Infrastructure.Commands;
-using Schnacc.UserInterface.Infrastructure.Navigation;
-using Schnacc.UserInterface.Infrastructure.ViewModels;
-using Schnacc.UserInterface.LoginView;
 
 namespace Schnacc.UserInterface.RegisterView
 {
+    using System.Windows.Controls;
+    using Authorization;
+    using Infrastructure.Commands;
+    using Infrastructure.Navigation;
+    using Infrastructure.ViewModels;
+    using LoginView;
     public class RegisterPageViewModel : ViewModelBase, INavigatableViewModel
     {
         private AuthorizationApi authApi;
@@ -40,7 +38,7 @@ namespace Schnacc.UserInterface.RegisterView
             }
         }
 
-        public bool PasswordMatch => !this.errorCheck.Equals("wrong") && !string.IsNullOrEmpty(this.Email) && string.IsNullOrEmpty(this.ErrorMessage);
+        public bool RegisterButtonEnabled => !this.errorCheck.Equals("wrong") && !string.IsNullOrEmpty(this.Email) && !string.IsNullOrEmpty(this.Username);
 
         public string LoginContent { get; set; }
 
@@ -58,16 +56,27 @@ namespace Schnacc.UserInterface.RegisterView
             this.LoginContentFontSize = 12;
         }
 
-        private void Register(object obj)
+        private async void Register(object obj)
         {
-            string plainPassword = (obj as PasswordBox).Password;
-            this.authApi.RegisterWithEmail(this.Email, plainPassword, this.Username);
-            this.ErrorMessage = "Please confirm our email";
-            this.LoginContent = "Login";
-            this.LoginContentFontSize = 20;
+            try
+            {
+                string plainPassword = (obj as PasswordBox).Password;
+                await this.authApi.RegisterWithEmail(this.Email, plainPassword, this.Username);
+                this.ErrorMessage = "Please confirm our email";
+                this.LoginContent = "Login";
+                this.LoginContentFontSize = 20;
+            }
+            catch (Exception e) when (e is IFirebaseHandledException)
+            {
+                this.ErrorMessage = e.Message;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
-        private async void Login(object obj)
+        private void Login(object obj)
         {
             this.NavigationService.NavigateTo(new LoginPageViewModel(this.NavigationService));
         }

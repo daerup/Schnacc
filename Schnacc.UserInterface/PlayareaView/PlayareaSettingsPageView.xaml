@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Schnacc.UserInterface.PlayareaView"
+             xmlns:attachedProperties="clr-namespace:Schnacc.UserInterface.Infrastructure.AttachedProperties"
              d:DataContext="{d:DesignInstance local:PlayareaSettingsPageViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -16,23 +17,106 @@
             <ColumnDefinition Width="5*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="269*"/>
-            <RowDefinition Height="90*"/>
-            <RowDefinition Height="69*"/>
-            <RowDefinition Height="25*"/>
+            <RowDefinition Height="75*"/>
+            <RowDefinition Height="160*"/>
+            <RowDefinition Height="124*"/>
+            <RowDefinition Height="68*"/>
+            <RowDefinition Height="23*"/>
         </Grid.RowDefinitions>
+
+        <Label
+            Content="Customize Playexperience"
+            Style="{StaticResource PressStartFontTitle}"
+            HorizontalContentAlignment="Center"
+            Grid.ColumnSpan="3"
+            Grid.Row="0"
+            Grid.Column="1" 
+            Grid.RowSpan="3"/>
+        <Grid Grid.ColumnSpan="3" Grid.Row="1" Grid.Column="1" Grid.RowSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="0.2*"/>
+                <RowDefinition/>
+                <RowDefinition Height="0.2*"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label
+                Content="Difficulty Level"
+                Grid.Row="4"
+                HorizontalContentAlignment="Center"
+                VerticalAlignment="Top" />
+
+            <Slider
+                Grid.Row="4"
+                Maximum="12"
+                VerticalAlignment="Center" 
+                Value="{Binding DifficultyLevel, Mode=TwoWay}"
+                Width="325"/>
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label 
+                    Grid.Column="0"
+                    Grid.ColumnSpan="3"
+                    Grid.Row="0"
+                    Content="Number of Rows" 
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Stretch"
+                    HorizontalContentAlignment="Center"/>
+                <TextBox
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    attachedProperties:TextBoxHelpers.IsNumeric="True"
+                    VerticalContentAlignment="Center"
+                    Text="{Binding NumberOfRows, Mode=TwoWay ,UpdateSourceTrigger=PropertyChanged}"/>
+            </Grid>
+            
+            <Grid Grid.Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label
+                    Grid.Column="0"
+                    Grid.ColumnSpan="3"
+                    Grid.Row="0"
+                    Content="Number of Columns" 
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Stretch"
+                    HorizontalContentAlignment="Center"/>
+                <TextBox
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    attachedProperties:TextBoxHelpers.IsNumeric="True"
+                    VerticalContentAlignment="Center"
+                    Text="{Binding NumberOfColumns, Mode=TwoWay ,UpdateSourceTrigger=PropertyChanged}"/>
+            </Grid>
+
+        </Grid>
 
         <Button 
             Content="Back"
             Grid.Row="2"
             Grid.Column="1"
-            Command="{Binding GoToMenuView}" Margin="0,0,0,22" Grid.RowSpan="2"/>
+            Command="{Binding GoToMenuView}" Margin="0,124,0,22" Grid.RowSpan="3"/>
 
         <Button 
             Content="Let's go!"
             Grid.Row="2"
             Grid.Column="3"
-            Command="{Binding GoToPlayareaView}" Margin="0,0,0,22" Grid.RowSpan="2"/>
-        <Slider Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Maximum="10" Grid.ColumnSpan="3" Margin="143,0,132,0"/>
+            Command="{Binding GoToPlayareaView}" Margin="0,124,0,22" Grid.RowSpan="3"/>
+
     </Grid>
 </UserControl>

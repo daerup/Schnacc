@@ -51,7 +51,7 @@
             Grid.Row="2"
             Grid.Column="1"
             VerticalContentAlignment="Center"
-            Text="{Binding Username, Mode=TwoWay}"/>
+            Text="{Binding Username, Mode=TwoWay ,UpdateSourceTrigger=PropertyChanged}"/>
         <Label 
             Content="E-Mail" 
             Grid.Column="1" 
@@ -63,7 +63,7 @@
             Grid.Row="5"
             Grid.Column="1"
             VerticalContentAlignment="Center"
-            Text="{Binding Email, Mode=TwoWay}"/>
+            Text="{Binding Email, Mode=TwoWay ,UpdateSourceTrigger=PropertyChanged}"/>
         <Label 
             Content="Password" 
             Grid.Column="1" 
@@ -92,7 +92,7 @@
             Grid.Row="11"
             Grid.Column="1"
             PasswordChar="☻"
-            Tag="{Binding ErrorCheck, Mode=TwoWay}"/>
+            Tag="{Binding ErrorCheck, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         <local:PasswordValidator
             Grid.Row="7"
             Grid.Column="1"
@@ -120,7 +120,7 @@
             <Button
                 Grid.Column="2"
                 Content="Register"
-                IsEnabled="{Binding PasswordMatch}"
+                IsEnabled="{Binding RegisterButtonEnabled}"
                 Command="{Binding RegisterCommand}"        
                 CommandParameter="{Binding ElementName=PasswordBox}" />
         </Grid>

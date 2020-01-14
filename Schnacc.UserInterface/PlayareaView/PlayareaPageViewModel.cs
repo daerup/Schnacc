@@ -33,6 +33,7 @@ namespace Schnacc.UserInterface.PlayareaView
         private int moveCount;
         private Direction lastDirection = Direction.None;
         private DateTime lastDirectionChange;
+        private readonly int difficultyLevel;
         private int slowMotionTicks = 0;
         private bool SlowMotionIsActive =>  !slowMotionTicks.Equals(0);
 
@@ -79,7 +80,7 @@ namespace Schnacc.UserInterface.PlayareaView
             }
         }
 
-        public PlayareaViewModel(INavigationService navigationService, Playarea playarea)
+        public PlayareaViewModel(INavigationService navigationService, Playarea playarea, int difficultyLevel)
         {
             this.NavigationService = navigationService;
             this.database = new Database.Database(this.NavigationService.SessionToken);
@@ -87,11 +88,13 @@ namespace Schnacc.UserInterface.PlayareaView
             this.GoToLoginView = new RelayCommand(this.NavigateToLoginView);
             this.GoToMenuView = new RelayCommand(this.NavigateToMenuView);
             this.playarea = playarea;
+            this.difficultyLevel = difficultyLevel;
             this.gameSpeedInMilliSeconds = this.CalculateGameSpeed();
             this.ItemsOnPlayarea = new ObservableCollection<SolidColorBrush>();
             this.InizializePlayarea();
             this.InizializeTimers();
         }
+
 
         private void NavigateToLoginView()
         {
@@ -199,7 +202,7 @@ namespace Schnacc.UserInterface.PlayareaView
 
         private void CheckForGameOver()
         {
-            if (this.playarea.CurrentGameState == Game.Over && this.HighscoresAreVisible)
+            if (this.playarea.CurrentGameState == Game.Over) //&& this.HighscoresAreVisible)
             {
                 Highscore newHighscore = new Highscore(this.NavigationService.Username, this.Score);
                 //this.database.WriteHighscore(newHighscore);
@@ -208,7 +211,7 @@ namespace Schnacc.UserInterface.PlayareaView
 
         private int CalculateGameSpeed()
         {
-            return 80000 / Math.Max(this.playarea.Size.NumberOfColumns, this.playarea.Size.NumberOfRows) / ((7 + (this.playarea.Snake.Body.Count / 3)) * 3);
+            return 80000 / Math.Max(this.playarea.Size.NumberOfColumns, this.playarea.Size.NumberOfRows) / ((this.difficultyLevel + (this.playarea.Snake.Body.Count / 3)) * 3);
         }
 
         private void ActivateSlowMotion()

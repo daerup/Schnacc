@@ -17,6 +17,11 @@ namespace Schnacc.UserInterface.PlayareaView
         public RelayCommand GoToMenuView { get; set; }
         public RelayCommand GoToPlayareaView { get; set; }
 
+        public int DifficultyLevel { get; set; } = 7;
+
+        public string NumberOfRows { get; set; }
+        public string NumberOfColumns { get; set; }
+
         public PlayareaSettingsPageViewModel(INavigationService navigationService)
         {
             this.NavigationService = navigationService;
@@ -26,15 +31,11 @@ namespace Schnacc.UserInterface.PlayareaView
 
         private void NavigatePlayarea()
         {
-
-            int columns = 8;
-            int rows = 10;
-            PlayareaSize playareaSize = new PlayareaSize(columns, rows);
+            PlayareaSize playareaSize = new PlayareaSize(Convert.ToInt32(this.NumberOfRows), Convert.ToInt32(this.NumberOfColumns));
             FoodFactory foodFactory = new FoodFactory();
-            Position starPosition = new Position(columns / 2, rows / 2);
 
             Playarea playarea = new Playarea(playareaSize, foodFactory);
-            this.NavigationService.NavigateTo(new PlayareaViewModel(this.NavigationService, playarea));
+            this.NavigationService.NavigateTo(new PlayareaViewModel(this.NavigationService, playarea, this.DifficultyLevel));
         }
 
         private void NavigateToMenuView()

@@ -21,10 +21,29 @@ namespace Schnacc.Authorization
             this.authProvider = new FirebaseAuthProvider(new FirebaseConfig(AuthConfig.ApiKey));
         }
 
-        public void RegisterWithEmail(string email, string password, string displayName)
+        public  async Task RegisterWithEmail(string email, string password, string displayName)
         {
-            FirebaseAuthLink userWithEmailAndPasswordAsync = this.authProvider.CreateUserWithEmailAndPasswordAsync(email, password, displayName).Result;
-            this.authProvider.SendEmailVerificationAsync(userWithEmailAndPasswordAsync);
+            try
+            {
+                FirebaseAuthLink userWithEmailAndPasswordAsync = await this.authProvider.CreateUserWithEmailAndPasswordAsync(email, password, displayName);
+                await this.authProvider.SendEmailVerificationAsync(userWithEmailAndPasswordAsync);
+            }
+            catch (FirebaseAuthException e) when (e.Reason == AuthErrorReason.EmailExists)
+            {
+                throw new UserAlreadyRegisteredException($"There is already a user with this email registered, try another one or Login");
+            }
+            catch (FirebaseAuthException e) when (e.Reason == AuthErrorReason.WeakPassword)
+            {
+                throw new PasswordTooWeakException($"Yikes, your password is too weak...");
+            }
+            catch (FirebaseAuthException e) when (e.Reason == AuthErrorReason.InvalidEmailAddress)
+            {
+                throw new InvalidEmailException($"Are you kidding me? '{email}' is not an email...");
+            }
+            catch (System.Exception e)
+            {
+                throw e;
+            }
         }
 
         public async Task<string> SignInWithEmail(string email, string password)
@@ -38,24 +57,38 @@ namespace Schnacc.Authorization
             }
             catch (FirebaseAuthException e) when (e.Reason == AuthErrorReason.UnknownEmailAddress)
             {
-                throw new UserNotRegisterdException($"There is no user in this database with the {email}. Please register first");
+                throw new UserNotRegisteredException($"There is no user in this database with the {email}. Please register first");
             }
             catch (FirebaseAuthException e) when (e.Reason == AuthErrorReason.WrongPassword)
             {
-                throw new WrongLoginCredentials($"Your login credentials are incorrect :/");
+                throw new WrongLoginCredentialsException($"Your login credentials are incorrect...");
             }
             catch (FirebaseAuthException e) when (e.Reason == AuthErrorReason.InvalidEmailAddress)
             {
-                throw new InvalidEmail($"Are you kidding me? '{email}' is not an email...");
+                throw new InvalidEmailException($"Are you kidding me? '{email}' is not an email...");
             }
             catch (FirebaseAuthException e) when (e.Reason == AuthErrorReason.TooManyAttemptsTryLater)
             {
-                throw new TooManyTries($"Chill my dude, you are doing too much. Try again later");
+                throw new TooManyTriesException($"Chill my dude, you are doing too much. Try again later");
             }
             catch (System.Exception e)
             {
                 throw e;
             }
+        }
+    }
+
+    public class PasswordTooWeakException : System.Exception, IFirebaseHandledException
+    {
+        public PasswordTooWeakException(string message) : base(message)
+        {
+        }
+    }
+
+    public class UserAlreadyRegisteredException : System.Exception, IFirebaseHandledException
+    {
+        public UserAlreadyRegisteredException(string message) : base(message)
+        {
         }
     }
 }

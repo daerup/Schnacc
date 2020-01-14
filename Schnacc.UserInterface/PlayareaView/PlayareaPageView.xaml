@@ -4,10 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Schnacc.UserInterface.PlayareaView"
-             xmlns:grid="clr-namespace:Schnacc.UserInterface.Infrastructure.AttachedProperties"
-             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:highscoreView="clr-namespace:Schnacc.UserInterface.HighscoreView"
-             xmlns:commands="clr-namespace:Schnacc.UserInterface.Infrastructure.Commands"
              d:DesignHeight="450" 
              d:DesignWidth="800"
              d:DataContext="{d:DesignInstance local:PlayareaViewModel}"
@@ -15,7 +12,7 @@
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     </UserControl.Resources>
-    <Grid Loaded="GridLoaded" >
+    <Grid Loaded="GridLoaded">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="60*"/>
             <ColumnDefinition Width="20*"/>
@@ -43,14 +40,19 @@
                 Grid.Row="2"
                 Command="{Binding GoToLoginView}" />
         </Grid>
-        <StackPanel Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="1">
-            <Viewbox>
-                <TextBlock Text="{Binding Score, StringFormat={}Your Score: {0}}" Margin="0,0,0,50"/>
+        <Grid Grid.Column="1" Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="100*"/>
+            </Grid.RowDefinitions>
+            <Viewbox Grid.Row="0">
+                <TextBlock Text="{Binding Score, StringFormat={}Score: {0}}"/>
             </Viewbox>
-            <Grid Visibility="{Binding Path=HighscoresAreVisible, Converter={StaticResource BoolToVisibilityConverter}}" ZIndex="10" Grid.RowSpan="4">
-                <highscoreView:HighscoreView  DataContext="{Binding HighscoreViewModel}" />
+            <Grid Visibility="{Binding Path=HighscoresAreVisible, Converter={StaticResource BoolToVisibilityConverter}}" ZIndex="10" Grid.Row="2">
+                <highscoreView:HighscoreView  DataContext="{Binding HighscoreViewModel}" Foreground="Black"/>
             </Grid>
-        </StackPanel>
+        </Grid>
         <Button 
             Content="Main Menu"
             Grid.Row="1"
@@ -64,9 +66,11 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Border BorderThickness="1" BorderBrush="Black">
+                    <Border>
                         <Grid>
-                            <Rectangle Fill="{Binding}" />
+                            <Viewbox Stretch="Uniform">
+                                <Rectangle Fill="{Binding}" Height="100" Width="100"/>
+                            </Viewbox>
                         </Grid>
                     </Border>
                 </DataTemplate>

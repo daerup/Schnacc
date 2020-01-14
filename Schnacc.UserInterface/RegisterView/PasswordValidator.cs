@@ -24,6 +24,18 @@ namespace Schnacc.UserInterface.RegisterView {
 
         private static void Box1Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
+            var pv = (PasswordValidator)d;
+            pv.Box1.PasswordChanged += (obj, evt) =>
+            {
+                if (pv.Box1.Password != pv.Box2.Password)
+                {
+                    pv.Box2.Tag = "wrong";
+                }
+                else
+                {
+                    pv.Box2.Tag = "correct";
+                }
+            };
         }
         private static void Box2Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {

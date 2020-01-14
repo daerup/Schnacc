@@ -23,8 +23,11 @@ namespace Schnacc.UserInterface.LoginView
 
         public string ErrorMessage { get; private set; }
 
+        public bool LoginButtonEnabled { get; private set; }
+
         public LoginPageViewModel(INavigationService navigationService)
         {
+            this.LoginButtonEnabled = true;
             this.NavigationService = navigationService;
             this.ErrorMessage = string.Empty;
             this.LoginCommand = new RelayCommand<object>(this.Login);
@@ -40,10 +43,12 @@ namespace Schnacc.UserInterface.LoginView
 
         private async void Login(object obj)
         {
+            this.LoginButtonEnabled = false;
             string plainPassword = (obj as PasswordBox).Password;
             if (string.IsNullOrEmpty(this.Email) || string.IsNullOrEmpty(plainPassword))
             {
                 this.ErrorMessage = "You have to fill both fields with normal stuff, duh";
+                this.LoginButtonEnabled = true;
                 return;
             }
 

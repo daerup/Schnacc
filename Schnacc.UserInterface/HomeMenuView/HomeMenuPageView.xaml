@@ -31,8 +31,9 @@
             HorizontalAlignment="Stretch" 
             VerticalAlignment="Stretch"
             HorizontalContentAlignment="Center"
+            Grid.ColumnSpan="3"
             Grid.Row="0"
-            Grid.Column="1"/>
+            Grid.Column="0"/>
         <Button 
             Content="Play" 
             HorizontalAlignment="Stretch" 

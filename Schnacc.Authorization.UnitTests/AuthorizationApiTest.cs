@@ -40,7 +40,7 @@ namespace Schnacc.Authorization.UnitTests
             Func<Task> func = async () => { await this.testee.SignInWithEmail(email, password); ; };
 
             // Assert
-            func.Should().Throw<UserNotRegisterdException>();
+            func.Should().Throw<UserNotRegisteredException>();
         }
     }
 }
