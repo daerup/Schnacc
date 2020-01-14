@@ -32,6 +32,7 @@ namespace Schnacc.UserInterface.HighscoreView
         private void UpdateHighscores(FirebaseEvent<Highscore> firebaseEvent)
         {
             this.Highscores = this.db.GetHighscores();
+            this.OnPropertyChanged(nameof(this.Highscores));
         }
 
     }

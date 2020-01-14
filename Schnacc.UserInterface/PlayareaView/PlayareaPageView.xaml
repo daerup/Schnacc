@@ -23,29 +23,16 @@
         <Grid  Grid.Column="1" Grid.RowSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="100*"/>
+                <RowDefinition Height="100*"/>
                 <RowDefinition Height="60*"/>
                 <RowDefinition Height="55*"/>
                 <RowDefinition Height="175*"/>
                 <RowDefinition Height="55*"/>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0" Grid.Column="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="25*"/>
-                    <RowDefinition Height="25*"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="25*"/>
-                    <ColumnDefinition Width="2*"/>
-                </Grid.ColumnDefinitions>
-                <Viewbox  Grid.Row="0" Grid.Column="0" VerticalAlignment="Top">
-                    <TextBlock Text="{Binding Score, StringFormat={}Your Score: {0}}" />
-                </Viewbox>
-                <Viewbox  Grid.Row="1" Grid.Column="0">
-                    <TextBlock Text="Highscores" />
-                </Viewbox>
-            </Grid>
-
-            <Grid  Visibility="{Binding Path=HighscoresAreVisible, Converter={StaticResource BoolToVisibilityConverter}}" ZIndex="10" Grid.RowSpan="4">
+            <Viewbox  Grid.Row="0" Grid.Column="0" VerticalAlignment="Top">
+                <TextBlock Text="{Binding Score, StringFormat={}Your Score: {0}}" />
+            </Viewbox>
+            <Grid  Grid.Row="1" Grid.Column="0" Visibility="{Binding Path=HighscoresAreVisible, Converter={StaticResource BoolToVisibilityConverter}}" ZIndex="10" Grid.RowSpan="4">
                 <highscoreView:HighscoreView  DataContext="{Binding HighscoreViewModel}" />
             </Grid>
             <TextBlock 
@@ -79,12 +66,5 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        <!--<Border BorderThickness="1" BorderBrush="Black">
-        <Grid Name="Grid">
-            <Rectangle Fill="Green" Grid.Column="{Binding HeadPosition.Column}" Grid.Row="{Binding HeadPosition.Row}"/>
-            <Rectangle Fill="Red" Grid.Column="{Binding FoodPosition.Column}" Grid.Row="{Binding FoodPosition.Row}"/>
-        </Grid>
-        </Border>-->
-
     </Grid>
 </UserControl>
