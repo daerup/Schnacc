@@ -220,7 +220,7 @@ namespace Schnacc.UserInterface.PlayareaView
             {
                 int newGameSpeed = (int)(this.CalculateGameSpeed() * 2.5);
                 this.movementTimer?.Change(newGameSpeed, newGameSpeed);
-                this.slowMotionTicks = 5;
+                this.slowMotionTicks = this.difficultyLevel;
                 this.moveCount += 20; 
             }
         }
