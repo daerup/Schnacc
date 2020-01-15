@@ -11,29 +11,46 @@
              mc:Ignorable="d">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-        <CollectionViewSource Source="{Binding ItemsOnPlayarea}" x:Key="ItemsOnPlayareaSource"/>
     </UserControl.Resources>
     <Grid Loaded="GridLoaded">
         <DockPanel Height="Auto" Width="Auto" LastChildFill="True">
             <Grid VerticalAlignment="Center" HorizontalAlignment="Center" DockPanel.Dock="Left">
-                <ItemsControl ItemsSource="{Binding Source={StaticResource ItemsOnPlayareaSource}}">
-                        <ItemsControl.ItemsPanel>
+                <ItemsControl ItemsSource="{Binding ItemsOnPlayarea}">
+                    <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <UniformGrid Rows="{Binding NumberOfRows}" Columns="{Binding NumberOfColumns}"/>
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Border>
-                                    <Grid>
-                                        <Viewbox Stretch="Uniform">
-                                            <Rectangle Fill="{Binding}" Height="100" Width="100" Stroke="Black" StrokeThickness="1"/>
-                                        </Viewbox>
-                                    </Grid>
-                                </Border>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border>
+                                <Grid>
+                                    <Viewbox Stretch="Uniform">
+                                        <Rectangle Fill="{Binding}" Height="100" Width="100" Stroke="Black" StrokeThickness="1"/>
+                                    </Viewbox>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <Grid  Visibility="{Binding Path=GameHasStarted, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <Rectangle Fill="MediumSeaGreen" Opacity="0.5" Name="playarea"/>
+                    <Viewbox StretchDirection="DownOnly">
+                        <TextBlock Foreground="White" FontSize="20">
+                            Press a Arrow Key<LineBreak/><LineBreak/> 
+                            Press Space for Slowmotion<LineBreak/> 
+                        </TextBlock>
+                    </Viewbox>
+                </Grid>
+                <Grid Visibility="{Binding Path=GameIsOver, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <Rectangle Fill="IndianRed" Opacity="0.5"/>
+                    <Viewbox StretchDirection="DownOnly" HorizontalAlignment="Center">
+                        <TextBlock Foreground="White" FontSize="30">
+                            Gameover :(<LineBreak/><LineBreak/> 
+                            Press R to restart
+                        </TextBlock>
+                    </Viewbox>
+                </Grid>
                 </Grid>
             <Grid DockPanel.Dock="Left">
                 <Grid.RowDefinitions>
@@ -59,7 +76,7 @@
                         Grid.Row="2"
                         Command="{Binding GoToLoginView}" />
                 </Grid>
-                <Grid Grid.Column="1" Grid.Row="0">
+                <Grid Grid.Row="0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="15*"/>
                         <RowDefinition Height="1*"/>
