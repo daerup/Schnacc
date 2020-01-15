@@ -6,8 +6,8 @@ namespace Schnacc.UserInterface.Infrastructure.Navigation
 {
     public class NavigationService : INavigationService
     {
-        private IViewModel viewModelToNavigateTo;
         private AuthorizationApi authApi;
+        private IViewModel viewModelToNavigateTo;
 
         public delegate void NavigateHandler(object o, NavigationEventArgs args);
 

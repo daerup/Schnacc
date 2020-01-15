@@ -109,10 +109,12 @@
         <Button 
             Content="Back"
             Grid.Row="2"
+            MaxHeight="50"
             Grid.Column="1"
             Command="{Binding GoToMenuView}" Margin="0,124,0,22" Grid.RowSpan="3"/>
 
         <Button 
+            MaxHeight="50"
             Content="Let's go!"
             Grid.Row="2"
             Grid.Column="3"

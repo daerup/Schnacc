@@ -73,11 +73,13 @@
         </Grid.ColumnDefinitions>
         <Button
             Grid.Column="2"
+            MaxHeight="50"
             Content="Connect"
             IsEnabled="{Binding LoginButtonEnabled}"
             Command="{Binding LoginCommand}"        
             CommandParameter="{Binding ElementName=PasswordBox}" />
         <Button
+            MaxHeight="50"
             Grid.Column="0"
             FontSize="15"
             Command="{Binding RegisterCommand}"        

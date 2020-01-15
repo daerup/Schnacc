@@ -1,4 +1,5 @@
 ﻿using System.CodeDom;
+using Schnacc.Authorization;
 using Schnacc.UserInterface.Infrastructure.Commands;
 using Schnacc.UserInterface.Infrastructure.Navigation;
 using Schnacc.UserInterface.Infrastructure.ViewModels;

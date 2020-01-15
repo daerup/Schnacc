@@ -30,11 +30,12 @@
             Grid.Column="1"/>
         <Grid Grid.Column="1" Grid.Row="1">
             <Grid.RowDefinitions>
+                <RowDefinition Height="90*"/>
+                <RowDefinition Height="50*"/>
                 <RowDefinition Height="20*"/>
-                <RowDefinition Height="80*"/>
+                <RowDefinition Height="50*"/>
                 <RowDefinition Height="20*"/>
-                <RowDefinition Height="80*"/>
-                <RowDefinition Height="20*"/>
+                <RowDefinition Height="70*"/>
                 <RowDefinition Height="100*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -43,24 +44,28 @@
                 <ColumnDefinition Width="100*"/>
             </Grid.ColumnDefinitions>
             <Button 
+                MaxHeight="50"
                 Content="Play" 
                 Grid.Column="1"
                 Grid.Row="1"
-                Command="{Binding GoToPlayareaView}"/>
+                Command="{Binding GoToPlayareaViewCommand}"/>
             <Button 
+                MaxHeight="50"
                 Content="Highscore" 
                 Grid.Column="1"
                 Grid.Row="3"
-                Command="{Binding GoToHighscoreView}"/>
+                Command="{Binding GoToHighscoreViewCommand}"/>
+
+            
             <TextBlock 
-                Text="Warning: You're E-Mail is not verified. You can't upload you're highscore unless your E-Mail is verified" 
+                Text="{Binding MessageContent}" 
                 Style="{StaticResource InputFontContent}" 
                 Foreground="OrangeRed" 
                 TextWrapping="Wrap" 
-                Grid.Row="5" 
+                Grid.Row="6" 
                 Grid.Column="0" 
                 Grid.ColumnSpan="3" 
-                Visibility="{Binding Path=WarningIsVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                Visibility="{Binding Path=MessageIsVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
         </Grid>
     </Grid>
 </UserControl>
