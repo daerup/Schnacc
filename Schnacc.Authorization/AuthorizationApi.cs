@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 
 namespace Schnacc.Authorization
 {
@@ -25,8 +27,7 @@ namespace Schnacc.Authorization
         {
             try
             {
-                FirebaseAuthLink userWithEmailAndPasswordAsync = await this.authProvider.CreateUserWithEmailAndPasswordAsync(email, password, displayName);
-                await this.authProvider.SendEmailVerificationAsync(userWithEmailAndPasswordAsync);
+                FirebaseAuthLink registeredUserAuth = await this.authProvider.CreateUserWithEmailAndPasswordAsync(email, password, displayName, true);
             }
             catch (FirebaseAuthException e) when (e.Reason == AuthErrorReason.EmailExists)
             {
@@ -75,20 +76,6 @@ namespace Schnacc.Authorization
             {
                 throw e;
             }
-        }
-    }
-
-    public class PasswordTooWeakException : System.Exception, IFirebaseHandledException
-    {
-        public PasswordTooWeakException(string message) : base(message)
-        {
-        }
-    }
-
-    public class UserAlreadyRegisteredException : System.Exception, IFirebaseHandledException
-    {
-        public UserAlreadyRegisteredException(string message) : base(message)
-        {
         }
     }
 }

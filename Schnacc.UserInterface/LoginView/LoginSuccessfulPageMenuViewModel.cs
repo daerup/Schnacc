@@ -1,4 +1,5 @@
-﻿using Schnacc.Domain.Food;
+﻿using Schnacc.Authorization;
+using Schnacc.Domain.Food;
 using Schnacc.Domain.Playarea;
 using Schnacc.Domain.Snake;
 using Schnacc.UserInterface.HighscoreView;
@@ -11,25 +12,32 @@ namespace Schnacc.UserInterface.LoginView
 {
     public class LoginSuccessfulPageMenuViewModel : ViewModelBase, INavigatableViewModel
     {
-        public RelayCommand GoToHighscoreView { get; }
+        private bool mailSent = false;
+        public RelayCommand GoToHighscoreViewCommand { get; }
 
-        public RelayCommand GoToPlayareaView { get; }
-
+        public RelayCommand GoToPlayareaViewCommand { get; }
+        
         public LoginSuccessfulPageMenuViewModel(INavigationService navigationService)
         {
             this.NavigationService = navigationService;
-            this.GoToPlayareaView = new RelayCommand(this.NavigateToPlayareaSettings);
-            this.GoToHighscoreView = new RelayCommand(this.NavigateToHighscore);
+            this.GoToPlayareaViewCommand = new RelayCommand(this.NavigateToPlayareaSettings);
+            this.GoToHighscoreViewCommand = new RelayCommand(this.NavigateToHighscore);
         }
 
         private void NavigateToHighscore()
         {
             this.NavigationService.NavigateTo(new HighscorePageViewModel(this.NavigationService));
+            this.mailSent = true;
+            this.MessageContent = "We sent an email to you";
         }
 
         public INavigationService NavigationService { get; set; }
 
-        public bool WarningIsVisible => !this.NavigationService.EmailIsVerified;
+        public bool MessageIsVisible => !string.IsNullOrEmpty(this.MessageContent);
+
+        public string MessageContent =
+            "Warning: You're E-Mail is not verified. You can't upload you're highscore unless your E-Mail is verified";
+
 
         private void NavigateToPlayareaSettings()
         {

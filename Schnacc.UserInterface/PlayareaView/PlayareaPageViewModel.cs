@@ -1,29 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading;
-using System.Windows.Input;
-using System.Windows.Media;
-using Schnacc.Database;
-using Schnacc.Domain.Snake;
-using Schnacc.UserInterface.HighscoreView;
-using Schnacc.UserInterface.HomeMenuView;
-using Schnacc.UserInterface.Infrastructure.Commands;
-using Schnacc.UserInterface.LoginView;
-
-namespace Schnacc.UserInterface.PlayareaView
+﻿namespace Schnacc.UserInterface.PlayareaView
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Linq;
+    using System.Threading;
+    using System.Windows.Input;
+    using System.Windows.Media;
+    using Authorization;
+    using Database;
+    using Domain.Snake;
+    using HighscoreView;
+    using HomeMenuView;
+    using Infrastructure.Commands;
+    using LoginView;
     using System.Windows;
     using Infrastructure.Navigation;
     using Infrastructure.ViewModels;
     using Domain.Playarea;
-    using Infrastructure.Controls;
 
     public class PlayareaViewModel : ViewModelBase, INavigatableViewModel
     {
         private readonly Playarea playarea;
-        private readonly Database.Database database;
+        private readonly Database database;
         private Timer renderTimer;
         private Timer movementTimer;
         private readonly int renderSpeedInMilliSeconds = 50;
@@ -35,11 +34,12 @@ namespace Schnacc.UserInterface.PlayareaView
         private Direction lastDirection = Direction.None;
         private DateTime lastDirectionChange;
         private readonly int difficultyLevel;
-        private int slowMotionTicks = 0;
-        private bool highscoreIsWritten = false;
+        private int slowMotionTicks;
+        private bool highscoreIsWritten;
+        private AuthorizationApi authApi;
 
         private bool isAllowedToWriteHighscore => !this.highscoreIsWritten && this.NavigationService.EmailIsVerified;
-        private bool SlowMotionIsActive =>  !slowMotionTicks.Equals(0);
+        private bool SlowMotionIsActive =>  !this.slowMotionTicks.Equals(0);
 
         private SolidColorBrush SnakeColor => !this.SlowMotionIsActive ? Brushes.MediumSeaGreen : new SolidColorBrush(Color.FromRgb(57, 255, 20));
         private SolidColorBrush FoodColor => !this.SlowMotionIsActive ? Brushes.IndianRed : new SolidColorBrush(Color.FromRgb(250, 3, 251));
@@ -86,7 +86,7 @@ namespace Schnacc.UserInterface.PlayareaView
         public PlayareaViewModel(INavigationService navigationService, Playarea playarea, int difficultyLevel)
         {
             this.NavigationService = navigationService;
-            this.database = new Database.Database(this.NavigationService.SessionToken);
+            this.database = new Database(this.NavigationService.SessionToken);
             this.HighscoreViewModel = new HighscoreViewModel(navigationService, this.database);
             this.GoToLoginView = new RelayCommand(this.NavigateToLoginView);
             this.GoToMenuView = new RelayCommand(this.NavigateToMenuView);
@@ -134,7 +134,6 @@ namespace Schnacc.UserInterface.PlayareaView
 
         private void InizializePlayarea()
         {
-            this.ItemsOnPlayarea.Clear();
             List<SolidColorBrush> playareaColors = new List<SolidColorBrush>();
             for (int i = 0; i < this.NumberOfRows; i++)
             {
@@ -164,7 +163,6 @@ namespace Schnacc.UserInterface.PlayareaView
 
         private void OnGameUpdate(object state)
         {
-            this.CheckForGameState();
             this.playarea.UpdateSnakeDirection(this.Direction);
             this.playarea.MoveSnakeWhenAllowed();
 
@@ -176,6 +174,7 @@ namespace Schnacc.UserInterface.PlayareaView
             {
                 this.movementTimer?.Change(this.CalculateGameSpeed(), this.CalculateGameSpeed());
             }
+            this.CheckForGameState();
         }
 
         private int GetIndexFromPosition(Position p)
@@ -186,11 +185,14 @@ namespace Schnacc.UserInterface.PlayareaView
 
         private void OnRenderUpdate(object state)
         {
+            this.OnPropertyChanged(nameof(this.GameHasStarted));
+            this.OnPropertyChanged(nameof(this.GameIsOver));
+            this.OnPropertyChanged(nameof(this.Score));
             Application.Current?.Dispatcher?.Invoke(delegate
             {
                 this.ClearPlayarea();
-                this.ItemsOnPlayarea[GetIndexFromPosition(this.playarea.Snake.Head.Position)] = this.SnakeColor;
-                this.ItemsOnPlayarea[GetIndexFromPosition(this.playarea.Food.Position)] = this.FoodColor;
+                this.ItemsOnPlayarea[this.GetIndexFromPosition(this.playarea.Snake.Head.Position)] = this.SnakeColor;
+                this.ItemsOnPlayarea[this.GetIndexFromPosition(this.playarea.Food.Position)] = this.FoodColor;
 
                 for (int i = 0; i < this.playarea.Snake.Body.Count; i++)
                 {
@@ -198,23 +200,22 @@ namespace Schnacc.UserInterface.PlayareaView
                     this.ItemsOnPlayarea[index] = this.SnakeColor;
                 }
             });
-            this.OnPropertyChanged(nameof(this.Score));
         }
 
 
         private void CheckForGameState()
         {
-            this.OnPropertyChanged(nameof(this.GameHasStarted));
-            this.OnPropertyChanged(nameof(this.GameIsOver));
-
             if (this.GameIsOver && this.HighscoresAreVisible)
             {
-                if (isAllowedToWriteHighscore)
+                if (this.isAllowedToWriteHighscore)
                 {
                     Highscore newHighscore = new Highscore(this.NavigationService.Username, this.Score);
                     this.database.WriteHighscore(newHighscore);
                     this.highscoreIsWritten = true; 
                 }
+
+                this.movementTimer?.Dispose();
+                this.renderTimer?.Dispose();
             }
         }
 
@@ -248,6 +249,12 @@ namespace Schnacc.UserInterface.PlayareaView
 
         private void Restart()
         {
+            this.movementTimer.Dispose();
+            this.renderTimer.Dispose();
+            this.state = new object();
+            this.Direction = Direction.None;
+            this.directionsBuffer.Clear();
+            this.ItemsOnPlayarea.Clear();
             this.playarea.RestartGame();
             this.InizializePlayarea();
             this.InizializeTimers();

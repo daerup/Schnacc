@@ -26,12 +26,14 @@
             Content="Back"
             Grid.Row="1"
             Grid.Column="1"
+            MaxHeight="50"
             Command="{Binding GoToLoginSuccessfulMenusView}"/>
 
         <Button 
             Content="Play"
             Grid.Row="1"
             Grid.Column="3"
+            MaxHeight="50"
             Command="{Binding GoToPlayareaSettingsView}"/>
 
     </Grid>
