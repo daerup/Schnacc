@@ -1,11 +1,6 @@
-﻿using System.Threading.Tasks;
-
-namespace Schnacc.Database.UnitTests
+﻿namespace Schnacc.Database.UnitTests
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
-
     using FluentAssertions;
 
     using Schnacc.Authorization;

@@ -3,8 +3,6 @@
     using FakeItEasy;
 
     using FluentAssertions;
-
-    using Schnacc.Domain;
     using Schnacc.Domain.Food;
     using Schnacc.Domain.Playarea;
     using Schnacc.Domain.Snake;

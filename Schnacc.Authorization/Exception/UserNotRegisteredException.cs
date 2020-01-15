@@ -1,6 +1,4 @@
-﻿using static System.Exception;
-
-namespace Schnacc.Authorization.Exception
+﻿namespace Schnacc.Authorization.Exception
 {
     using System;
 

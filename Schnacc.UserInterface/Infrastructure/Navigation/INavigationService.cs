@@ -2,7 +2,6 @@
 
 namespace Schnacc.UserInterface.Infrastructure.Navigation
 {
-    using ViewModels;
     public interface INavigationService
     {
         void NavigateTo(INavigatableViewModel viewModel);

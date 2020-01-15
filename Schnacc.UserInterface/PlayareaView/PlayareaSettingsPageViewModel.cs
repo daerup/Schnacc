@@ -1,7 +1,6 @@
 ﻿using System;
 using Schnacc.Domain.Food;
 using Schnacc.Domain.Playarea;
-using Schnacc.Domain.Snake;
 using Schnacc.UserInterface.HomeMenuView;
 using Schnacc.UserInterface.Infrastructure.Commands;
 using Schnacc.UserInterface.Infrastructure.Navigation;

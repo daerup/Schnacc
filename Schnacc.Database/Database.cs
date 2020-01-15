@@ -1,5 +1,4 @@
-﻿using System.Reactive.Linq;
-using Firebase.Database.Streaming;
+﻿using Firebase.Database.Streaming;
 
 namespace Schnacc.Database
 {
@@ -7,8 +6,6 @@ namespace Schnacc.Database
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using System.Transactions;
-
     using Firebase.Database;
     using Firebase.Database.Query;
 

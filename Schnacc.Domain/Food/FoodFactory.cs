@@ -5,7 +5,6 @@
     using System.Linq;
     using System.Reflection;
     using System.Security.Cryptography;
-    using Schnacc.Domain;
     using Schnacc.Domain.Snake;
 
     public class FoodFactory : IFoodFactory

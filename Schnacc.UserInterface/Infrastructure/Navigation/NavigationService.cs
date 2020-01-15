@@ -1,5 +1,4 @@
-﻿using System.Security.Cryptography.Pkcs;
-using Schnacc.Authorization;
+﻿using Schnacc.Authorization;
 using Schnacc.UserInterface.Infrastructure.ViewModels;
 
 namespace Schnacc.UserInterface.Infrastructure.Navigation

@@ -1,10 +1,7 @@
-﻿using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace Schnacc.Authorization
 {
-    using System;
     using Firebase.Auth;
 
     using Exception;

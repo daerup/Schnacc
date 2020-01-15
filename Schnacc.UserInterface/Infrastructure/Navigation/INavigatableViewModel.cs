@@ -1,7 +1,4 @@
-﻿using System;
-using Schnacc.Authorization;
-
-namespace Schnacc.UserInterface.Infrastructure.Navigation
+﻿namespace Schnacc.UserInterface.Infrastructure.Navigation
 {
     using ViewModels;
 
