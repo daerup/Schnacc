@@ -60,6 +60,7 @@ namespace Schnacc.UserInterface.LoginView
             catch (Exception e) when (e is IFirebaseHandledException)
             {
                 this.ErrorMessage = e.Message;
+                this.LoginButtonEnabled = true;
             }
             catch (Exception e)
             {

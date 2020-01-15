@@ -11,70 +11,73 @@
              mc:Ignorable="d">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <CollectionViewSource Source="{Binding ItemsOnPlayarea}" x:Key="ItemsOnPlayareaSource"/>
     </UserControl.Resources>
     <Grid Loaded="GridLoaded">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="60*"/>
-            <ColumnDefinition Width="20*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="100*"/>
-            <RowDefinition Height="20*"/>
-        </Grid.RowDefinitions>
-        <Grid Column="1" Visibility="{Binding Path=ErrorIsVisible, Converter={StaticResource BoolToVisibilityConverter}}">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="30*"/>
-                <RowDefinition Height="20*"/>
-                <RowDefinition Height="20*"/>
-                <RowDefinition Height="60*"/>
-                <RowDefinition Height="20*"/>
-            </Grid.RowDefinitions>
-            <TextBlock 
-                Text="Please Login to view the Highscores" 
-                Style="{StaticResource InputFontContent}" 
-                TextWrapping="Wrap" 
-                LineHeight="10" 
-                Grid.Row="1"/>
-            <Button 
-                Content="Login"
-                Grid.Row="2"
-                Command="{Binding GoToLoginView}" />
-        </Grid>
-        <Grid Grid.Column="1" Grid.Row="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="15*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="100*"/>
-            </Grid.RowDefinitions>
-            <Viewbox Grid.Row="0">
-                <TextBlock Text="{Binding Score, StringFormat={}Score: {0}}"/>
-            </Viewbox>
-            <Grid Visibility="{Binding Path=HighscoresAreVisible, Converter={StaticResource BoolToVisibilityConverter}}" ZIndex="10" Grid.Row="2">
-                <highscoreView:HighscoreView  DataContext="{Binding HighscoreViewModel}" Foreground="Black"/>
+        <DockPanel Height="Auto" Width="Auto" LastChildFill="True">
+            <Grid VerticalAlignment="Center" HorizontalAlignment="Center" DockPanel.Dock="Left">
+                <ItemsControl ItemsSource="{Binding Source={StaticResource ItemsOnPlayareaSource}}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Rows="{Binding NumberOfRows}" Columns="{Binding NumberOfColumns}"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border>
+                                    <Grid>
+                                        <Viewbox Stretch="Uniform">
+                                            <Rectangle Fill="{Binding}" Height="100" Width="100" Stroke="Black" StrokeThickness="1"/>
+                                        </Viewbox>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Grid>
+            <Grid DockPanel.Dock="Left">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100*"/>
+                    <RowDefinition Height="20*"/>
+                </Grid.RowDefinitions>
+                <Grid Column="1" Visibility="{Binding Path=ErrorIsVisible, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30*"/>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="60*"/>
+                        <RowDefinition Height="20*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock 
+                        Text="Please Login to view the Highscores" 
+                        Style="{StaticResource InputFontContent}" 
+                        TextWrapping="Wrap" 
+                        LineHeight="10" 
+                        Grid.Row="1"/>
+                    <Button 
+                        Content="Login"
+                        Grid.Row="2"
+                        Command="{Binding GoToLoginView}" />
+                </Grid>
+                <Grid Grid.Column="1" Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="15*"/>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="100*"/>
+                    </Grid.RowDefinitions>
+                    <Viewbox Grid.Row="0">
+                        <TextBlock Text="{Binding Score, StringFormat={}Score: {0}}"/>
+                    </Viewbox>
+                    <Grid Visibility="{Binding Path=HighscoresAreVisible, Converter={StaticResource BoolToVisibilityConverter}}" ZIndex="10" Grid.Row="2">
+                        <highscoreView:HighscoreView  DataContext="{Binding HighscoreViewModel}" Foreground="Black"/>
+                    </Grid>
+                </Grid>
+                <Button 
+                    Content="Main Menu"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Command="{Binding GoToMenuView}"/>
             </Grid>
-        </Grid>
-        <Button 
-            Content="Main Menu"
-            Grid.Row="1"
-            Grid.Column="1"
-            Command="{Binding GoToMenuView}"/>
-        <ItemsControl ItemsSource="{Binding ItemsOnPlayarea}" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <UniformGrid Rows="{Binding NumberOfRows}" Columns="{Binding NumberOfColumns}"/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Border>
-                        <Grid>
-                            <Viewbox Stretch="Uniform">
-                                <Rectangle Fill="{Binding}" Height="100" Width="100"/>
-                            </Viewbox>
-                        </Grid>
-                    </Border>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        </DockPanel>
     </Grid>
 </UserControl>

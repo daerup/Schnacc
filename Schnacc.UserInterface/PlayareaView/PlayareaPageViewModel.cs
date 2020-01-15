@@ -90,7 +90,6 @@ namespace Schnacc.UserInterface.PlayareaView
             this.playarea = playarea;
             this.difficultyLevel = difficultyLevel;
             this.gameSpeedInMilliSeconds = this.CalculateGameSpeed();
-            this.ItemsOnPlayarea = new ObservableCollection<SolidColorBrush>();
             this.InizializePlayarea();
             this.InizializeTimers();
         }
@@ -111,7 +110,7 @@ namespace Schnacc.UserInterface.PlayareaView
 
         public bool GameIsOver => this.playarea.CurrentGameState.Equals(Game.Over);
         public bool GameHasStarted => this.playarea.CurrentGameState.Equals(Game.Start);
-        public ObservableCollection<SolidColorBrush> ItemsOnPlayarea { get; private set; }
+        public List<SolidColorBrush> ItemsOnPlayarea { get; private set; }
         public HighscoreViewModel HighscoreViewModel { get; }
         public RelayCommand GoToLoginView { get; }
         public RelayCommand GoToMenuView { get; }
@@ -141,17 +140,17 @@ namespace Schnacc.UserInterface.PlayareaView
             {
                 for (int j = 0; j < this.NumberOfColumns; j++)
                 {
-                    this.ItemsOnPlayarea.Add(Brushes.White);
+                    this.ItemsOnPlayarea.Add(this.PlayareaColor);
                 }
             }
+
+            this.OnPropertyChanged(nameof(this.ItemsOnPlayarea));
         }
 
         private void ClearPlayarea()
         {
-            for (var i = 0; i < this.ItemsOnPlayarea.Count; i++)
-            {
-                this.ItemsOnPlayarea[i] = this.PlayareaColor;
-            }
+            ItemsOnPlayarea.Where(iop => iop != this.PlayareaColor).ToList().ForEach(iop => iop = this.PlayareaColor);
+            this.OnPropertyChanged(nameof(this.ItemsOnPlayarea));
         }
 
         private void InizializeTimers()
@@ -197,6 +196,7 @@ namespace Schnacc.UserInterface.PlayareaView
                 }
             });
             this.OnPropertyChanged(nameof(this.Score));
+            this.OnPropertyChanged(nameof(this.ItemsOnPlayarea));
         }
 
 
@@ -204,7 +204,7 @@ namespace Schnacc.UserInterface.PlayareaView
         {
             if (this.playarea.CurrentGameState == Game.Over) //&& this.HighscoresAreVisible)
             {
-                Highscore newHighscore = new Highscore(this.NavigationService.Username, this.Score);
+                //Highscore newHighscore = new Highscore(this.NavigationService.Username, this.Score);
                 //this.database.WriteHighscore(newHighscore);
             }
         }
@@ -220,7 +220,7 @@ namespace Schnacc.UserInterface.PlayareaView
             {
                 int newGameSpeed = (int)(this.CalculateGameSpeed() * 2.5);
                 this.movementTimer?.Change(newGameSpeed, newGameSpeed);
-                this.slowMotionTicks = this.difficultyLevel;
+                this.slowMotionTicks = this.difficultyLevel / 2;
                 this.moveCount += 20; 
             }
         }
