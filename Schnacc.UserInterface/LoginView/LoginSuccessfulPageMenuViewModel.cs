@@ -35,7 +35,7 @@ namespace Schnacc.UserInterface.LoginView
 
         public bool MessageIsVisible => !string.IsNullOrEmpty(this.MessageContent);
 
-        public string MessageContent =
+        public string MessageContent { get; private set; } =
             "Warning: You're E-Mail is not verified. You can't upload you're highscore unless your E-Mail is verified";
 
 

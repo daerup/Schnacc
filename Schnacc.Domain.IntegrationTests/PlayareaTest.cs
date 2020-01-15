@@ -16,15 +16,21 @@
     {
         private Playarea testee;
 
+        [Background]
+        public void SetUp()
+        {
+            this.testee = null;
+        }
+
         [Scenario]
-        public void WhenTheSnakeCollidesInFruitItGrows()
+        private void WhenTheSnakeCollidesInFruitItGrows()
         {
             IFoodFactory foodFactory = null;
 
             "Given a food factory"
                 .x(() => foodFactory = A.Fake<IFoodFactory>());
             "And given the food will pops up in front of snake head"
-                .x(() => A.CallTo(() => foodFactory.CreateRandomFoodBetweenBoundaries(A<Position>.Ignored)).Returns(new Apple(new Position(5, 4))));
+                .x(() => A.CallTo(() => foodFactory.CreateRandomFoodBetweenBoundaries(A<Position>.Ignored)).Returns(new Apple(new Position(5, 4))).Once());
             "And given a play area with boundaries 10 and 5"
                 .x(() => this.testee = new Playarea(new PlayareaSize(10, 5), foodFactory));
             "And given the snake at position row 5 and column 2"
@@ -33,7 +39,7 @@
                 .x(() => this.testee.Food.Position.Should().BeEquivalentTo(new Position(5, 4)));
             "And the snake is facing right wards"
                 .x(() => this.testee.UpdateSnakeDirection(Direction.Right));
-            
+
             "When the snake moves into an empty place"
                 .x(() => this.testee.MoveSnakeWhenAllowed());
             "Then the snake has moved"
@@ -142,7 +148,7 @@
         }
 
         [Scenario]
-        public void GameIsOverWhenSnakeCollidesWithRightWall()
+        private void GameIsOverWhenSnakeCollidesWithRightWall()
         {
             IFoodFactory foodFactory = null;
 
@@ -178,7 +184,7 @@
         }
 
         [Scenario]
-        public void GameIsOverWhenSnakeCollidesWithLeftWall()
+        private void GameIsOverWhenSnakeCollidesWithLeftWall()
         {
             IFoodFactory foodFactory = null;
 
@@ -214,7 +220,7 @@
         }
 
         [Scenario]
-        public void GameIsOverWhenSnakeCollidesWithTopWall()
+        private void GameIsOverWhenSnakeCollidesWithTopWall()
         {
             IFoodFactory foodFactory = null;
 
@@ -250,7 +256,7 @@
         }
 
         [Scenario]
-        public void GameIsOverWhenSnakeCollidesWithBottomWall()
+        private void GameIsOverWhenSnakeCollidesWithBottomWall()
         {
             IFoodFactory foodFactory = null;
             "Given a food factory"
@@ -285,7 +291,7 @@
         }
 
         [Scenario]
-        public void GameIsOverWhenSnakeCollidesWithItself()
+        private void GameIsOverWhenSnakeCollidesWithItself()
         {
             IFoodFactory foodFactory = null;
             "Given a food factory"
