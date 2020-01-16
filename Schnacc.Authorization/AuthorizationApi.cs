@@ -38,6 +38,10 @@ namespace Schnacc.Authorization
             {
                 throw new InvalidEmailException($"Are you kidding me? '{email}' is not an email...");
             }
+            catch (FirebaseAuthException e) when (e.Reason == AuthErrorReason.Undefined)
+            {
+                throw new UndifinedException($"Looks like there was an Error. Probably your Internet Connection");
+            }
             catch (System.Exception e)
             {
                 throw e;
@@ -68,6 +72,10 @@ namespace Schnacc.Authorization
             catch (FirebaseAuthException e) when (e.Reason == AuthErrorReason.TooManyAttemptsTryLater)
             {
                 throw new TooManyTriesException($"Chill my dude, you are doing too much. Try again later");
+            }
+            catch (FirebaseAuthException e) when (e.Reason == AuthErrorReason.Undefined)
+            {
+                throw new UndifinedException($"Looks like there was an Error. Probably your Internet Connection");
             }
             catch (System.Exception e)
             {

@@ -16,7 +16,7 @@ namespace Schnacc.UserInterface.PlayareaView
         public RelayCommand GoToMenuView { get; set; }
         public RelayCommand GoToPlayareaView { get; set; }
 
-        public int DifficultyLevel { get; set; } = 7;
+        public int DifficultyLevel { get; set; } = 9;
 
         public string NumberOfRows { get; set; } = "10";
         public string NumberOfColumns { get; set; } = "10";

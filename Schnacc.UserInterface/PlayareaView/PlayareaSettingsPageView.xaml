@@ -48,7 +48,8 @@
 
             <Slider
                 Grid.Row="4"
-                Maximum="14"
+                Minimum="2"
+                Maximum="16"
                 VerticalAlignment="Center" 
                 Value="{Binding DifficultyLevel, Mode=TwoWay}"
                 Width="325"/>

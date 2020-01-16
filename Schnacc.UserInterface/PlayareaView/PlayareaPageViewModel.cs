@@ -43,7 +43,7 @@
 
         private SolidColorBrush SnakeColor => !this.SlowMotionIsActive ? Brushes.MediumSeaGreen : new SolidColorBrush(Color.FromRgb(57, 255, 20));
         private SolidColorBrush FoodColor => !this.SlowMotionIsActive ? Brushes.IndianRed : new SolidColorBrush(Color.FromRgb(250, 3, 251));
-        private SolidColorBrush PlayareaColor => /*Brushes.White;//!this.slowMotionIsActive ? new SolidColorBrush(Color.FromRgb(221,221,221)) :*/ new SolidColorBrush(Color.FromRgb(100, 100, 100));
+        private SolidColorBrush PlayareaColor => new SolidColorBrush(Color.FromRgb(100, 100, 100));
 
 
         private Direction Direction
@@ -122,13 +122,21 @@
         {
             switch (args.Key)
             {
-                case Key.Right: this.Direction = Direction.Right; break;
-                case Key.Left: this.Direction = Direction.Left; break;
-                case Key.Up: this.Direction = Direction.Up; break;
-                case Key.Down: this.Direction = Direction.Down; break;
+                case Key.Right: this.SetDirectionTo(Direction.Right); break;
+                case Key.Left: this.SetDirectionTo(Direction.Left); break;
+                case Key.Up: this.SetDirectionTo(Direction.Up); break;
+                case Key.Down: this.SetDirectionTo(Direction.Down); break;
                 case Key.Space: this.ActivateSlowMotion(); break;
                 case Key.R: this.Restart(); break;
                 default: return;
+            }
+        }
+
+        private void SetDirectionTo(Direction newDirection)
+        {
+            if (!this.GameIsOver)
+            {
+                this.Direction = newDirection; 
             }
         }
 

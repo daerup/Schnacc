@@ -93,8 +93,8 @@
                 <Button 
                     MaxHeight="50"
                     Content="Main Menu"
+                    VerticalAlignment="Bottom"
                     Grid.Row="1"
-                    Grid.Column="1"
                     Command="{Binding GoToMenuView}"/>
             </Grid>
         </DockPanel>
