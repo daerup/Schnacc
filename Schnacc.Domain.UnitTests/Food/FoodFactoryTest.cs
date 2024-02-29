@@ -1,17 +1,13 @@
-﻿namespace Schnacc.Domain.UnitTests.Food
+﻿using System;
+using FluentAssertions;
+using FsCheck;
+using FsCheck.Xunit;
+using Schnacc.Domain.Food;
+using Schnacc.Domain.Snake;
+using Xunit;
+
+namespace Schnacc.Domain.UnitTests.Food
 {
-    using System;
-
-    using FluentAssertions;
-
-    using FsCheck;
-    using FsCheck.Xunit;
-
-    using Schnacc.Domain.Food;
-    using Schnacc.Domain.Snake;
-
-    using Xunit;
-
     public class FoodFactoryTest
     {
         private FoodFactory testee;

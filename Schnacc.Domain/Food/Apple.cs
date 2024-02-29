@@ -1,7 +1,7 @@
-﻿namespace Schnacc.Domain.Food
-{
-    using Schnacc.Domain.Snake;
+﻿using Schnacc.Domain.Snake;
 
+namespace Schnacc.Domain.Food
+{
     public class Apple : Food
     {
         public Apple(Position position) : base(position)

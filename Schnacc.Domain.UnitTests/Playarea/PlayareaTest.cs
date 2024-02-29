@@ -1,17 +1,15 @@
-﻿namespace Schnacc.Domain.UnitTests.Playarea
+﻿using FakeItEasy;
+using FluentAssertions;
+using Schnacc.Domain.Food;
+using Schnacc.Domain.Playarea;
+using Schnacc.Domain.Snake;
+using Xunit;
+
+namespace Schnacc.Domain.UnitTests.Playarea
 {
-    using FakeItEasy;
-
-    using FluentAssertions;
-    using Schnacc.Domain.Food;
-    using Schnacc.Domain.Playarea;
-    using Schnacc.Domain.Snake;
-
-    using Xunit;
-
     public class PlayareaTest
     {
-        private Playarea testee;
+        private Domain.Playarea.Playarea testee;
 
         [Theory]
         [InlineData(0, 0)]
@@ -25,7 +23,7 @@
             FoodFactory factory = A.Dummy<FoodFactory>();
 
             // Act
-            this.testee = new Playarea(size, factory);
+            this.testee = new Domain.Playarea.Playarea(size, factory);
 
             // Assert
             this.testee.Size.Should().BeEquivalentTo(new PlayareaSize(4, 4));
@@ -35,7 +33,7 @@
         private void NewlyCreatedPlaygroundShouldHaveStartGamestate()
         {
             // Act
-            this.testee = new Playarea(new PlayareaSize(10, 10), A.Dummy<IFoodFactory>());
+            this.testee = new Domain.Playarea.Playarea(new PlayareaSize(10, 10), A.Dummy<IFoodFactory>());
 
             // Assert
             this.testee.CurrentGameState.Should().Be(Game.Start);
@@ -49,7 +47,7 @@
         private void WhenDirectionOfSnakeSetPlaygroundShouldHaveRunningGamestate(Direction newFacingDirection)
         {
             // Arrange
-            this.testee = new Playarea(new PlayareaSize(10, 10), A.Dummy<IFoodFactory>());
+            this.testee = new Domain.Playarea.Playarea(new PlayareaSize(10, 10), A.Dummy<IFoodFactory>());
 
             // Act
             this.testee.UpdateSnakeDirection(newFacingDirection);
@@ -64,7 +62,7 @@
             // Arrange
             PlayareaSize size = new PlayareaSize(10, 10);
             IFoodFactory foodFactory = A.Dummy<IFoodFactory>();
-            this.testee = new Playarea(size, foodFactory);
+            this.testee = new Domain.Playarea.Playarea(size, foodFactory);
             Position previousHeadPosition = this.testee.Snake.Head.Position;
 
             // Act

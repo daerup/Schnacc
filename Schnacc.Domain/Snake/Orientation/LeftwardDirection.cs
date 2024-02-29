@@ -1,7 +1,7 @@
-﻿namespace Schnacc.Domain.Snake.Orientation
-{
-    using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
+namespace Schnacc.Domain.Snake.Orientation
+{
     public class LeftwardDirection : DirectionState
     {
         public LeftwardDirection(DirectionState state)

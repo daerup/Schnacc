@@ -1,10 +1,9 @@
-﻿using Schnacc.UserInterface.Infrastructure.Navigation;
+﻿using Schnacc.UserInterface.HomeMenuView;
+using Schnacc.UserInterface.Infrastructure.Navigation;
+using Schnacc.UserInterface.Infrastructure.ViewModels;
 
 namespace Schnacc.UserInterface
 {
-    using HomeMenuView;
-    using Infrastructure.ViewModels;
-    
     public class MainWindowViewModel : ViewModelBase
     {
         private readonly NavigationService navigationService;

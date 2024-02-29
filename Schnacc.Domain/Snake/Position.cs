@@ -18,9 +18,6 @@
 
         public int Column { get; }
 
-        public bool Equals(Position other)
-        {
-            return this.Row == other.Row && this.Column == other.Column;
-        }
+        public bool Equals(Position other) => this.Row == other.Row && this.Column == other.Column;
     }
 }

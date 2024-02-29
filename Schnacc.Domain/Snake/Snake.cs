@@ -1,9 +1,9 @@
-﻿namespace Schnacc.Domain.Snake
-{
-    using System.Collections.Generic;
-    using System.Linq;
-    using Orientation;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Schnacc.Domain.Snake.Orientation;
 
+namespace Schnacc.Domain.Snake
+{
     public class Snake : ISnake
     {
         private Position startPosition;

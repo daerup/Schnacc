@@ -56,5 +56,5 @@ namespace Schnacc.UserInterface.HomeMenuView
         {
             this.NavigationService.NavigateTo(new PlayareaSettingsPageViewModel(this.NavigationService));
         }
-    };
+    }
 }

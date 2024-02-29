@@ -1,12 +1,10 @@
-﻿namespace Schnacc.Database.UnitTests
+﻿using System.Collections.Generic;
+using FluentAssertions;
+using Schnacc.Authorization;
+using Xunit;
+
+namespace Schnacc.Database.UnitTests
 {
-    using System.Collections.Generic;
-    using FluentAssertions;
-
-    using Schnacc.Authorization;
-
-    using Xunit;
-
     public class DatabaseTest
     {
         private Database testee;

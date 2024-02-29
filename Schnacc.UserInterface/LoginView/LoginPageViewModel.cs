@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Windows.Controls;
+using Schnacc.Authorization;
+using Schnacc.Authorization.Exception;
 using Schnacc.UserInterface.Infrastructure.Commands;
 using Schnacc.UserInterface.Infrastructure.Navigation;
 using Schnacc.UserInterface.Infrastructure.ViewModels;
-using Schnacc.Authorization;
-using Schnacc.Authorization.Exception;
 using Schnacc.UserInterface.RegisterView;
 
 namespace Schnacc.UserInterface.LoginView

@@ -1,9 +1,9 @@
-﻿namespace Schnacc.Domain.Snake.Orientation
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
+namespace Schnacc.Domain.Snake.Orientation
+{
     public abstract class DirectionState : IDirectionState
     {
         private readonly Dictionary<Direction, Type> directionToTypeMapper = new Dictionary<Direction, Type>
@@ -61,14 +61,8 @@
             }
         }
 
-        private bool NewDirectionIsValid(Direction newDirection)
-        {
-            return this.ValidNewDirections.Contains(newDirection);
-        }
+        private bool NewDirectionIsValid(Direction newDirection) => this.ValidNewDirections.Contains(newDirection);
 
-        private DirectionState GetNewOrientationState(Direction newDirection, DirectionState caller)
-        {
-            return (DirectionState)Activator.CreateInstance(this.directionToTypeMapper[newDirection], caller);
-        }
+        private DirectionState GetNewOrientationState(Direction newDirection, DirectionState caller) => (DirectionState)Activator.CreateInstance(this.directionToTypeMapper[newDirection], caller);
     }
 }

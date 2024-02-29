@@ -1,14 +1,14 @@
 ﻿using System;
+using System.Windows.Controls;
+using Schnacc.Authorization;
 using Schnacc.Authorization.Exception;
+using Schnacc.UserInterface.Infrastructure.Commands;
+using Schnacc.UserInterface.Infrastructure.Navigation;
+using Schnacc.UserInterface.Infrastructure.ViewModels;
+using Schnacc.UserInterface.LoginView;
 
 namespace Schnacc.UserInterface.RegisterView
 {
-    using System.Windows.Controls;
-    using Authorization;
-    using Infrastructure.Commands;
-    using Infrastructure.Navigation;
-    using Infrastructure.ViewModels;
-    using LoginView;
     public class RegisterPageViewModel : ViewModelBase, INavigatableViewModel
     {
         private AuthorizationApi authApi;

@@ -12,15 +12,21 @@ namespace Schnacc.UserInterface.Infrastructure.Commands
         private EventInfo oldEvent;
 
         // Event
-        public string Event { get { return (string)this.GetValue(EventProperty); } set { this.SetValue(EventProperty, value); } }
+        public string Event { get => (string)this.GetValue(EventProperty);
+            set => this.SetValue(EventProperty, value);
+        }
         public static readonly DependencyProperty EventProperty = DependencyProperty.Register("Event", typeof(string), typeof(EventToCommandBehavior), new PropertyMetadata(null, OnEventChanged));
 
         // Command
-        public ICommand Command { get { return (ICommand)this.GetValue(CommandProperty); } set { this.SetValue(CommandProperty, value); } }
+        public ICommand Command { get => (ICommand)this.GetValue(CommandProperty);
+            set => this.SetValue(CommandProperty, value);
+        }
         public static readonly DependencyProperty CommandProperty = DependencyProperty.Register("Command", typeof(ICommand), typeof(EventToCommandBehavior), new PropertyMetadata(null));
 
         // PassArguments (default: false)
-        public bool PassArguments { get { return (bool)this.GetValue(PassArgumentsProperty); } set { this.SetValue(PassArgumentsProperty, value); } }
+        public bool PassArguments { get => (bool)this.GetValue(PassArgumentsProperty);
+            set => this.SetValue(PassArgumentsProperty, value);
+        }
         public static readonly DependencyProperty PassArgumentsProperty = DependencyProperty.Register("PassArguments", typeof(bool), typeof(EventToCommandBehavior), new PropertyMetadata(false));
 
 

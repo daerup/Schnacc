@@ -1,16 +1,13 @@
-﻿namespace Schnacc.Domain.UnitTests.Snake
+﻿using System.Linq;
+using FluentAssertions;
+using Schnacc.Domain.Snake;
+using Xunit;
+
+namespace Schnacc.Domain.UnitTests.Snake
 {
-    using System.Linq;
-
-    using FluentAssertions;
-
-    using Schnacc.Domain.Snake;
-
-    using Xunit;
-
     public class SnakeTest
     {
-        private readonly Snake testee = new Snake(new Position(0, 0));
+        private readonly Domain.Snake.Snake testee = new Domain.Snake.Snake(new Position(0, 0));
 
         [Fact]
         private void ForwardsFacingSnakeShouldMoveFarwards()

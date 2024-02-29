@@ -2,10 +2,7 @@
 {
     public class SnakeHead
     {
-        public SnakeHead(Position position)
-        {
-            this.Position = position;
-        }
+        public SnakeHead(Position position) => this.Position = position;
 
         public Position Position { get; set; }
     }

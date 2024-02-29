@@ -1,8 +1,6 @@
 ﻿namespace Schnacc.Authorization.Exception
 {
-    using System;
-
-    public class UserNotRegisteredException : Exception, IFirebaseHandledException
+    public class UserNotRegisteredException : System.Exception, IFirebaseHandledException
     {
         internal UserNotRegisteredException(string message) : base(message)
         {

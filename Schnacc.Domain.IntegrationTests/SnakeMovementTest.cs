@@ -1,20 +1,20 @@
-﻿namespace Schnacc.Domain.IntegrationTests
-{
-    using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
-    using FluentAssertions;
-    using Snake;
-    using Xbehave;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using FluentAssertions;
+using Schnacc.Domain.Snake;
+using Xbehave;
 
+namespace Schnacc.Domain.IntegrationTests
+{
     [SuppressMessage("ReSharper", "TooManyDeclarations")]
     public class SnakeMovementTest
     {
-        private Snake testee;
+        private Snake.Snake testee;
 
         private void GivingASnakeWithABodyFacingInACertainDirection(int startRow, int startColumn, Direction certainDirection)
         {
             "Given a snake"
-                .x(() => this.testee = new Snake(new Position(startRow, startColumn)));
+                .x(() => this.testee = new Snake.Snake(new Position(startRow, startColumn)));
             "And the snake is facing right"
                 .x(() => this.testee.UpdateFacingDirection(certainDirection));
             "And the snake has a body containing one body part"

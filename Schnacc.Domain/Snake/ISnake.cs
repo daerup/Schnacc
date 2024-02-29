@@ -1,7 +1,7 @@
-﻿namespace Schnacc.Domain.Snake
-{
-    using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
+namespace Schnacc.Domain.Snake
+{
     public interface ISnake
     {
         SnakeHead Head { get; }

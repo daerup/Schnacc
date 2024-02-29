@@ -1,15 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
+using FluentAssertions;
+using Schnacc.Authorization.Exception;
+using Xunit;
 
 namespace Schnacc.Authorization.UnitTests
 {
-    using System;
-
-    using FluentAssertions;
-
-    using Schnacc.Authorization.Exception;
-
-    using Xunit;
-
     public class AuthorizationApiTest
     {
         private AuthorizationApi testee = new AuthorizationApi();
@@ -30,7 +26,7 @@ namespace Schnacc.Authorization.UnitTests
         }
 
         [Fact]
-        private async void WhenNotRegisteredUserCanNotSignIn()
+        private void WhenNotRegisteredUserCanNotSignIn()
         {
             // Arrange
             string email = "hans.muster@notRegistered.ch";

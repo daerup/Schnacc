@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Firebase.Database.Streaming;
+using Schnacc.Database;
 using Schnacc.UserInterface.Infrastructure.Navigation;
 using Schnacc.UserInterface.Infrastructure.ViewModels;
-using Schnacc.Database;
 
 namespace Schnacc.UserInterface.HighscoreView
 {
@@ -22,14 +21,14 @@ namespace Schnacc.UserInterface.HighscoreView
 
             this.db = db;
             this.Highscores = this.db.GetHighscores();
-            this.db.GetObservableHighscores().Subscribe(s => this.UpdateHighscores(s)); ;
+            this.db.GetObservableHighscores().Subscribe(s => this.UpdateHighscores());
         }
 
-        public INavigationService NavigationService { get; set; }
+        public INavigationService NavigationService { get; }
 
         public List<Highscore> Highscores { get; private set;}
 
-        private void UpdateHighscores(FirebaseEvent<Highscore> firebaseEvent)
+        private void UpdateHighscores()
         {
             this.Highscores = this.db.GetHighscores();
             this.OnPropertyChanged(nameof(this.Highscores));

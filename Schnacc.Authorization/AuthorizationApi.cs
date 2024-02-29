@@ -1,11 +1,9 @@
 ﻿using System.Threading.Tasks;
+using Firebase.Auth;
+using Schnacc.Authorization.Exception;
 
 namespace Schnacc.Authorization
 {
-    using Firebase.Auth;
-
-    using Exception;
-
     public class AuthorizationApi
     {
         private readonly FirebaseAuthProvider authProvider;
@@ -15,10 +13,7 @@ namespace Schnacc.Authorization
         public bool EmailIsVerified =>
             this.authProvider.GetUserAsync(this.AccessToken).GetAwaiter().GetResult().IsEmailVerified;
 
-        public AuthorizationApi()
-        {
-            this.authProvider = new FirebaseAuthProvider(new FirebaseConfig(AuthConfig.ApiKey));
-        }
+        public AuthorizationApi() => this.authProvider = new FirebaseAuthProvider(new FirebaseConfig(AuthConfig.ApiKey));
 
         public  async Task RegisterWithEmail(string email, string password, string displayName)
         {
@@ -28,11 +23,11 @@ namespace Schnacc.Authorization
             }
             catch (FirebaseAuthException e) when (e.Reason == AuthErrorReason.EmailExists)
             {
-                throw new UserAlreadyRegisteredException($"There is already a user with this email registered, try another one or Login");
+                throw new UserAlreadyRegisteredException("There is already a user with this email registered, try another one or Login");
             }
             catch (FirebaseAuthException e) when (e.Reason == AuthErrorReason.WeakPassword)
             {
-                throw new PasswordTooWeakException($"Yikes, your password is too weak...");
+                throw new PasswordTooWeakException("Yikes, your password is too weak...");
             }
             catch (FirebaseAuthException e) when (e.Reason == AuthErrorReason.InvalidEmailAddress)
             {
@@ -40,7 +35,7 @@ namespace Schnacc.Authorization
             }
             catch (FirebaseAuthException e) when (e.Reason == AuthErrorReason.Undefined)
             {
-                throw new UndifinedException($"Looks like there was an Error. Probably your Internet Connection");
+                throw new UndifinedException("Looks like there was an Error. Probably your Internet Connection");
             }
             catch (System.Exception e)
             {
@@ -63,7 +58,7 @@ namespace Schnacc.Authorization
             }
             catch (FirebaseAuthException e) when (e.Reason == AuthErrorReason.WrongPassword)
             {
-                throw new WrongLoginCredentialsException($"Your login credentials are incorrect...");
+                throw new WrongLoginCredentialsException("Your login credentials are incorrect...");
             }
             catch (FirebaseAuthException e) when (e.Reason == AuthErrorReason.InvalidEmailAddress)
             {
@@ -71,11 +66,11 @@ namespace Schnacc.Authorization
             }
             catch (FirebaseAuthException e) when (e.Reason == AuthErrorReason.TooManyAttemptsTryLater)
             {
-                throw new TooManyTriesException($"Chill my dude, you are doing too much. Try again later");
+                throw new TooManyTriesException("Chill my dude, you are doing too much. Try again later");
             }
             catch (FirebaseAuthException e) when (e.Reason == AuthErrorReason.Undefined)
             {
-                throw new UndifinedException($"Looks like there was an Error. Probably your Internet Connection");
+                throw new UndifinedException("Looks like there was an Error. Probably your Internet Connection");
             }
             catch (System.Exception e)
             {

@@ -1,28 +1,28 @@
-﻿namespace Schnacc.UserInterface.PlayareaView
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.Linq;
-    using System.Threading;
-    using System.Windows.Input;
-    using System.Windows.Media;
-    using Authorization;
-    using Database;
-    using Domain.Snake;
-    using HighscoreView;
-    using HomeMenuView;
-    using Infrastructure.Commands;
-    using LoginView;
-    using System.Windows;
-    using Infrastructure.Navigation;
-    using Infrastructure.ViewModels;
-    using Domain.Playarea;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading;
+using System.Windows;
+using System.Windows.Input;
+using System.Windows.Media;
+using Schnacc.Authorization;
+using Schnacc.Database;
+using Schnacc.Domain.Playarea;
+using Schnacc.Domain.Snake;
+using Schnacc.UserInterface.HighscoreView;
+using Schnacc.UserInterface.HomeMenuView;
+using Schnacc.UserInterface.Infrastructure.Commands;
+using Schnacc.UserInterface.Infrastructure.Navigation;
+using Schnacc.UserInterface.Infrastructure.ViewModels;
+using Schnacc.UserInterface.LoginView;
 
+namespace Schnacc.UserInterface.PlayareaView
+{
     public class PlayareaViewModel : ViewModelBase, INavigatableViewModel
     {
         private readonly Playarea playarea;
-        private readonly Database database;
+        private readonly Database.Database database;
         private Timer renderTimer;
         private Timer movementTimer;
         private readonly int renderSpeedInMilliSeconds = 50;
@@ -38,7 +38,7 @@
         private bool highscoreIsWritten;
         private AuthorizationApi authApi;
 
-        private bool isAllowedToWriteHighscore => !this.highscoreIsWritten && this.NavigationService.EmailIsVerified;
+        private bool IsAllowedToWriteHighscore => !this.highscoreIsWritten && this.NavigationService.EmailIsVerified;
         private bool SlowMotionIsActive =>  !this.slowMotionTicks.Equals(0);
 
         private SolidColorBrush SnakeColor => !this.SlowMotionIsActive ? Brushes.MediumSeaGreen : new SolidColorBrush(Color.FromRgb(57, 255, 20));
@@ -86,7 +86,7 @@
         public PlayareaViewModel(INavigationService navigationService, Playarea playarea, int difficultyLevel)
         {
             this.NavigationService = navigationService;
-            this.database = new Database(this.NavigationService.SessionToken);
+            this.database = new Database.Database(this.NavigationService.SessionToken);
             this.HighscoreViewModel = new HighscoreViewModel(navigationService, this.database);
             this.GoToLoginView = new RelayCommand(this.NavigateToLoginView);
             this.GoToMenuView = new RelayCommand(this.NavigateToMenuView);
@@ -215,7 +215,7 @@
         {
             if (this.GameIsOver && this.HighscoresAreVisible)
             {
-                if (this.isAllowedToWriteHighscore)
+                if (this.IsAllowedToWriteHighscore)
                 {
                     Highscore newHighscore = new Highscore(this.NavigationService.Username, this.Score);
                     this.database.WriteHighscore(newHighscore);
@@ -227,10 +227,7 @@
             }
         }
 
-        private int CalculateGameSpeed()
-        {
-            return 80000 / Math.Max(this.playarea.Size.NumberOfColumns, this.playarea.Size.NumberOfRows) / ((this.difficultyLevel + (this.playarea.Snake.Body.Count / 3)) * 3);
-        }
+        private int CalculateGameSpeed() => 80000 / Math.Max(this.playarea.Size.NumberOfColumns, this.playarea.Size.NumberOfRows) / ((this.difficultyLevel + (this.playarea.Snake.Body.Count / 3)) * 3);
 
         private void ActivateSlowMotion()
         {

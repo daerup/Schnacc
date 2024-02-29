@@ -1,26 +1,24 @@
-﻿namespace Schnacc.Domain.Playarea
+﻿using System.Collections.Generic;
+using System.Linq;
+using Schnacc.Domain.Food;
+using Schnacc.Domain.Snake;
+
+namespace Schnacc.Domain.Playarea
 {
-    using System.Collections.Generic;
-    using System.Linq;
-
-    using Food;
-
-    using Snake;
-
     public class Playarea
     {
         public readonly PlayareaSize Size;
 
         private readonly IFoodFactory factory;
 
-        private readonly Snake snake;
+        private readonly Snake.Snake snake;
 
         public Playarea(PlayareaSize size, IFoodFactory factory)
         {
             this.Size = this.GetValidFieldSize(size);
             this.factory = factory;
             Position startPosition = new Position(this.Size.NumberOfRows / 2, this.Size.NumberOfColumns / 2);
-            this.snake = new Snake(startPosition);
+            this.snake = new Snake.Snake(startPosition);
             this.Food = this.GetRandomFoodInUniquePosition();
             this.SetGameState();
         }
@@ -84,10 +82,7 @@
             this.CurrentGameState = Game.Running;
         }
 
-        private bool NextPositionIsValid()
-        {
-            return !this.NextPositionCollidesWithSnakeBody() && !this.NextPositionCollidesWithWalls();
-        }
+        private bool NextPositionIsValid() => !this.NextPositionCollidesWithSnakeBody() && !this.NextPositionCollidesWithWalls();
 
         private bool NextPositionCollidesWithSnakeBody()
         {

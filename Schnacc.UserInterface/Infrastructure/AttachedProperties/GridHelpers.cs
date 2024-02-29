@@ -18,10 +18,7 @@ namespace Schnacc.UserInterface.Infrastructure.AttachedProperties
                 new PropertyMetadata(-1, RowCountChanged));
 
         // Get
-        public static int GetRowCount(DependencyObject obj)
-        {
-            return (int)obj.GetValue(RowCountProperty);
-        }
+        public static int GetRowCount(DependencyObject obj) => (int)obj.GetValue(RowCountProperty);
 
         // Set
         public static void SetRowCount(DependencyObject obj, int value)
@@ -41,7 +38,7 @@ namespace Schnacc.UserInterface.Infrastructure.AttachedProperties
 
             for (int i = 0; i < (int)e.NewValue; i++)
                 grid.RowDefinitions.Add(
-                    new RowDefinition() { Height = GridLength.Auto });
+                    new RowDefinition { Height = GridLength.Auto });
 
             SetStarRows(grid);
         }
@@ -60,10 +57,7 @@ namespace Schnacc.UserInterface.Infrastructure.AttachedProperties
                 new PropertyMetadata(-1, ColumnCountChanged));
 
         // Get
-        public static int GetColumnCount(DependencyObject obj)
-        {
-            return (int)obj.GetValue(ColumnCountProperty);
-        }
+        public static int GetColumnCount(DependencyObject obj) => (int)obj.GetValue(ColumnCountProperty);
 
         // Set
         public static void SetColumnCount(DependencyObject obj, int value)
@@ -83,7 +77,7 @@ namespace Schnacc.UserInterface.Infrastructure.AttachedProperties
 
             for (int i = 0; i < (int)e.NewValue; i++)
                 grid.ColumnDefinitions.Add(
-                    new ColumnDefinition() { Width = GridLength.Auto });
+                    new ColumnDefinition { Width = GridLength.Auto });
 
             SetStarColumns(grid);
         }
@@ -102,10 +96,7 @@ namespace Schnacc.UserInterface.Infrastructure.AttachedProperties
                 new PropertyMetadata(string.Empty, StarRowsChanged));
 
         // Get
-        public static string GetStarRows(DependencyObject obj)
-        {
-            return (string)obj.GetValue(StarRowsProperty);
-        }
+        public static string GetStarRows(DependencyObject obj) => (string)obj.GetValue(StarRowsProperty);
 
         // Set
         public static void SetStarRows(DependencyObject obj, string value)
@@ -137,10 +128,7 @@ namespace Schnacc.UserInterface.Infrastructure.AttachedProperties
                 new PropertyMetadata(string.Empty, StarColumnsChanged));
 
         // Get
-        public static string GetStarColumns(DependencyObject obj)
-        {
-            return (string)obj.GetValue(StarColumnsProperty);
-        }
+        public static string GetStarColumns(DependencyObject obj) => (string)obj.GetValue(StarColumnsProperty);
 
         // Set
         public static void SetStarColumns(DependencyObject obj, string value)

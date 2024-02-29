@@ -7,10 +7,7 @@ namespace Schnacc.UserInterface.Infrastructure.AttachedProperties
 {
     public class TextBoxHelpers : UserControl
     {
-        public static bool GetIsNumeric(DependencyObject obj)
-        {
-            return (bool)obj.GetValue(IsNumericProperty);
-        }
+        public static bool GetIsNumeric(DependencyObject obj) => (bool)obj.GetValue(IsNumericProperty);
 
         public static void SetIsNumeric(DependencyObject obj, bool value)
         {
@@ -19,22 +16,22 @@ namespace Schnacc.UserInterface.Infrastructure.AttachedProperties
 
         // Using a DependencyProperty as the backing store for IsNumeric.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty IsNumericProperty =
-            DependencyProperty.RegisterAttached("IsNumeric", typeof(bool), typeof(TextBoxHelpers), new PropertyMetadata(false, new PropertyChangedCallback((s, e) =>
+            DependencyProperty.RegisterAttached("IsNumeric", typeof(bool), typeof(TextBoxHelpers), new PropertyMetadata(false, (s, e) =>
             {
                 TextBox targetTextbox = s as TextBox;
                 if (targetTextbox != null)
                 {
                     if ((bool)e.OldValue && !((bool)e.NewValue))
                     {
-                        targetTextbox.PreviewTextInput -= targetTextbox_PreviewTextInput;
+                        targetTextbox.PreviewTextInput -= TextBoxHelpers.targetTextbox_PreviewTextInput;
                     }
                     if ((bool)e.NewValue)
                     {
-                        targetTextbox.PreviewTextInput += targetTextbox_PreviewTextInput;
-                        targetTextbox.PreviewKeyDown += targetTextbox_PreviewKeyDown;
+                        targetTextbox.PreviewTextInput += TextBoxHelpers.targetTextbox_PreviewTextInput;
+                        targetTextbox.PreviewKeyDown += TextBoxHelpers.targetTextbox_PreviewKeyDown;
                     }
                 }
-            })));
+            }));
 
         static void targetTextbox_PreviewKeyDown(object sender, KeyEventArgs e)
         {
@@ -43,7 +40,7 @@ namespace Schnacc.UserInterface.Infrastructure.AttachedProperties
 
         static void targetTextbox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            Char newChar = e.Text.ToString()[0];
+            Char newChar = e.Text[0];
             e.Handled = !Char.IsNumber(newChar);
             TextBox textBox = sender as TextBox;
             if (!string.IsNullOrEmpty(textBox.Text))

@@ -13,8 +13,8 @@ namespace Schnacc.UserInterface.PlayareaView
     {
         public INavigationService NavigationService { get; set; }
 
-        public RelayCommand GoToMenuView { get; set; }
-        public RelayCommand GoToPlayareaView { get; set; }
+        public RelayCommand GoToMenuView { get; }
+        public RelayCommand GoToPlayareaView { get; }
 
         public int DifficultyLevel { get; set; } = 9;
 

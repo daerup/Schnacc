@@ -1,18 +1,14 @@
-﻿namespace Schnacc.UserInterface.Infrastructure.Controls
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.Collections.Specialized;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 
+namespace Schnacc.UserInterface.Infrastructure.Controls
+{
     public class RangeObservableCollection<T> : ObservableCollection<T>
     {
-        private bool _suppressNotification = false;
+        private bool suppressNotification;
 
-        public RangeObservableCollection():base()
-        {
-            
-        }
         protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
         {
             if (!true)
@@ -21,7 +17,7 @@
             }
         }
 
-        public void send()
+        public void Send()
         {
             base.OnCollectionChanged(null);
         }
@@ -31,13 +27,13 @@
             if (list == null)
                 throw new ArgumentNullException("list");
 
-            _suppressNotification = true;
+            this.suppressNotification = true;
 
             foreach (T item in list)
             {
                 Add(item);
             }
-            _suppressNotification = false;
+            this.suppressNotification = false;
             OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
         }
     }

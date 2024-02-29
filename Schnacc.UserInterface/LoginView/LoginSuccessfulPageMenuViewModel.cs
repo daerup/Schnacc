@@ -8,7 +8,7 @@ namespace Schnacc.UserInterface.LoginView
 {
     public class LoginSuccessfulPageMenuViewModel : ViewModelBase, INavigatableViewModel
     {
-        private bool mailSent = false;
+        private bool mailSent;
         public RelayCommand GoToHighscoreViewCommand { get; }
 
         public RelayCommand GoToPlayareaViewCommand { get; }

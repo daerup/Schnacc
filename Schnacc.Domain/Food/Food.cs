@@ -1,13 +1,10 @@
-﻿namespace Schnacc.Domain.Food
-{
-    using Schnacc.Domain.Snake;
+﻿using Schnacc.Domain.Snake;
 
+namespace Schnacc.Domain.Food
+{
     public abstract class Food : IFood
     {
-        protected Food(Position position)
-        {
-            this.Position = position;
-        }
+        protected Food(Position position) => this.Position = position;
 
         public string Name => this.GetType().Name;
 

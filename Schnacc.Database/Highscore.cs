@@ -1,7 +1,7 @@
-﻿namespace Schnacc.Database
-{
-    using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
+namespace Schnacc.Database
+{
     public class Highscore
     {
         public Highscore()

@@ -1,12 +1,12 @@
-﻿namespace Schnacc.Domain.Food
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Reflection;
-    using System.Security.Cryptography;
-    using Schnacc.Domain.Snake;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Security.Cryptography;
+using Schnacc.Domain.Snake;
 
+namespace Schnacc.Domain.Food
+{
     public class FoodFactory : IFoodFactory
     {
         public Food CreateRandomFoodBetweenBoundaries(Position boundaries)

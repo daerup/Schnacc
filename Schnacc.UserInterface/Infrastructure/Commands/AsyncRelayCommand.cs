@@ -35,15 +35,9 @@ namespace Schnacc.UserInterface.Infrastructure.Commands
             this.canExecute = canExecute;
         }
 
-        public override Task ExecuteAsync()
-        {
-            return this.execute();
-        }
+        public override Task ExecuteAsync() => this.execute();
 
-        public override bool CanExecuteTask()
-        {
-            return this.canExecute();
-        }
+        public override bool CanExecuteTask() => this.canExecute();
     }
 
     /// <summary>Provides an implementation of the <see cref="ICommand"/> interface. </summary>
@@ -75,14 +69,8 @@ namespace Schnacc.UserInterface.Infrastructure.Commands
             this.canExecute = canExecute;
         }
 
-        public override Task ExecuteAsync(TParameter parameter)
-        {
-            return this.execute(parameter);
-        }
+        public override Task ExecuteAsync(TParameter parameter) => this.execute(parameter);
 
-        public override bool CanExecuteTask(TParameter parameter)
-        {
-            return this.canExecute(parameter);
-        }
+        public override bool CanExecuteTask(TParameter parameter) => this.canExecute(parameter);
     }
 }

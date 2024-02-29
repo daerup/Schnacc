@@ -1,14 +1,13 @@
-﻿using Firebase.Database.Streaming;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Firebase.Database;
+using Firebase.Database.Query;
+using Firebase.Database.Streaming;
 
 namespace Schnacc.Database
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
-    using Firebase.Database;
-    using Firebase.Database.Query;
-
     public class Database
     {
         private readonly FirebaseClient firebaseClient;

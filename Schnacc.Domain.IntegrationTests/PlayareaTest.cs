@@ -1,20 +1,16 @@
-﻿namespace Schnacc.Domain.IntegrationTests
+﻿using FakeItEasy;
+using FakeItEasy.Core;
+using FluentAssertions;
+using Schnacc.Domain.Food;
+using Schnacc.Domain.Playarea;
+using Schnacc.Domain.Snake;
+using Xbehave;
+
+namespace Schnacc.Domain.IntegrationTests
 {
-    using FakeItEasy;
-    using FakeItEasy.Core;
-    using FluentAssertions;
-
-    using Food;
-
-    using Playarea;
-
-    using Snake;
-
-    using Xbehave;
-
     public class PlayareaTest
     {
-        private Playarea testee;
+        private Playarea.Playarea testee;
 
         [Background]
         public void SetUp()
@@ -32,7 +28,7 @@
             "And given the food will pops up in front of snake head"
                 .x(() => A.CallTo(() => foodFactory.CreateRandomFoodBetweenBoundaries(A<Position>.Ignored)).Returns(new Apple(new Position(5, 4))).Once());
             "And given a play area with boundaries 10 and 5"
-                .x(() => this.testee = new Playarea(new PlayareaSize(10, 5), foodFactory));
+                .x(() => this.testee = new Playarea.Playarea(new PlayareaSize(10, 5), foodFactory));
             "And given the snake at position row 5 and column 2"
                 .x(() => this.testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(5, 2)));
             "And given the food is in front of the snake"
@@ -62,7 +58,7 @@
             "Given a food factory"
                 .x(() => foodFactory = A.Fake<IFoodFactory>());
             "And given a play area with size 4 by 4"
-                .x(() => this.testee = new Playarea(new PlayareaSize(4, 4), foodFactory));
+                .x(() => this.testee = new Playarea.Playarea(new PlayareaSize(4, 4), foodFactory));
             "And given the snake at position row 2 and column 2"
                 .x(() => this.testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 2)));
             "And the game state is start"
@@ -107,7 +103,7 @@
             "Given a food factory"
                 .x(() => foodFactory = A.Dummy<IFoodFactory>());
             "And given a play area"
-                .x(() => this.testee = new Playarea(new PlayareaSize(4, 5), foodFactory));
+                .x(() => this.testee = new Playarea.Playarea(new PlayareaSize(4, 5), foodFactory));
             "And given the snake at position row 2 and column 1"
                 .x(() => this.testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 2)));
             "And the game state is start"
@@ -155,7 +151,7 @@
             "Given a food factory"
                 .x(() => foodFactory = A.Fake<IFoodFactory>());
             "And given a play area with boundaries 4 and 5"
-                .x(() => this.testee = new Playarea(new PlayareaSize(4, 5), foodFactory));
+                .x(() => this.testee = new Playarea.Playarea(new PlayareaSize(4, 5), foodFactory));
             "And given the snake at position row 2 and column 2"
                 .x(() => this.testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 2)));
             "And given the snake is facing rightwards"
@@ -191,7 +187,7 @@
             "Given a food factory"
                 .x(() => foodFactory = A.Fake<IFoodFactory>());
             "And given a play area with boundaries 4 and 4"
-                .x(() => this.testee = new Playarea(new PlayareaSize(4, 4), foodFactory));
+                .x(() => this.testee = new Playarea.Playarea(new PlayareaSize(4, 4), foodFactory));
             "And given the snake at position row 2 and column 2"
                 .x(() => this.testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 2)));
             "And given the snake is facing leftwards"
@@ -227,7 +223,7 @@
             "Given a food factory"
                 .x(() => foodFactory = A.Fake<IFoodFactory>());
             "And given a play area with boundaries 4 and 4"
-                .x(() => this.testee = new Playarea(new PlayareaSize(4, 4), foodFactory));
+                .x(() => this.testee = new Playarea.Playarea(new PlayareaSize(4, 4), foodFactory));
             "And given the snake at position row 2 and column 2"
                 .x(() => this.testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 2)));
             "And given the snake is facing upwards"
@@ -262,7 +258,7 @@
             "Given a food factory"
                 .x(() => foodFactory = A.Fake<IFoodFactory>());
             "And given a play area with boundaries 5 and 5"
-                .x(() => this.testee = new Playarea(new PlayareaSize(5, 5), foodFactory));
+                .x(() => this.testee = new Playarea.Playarea(new PlayareaSize(5, 5), foodFactory));
             "And given the snake at position row 2 and column 2"
                 .x(() => this.testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 2)));
             "And given the snake is facing downwards"
@@ -300,7 +296,7 @@
                 .x(() => A.CallTo(() => foodFactory.CreateRandomFoodBetweenBoundaries(A<Position>.Ignored))
                           .ReturnsLazily(this.CalculateNewFoodPosition));
             "And given a play area with boundaries 10 and 12"
-                .x(() => this.testee = new Playarea(new PlayareaSize(10, 12), foodFactory));
+                .x(() => this.testee = new Playarea.Playarea(new PlayareaSize(10, 12), foodFactory));
             "And given the snake at position row 5 and column 6"
                 .x(() => this.testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(5, 6)));
             "And given the food is actually in front of the snake"
@@ -367,9 +363,6 @@
                 .x(() => this.testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(4, 9)));
         }
 
-        private Food CalculateNewFoodPosition(IFakeObjectCall arg)
-        {
-            return this.testee != null ? new Apple(new Position(5, this.testee.Snake.Head.Position.Column + 1)) : new Apple(new Position(5, 7));
-        }
+        private Food.Food CalculateNewFoodPosition(IFakeObjectCall arg) => this.testee != null ? new Apple(new Position(5, this.testee.Snake.Head.Position.Column + 1)) : new Apple(new Position(5, 7));
     }
 }

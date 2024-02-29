@@ -20,15 +20,9 @@ namespace Schnacc.UserInterface.Infrastructure.Commands
         /// <summary>Occurs when changes occur that affect whether or not the command should execute. </summary>
         public event EventHandler CanExecuteChanged
         {
-            add
-            {
-                CommandManager.RequerySuggested += value;                
-            }
+            add => CommandManager.RequerySuggested += value;
 
-            remove
-            {
-                CommandManager.RequerySuggested -= value;
-            }
+            remove => CommandManager.RequerySuggested -= value;
         }
 
         /// <summary>Tries to execute the command by checking the <see cref="CanExecute"/> property 
@@ -50,10 +44,7 @@ namespace Schnacc.UserInterface.Infrastructure.Commands
             this.Execute();
         }
 
-        bool ICommand.CanExecute(object parameter)
-        {
-            return this.CanExecute();
-        }
+        bool ICommand.CanExecute(object parameter) => this.CanExecute();
 
         /// <summary>Defines the method that determines whether the command can execute in its current state.</summary>
         /// <returns>true if this command can be executed; otherwise, false.</returns>
@@ -70,15 +61,9 @@ namespace Schnacc.UserInterface.Infrastructure.Commands
         /// <summary>Occurs when changes occur that affect whether or not the command should execute. </summary>
         public event EventHandler CanExecuteChanged
         {
-            add
-            {
-                CommandManager.RequerySuggested += value;
-            }
+            add => CommandManager.RequerySuggested += value;
 
-            remove
-            {
-                CommandManager.RequerySuggested -= value;
-            }
+            remove => CommandManager.RequerySuggested -= value;
         }
 
         /// <summary>Tries to execute the command by calling the <see cref="CanExecute"/> method 
@@ -97,10 +82,7 @@ namespace Schnacc.UserInterface.Infrastructure.Commands
         }
 
         [DebuggerStepThrough]
-        bool ICommand.CanExecute(object parameter)
-        {
-            return this.CanExecute((T)parameter);
-        }
+        bool ICommand.CanExecute(object parameter) => this.CanExecute((T)parameter);
 
         void ICommand.Execute(object parameter)
         {
