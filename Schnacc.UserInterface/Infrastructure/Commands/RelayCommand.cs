@@ -73,12 +73,7 @@ namespace Schnacc.UserInterface.Infrastructure.Commands
         /// <param name="canExecute">The predicate to check whether the function can be executed. </param>
         public RelayCommand(Action<T> execute, Predicate<T> canExecute)
         {
-            if (execute == null)
-            {
-                throw new ArgumentNullException(nameof(execute));
-            }
-
-            this.execute = execute;
+            this.execute = execute ?? throw new ArgumentNullException(nameof(execute));
             this.canExecute = canExecute;
         }
 

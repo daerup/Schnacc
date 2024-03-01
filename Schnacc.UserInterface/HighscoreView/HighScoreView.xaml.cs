@@ -1,11 +1,11 @@
 ﻿namespace Schnacc.UserInterface.HighScoreView
 {
     /// <summary>
-    /// Interaction logic for HighscorePageView.xaml
+    /// Interaction logic for HighscoreView.xaml
     /// </summary>
-    public partial class HighscorePageView
+    public partial class HighScoreView
     {
-        public HighscorePageView()
+        public HighScoreView()
         {
             this.InitializeComponent();
         }

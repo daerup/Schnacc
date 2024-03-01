@@ -1,15 +1,13 @@
-﻿using System.Windows.Controls;
-
-namespace Schnacc.UserInterface.RegisterView
+﻿namespace Schnacc.UserInterface.RegisterView
 {
     /// <summary>
     /// Interaction logic for RegisterView.xaml
     /// </summary>
-    public partial class RegisterPageView : UserControl
+    public partial class RegisterPageView
     {
         public RegisterPageView()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
     }
 }

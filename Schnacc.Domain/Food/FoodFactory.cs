@@ -25,7 +25,7 @@ namespace Schnacc.Domain.Food
 
         private int GetRandomInt(int smallestPossibleNumber, int smallestOutOfRangeNumber)
         {
-            using (RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider())
+            using (var rng = new RNGCryptoServiceProvider())
             {
                 byte[] buffer = new byte[4];
                 rng.GetBytes(buffer);

@@ -8,18 +8,17 @@ namespace Schnacc.Authorization.UnitTests
 {
     public class AuthorizationApiTest
     {
-        private AuthorizationApi testee = new AuthorizationApi();
+        private readonly AuthorizationApi testee = new AuthorizationApi();
 
         [Fact]
-        private async void UserCanSignInWithEmailAndPassword()
+        private async Task UserCanSignInWithEmailAndPassword()
         {
             // Arrange
-            string email = "hans.muster@mail.ch";
-            string password = "testAccount01";
-            string signInToken;
-
+            const string email = "hans.muster@mail.ch";
+            const string password = "testAccount01";
+            
             // Act
-            signInToken = await this.testee.SignInWithEmail(email, password);
+            string signInToken = await this.testee.SignInWithEmail(email, password);
 
             // Assert
             signInToken.Should().NotBeNullOrEmpty();
@@ -29,11 +28,11 @@ namespace Schnacc.Authorization.UnitTests
         private void WhenNotRegisteredUserCanNotSignIn()
         {
             // Arrange
-            string email = "hans.muster@notRegistered.ch";
-            string password = "testAccount01";
+            const string email = "hans.muster@notRegistered.ch";
+            const string password = "testAccount01";
 
             // Act
-            Func<Task> func = async () => { await this.testee.SignInWithEmail(email, password); ; };
+            Func<Task> func = async () => await this.testee.SignInWithEmail(email, password);
 
             // Assert
             func.Should().Throw<UserNotRegisteredException>();

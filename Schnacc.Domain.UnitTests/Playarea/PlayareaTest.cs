@@ -19,8 +19,8 @@ namespace Schnacc.Domain.UnitTests.Playarea
         private void PlayareaSizeIsAtLeast4RowsAnd4Columns(int numberOfRows, int numberOfColumns)
         {
             // Arrange
-            PlayareaSize size = new PlayareaSize(numberOfRows, numberOfColumns);
-            FoodFactory factory = A.Dummy<FoodFactory>();
+            var size = new PlayareaSize(numberOfRows, numberOfColumns);
+            var factory = A.Dummy<FoodFactory>();
 
             // Act
             this.testee = new Domain.Playarea.Playarea(size, factory);
@@ -60,8 +60,8 @@ namespace Schnacc.Domain.UnitTests.Playarea
         private void SnakeShouldNotMoveWhenDirectionIsNeverUpdated()
         {
             // Arrange
-            PlayareaSize size = new PlayareaSize(10, 10);
-            IFoodFactory foodFactory = A.Dummy<IFoodFactory>();
+            var size = new PlayareaSize(10, 10);
+            var foodFactory = A.Dummy<IFoodFactory>();
             this.testee = new Domain.Playarea.Playarea(size, foodFactory);
             Position previousHeadPosition = this.testee.Snake.Head.Position;
 

@@ -7,9 +7,9 @@ using Schnacc.UserInterface.Infrastructure.Navigation;
 using Schnacc.UserInterface.Infrastructure.ViewModels;
 using Schnacc.UserInterface.LoginView;
 
-namespace Schnacc.UserInterface.PlayareaView
+namespace Schnacc.UserInterface.PlayAreaView
 {
-    public class PlayareaSettingsPageViewModel : ViewModelBase, INavigatableViewModel
+    public class PlayAreaSettingsPageViewModel : ViewModelBase, INavigatableViewModel
     {
         public INavigationService NavigationService { get; set; }
 
@@ -21,7 +21,7 @@ namespace Schnacc.UserInterface.PlayareaView
         public string NumberOfRows { get; set; } = "10";
         public string NumberOfColumns { get; set; } = "10";
 
-        public PlayareaSettingsPageViewModel(INavigationService navigationService)
+        public PlayAreaSettingsPageViewModel(INavigationService navigationService)
         {
             this.NavigationService = navigationService;
             this.GoToMenuView = new RelayCommand(this.NavigateToMenuView);
@@ -30,11 +30,11 @@ namespace Schnacc.UserInterface.PlayareaView
 
         private void NavigatePlayarea()
         {
-            PlayareaSize playareaSize = new PlayareaSize(Convert.ToInt32(this.NumberOfRows), Convert.ToInt32(this.NumberOfColumns));
-            FoodFactory foodFactory = new FoodFactory();
+            var playareaSize = new PlayareaSize(Convert.ToInt32(this.NumberOfRows), Convert.ToInt32(this.NumberOfColumns));
+            var foodFactory = new FoodFactory();
 
-            Playarea playarea = new Playarea(playareaSize, foodFactory);
-            this.NavigationService.NavigateTo(new PlayareaViewModel(this.NavigationService, playarea, this.DifficultyLevel));
+            var playarea = new Playarea(playareaSize, foodFactory);
+            this.NavigationService.NavigateTo(new PlayAreaViewModel(this.NavigationService, playarea, this.DifficultyLevel));
         }
 
         private void NavigateToMenuView()

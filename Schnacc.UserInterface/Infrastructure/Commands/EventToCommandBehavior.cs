@@ -12,20 +12,20 @@ namespace Schnacc.UserInterface.Infrastructure.Commands
         private EventInfo oldEvent;
 
         // Event
-        public string Event { get => (string)this.GetValue(EventProperty);
-            set => this.SetValue(EventProperty, value);
+        public string Event { get => (string)this.GetValue(EventToCommandBehavior.EventProperty);
+            set => this.SetValue(EventToCommandBehavior.EventProperty, value);
         }
-        public static readonly DependencyProperty EventProperty = DependencyProperty.Register("Event", typeof(string), typeof(EventToCommandBehavior), new PropertyMetadata(null, OnEventChanged));
+        public static readonly DependencyProperty EventProperty = DependencyProperty.Register("Event", typeof(string), typeof(EventToCommandBehavior), new PropertyMetadata(null, EventToCommandBehavior.OnEventChanged));
 
         // Command
-        public ICommand Command { get => (ICommand)this.GetValue(CommandProperty);
-            set => this.SetValue(CommandProperty, value);
+        public ICommand Command { get => (ICommand)this.GetValue(EventToCommandBehavior.CommandProperty);
+            set => this.SetValue(EventToCommandBehavior.CommandProperty, value);
         }
         public static readonly DependencyProperty CommandProperty = DependencyProperty.Register("Command", typeof(ICommand), typeof(EventToCommandBehavior), new PropertyMetadata(null));
 
         // PassArguments (default: false)
-        public bool PassArguments { get => (bool)this.GetValue(PassArgumentsProperty);
-            set => this.SetValue(PassArgumentsProperty, value);
+        public bool PassArguments { get => (bool)this.GetValue(EventToCommandBehavior.PassArgumentsProperty);
+            set => this.SetValue(EventToCommandBehavior.PassArgumentsProperty, value);
         }
         public static readonly DependencyProperty PassArgumentsProperty = DependencyProperty.Register("PassArguments", typeof(bool), typeof(EventToCommandBehavior), new PropertyMetadata(false));
 
@@ -59,25 +59,13 @@ namespace Schnacc.UserInterface.Infrastructure.Commands
                 if (ei != null)
                 {
                     MethodInfo mi = this.GetType().GetMethod("ExecuteCommand", BindingFlags.Instance | BindingFlags.NonPublic);
-                    this.handler = Delegate.CreateDelegate(ei.EventHandlerType, this, mi);
+                    this.handler = Delegate.CreateDelegate(ei.EventHandlerType!, this, mi!);
                     ei.AddEventHandler(this.AssociatedObject, this.handler);
                     this.oldEvent = ei; // store to detach in case the Event property changes
                 }
                 else
-                    throw new ArgumentException(string.Format("The event '{0}' was not found on type '{1}'", eventName, this.AssociatedObject.GetType().Name));
-            }
-        }
-
-        /// <summary>
-        /// Executes the Command
-        /// </summary>
-        private void ExecuteCommand(object sender, EventArgs e)
-        {
-            object parameter = this.PassArguments ? e : null;
-            if (this.Command != null)
-            {
-                if (this.Command.CanExecute(parameter))
-                    this.Command.Execute(parameter);
+                    throw new ArgumentException(
+                        $"The event '{eventName}' was not found on type '{this.AssociatedObject.GetType().Name}'");
             }
         }
     }

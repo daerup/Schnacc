@@ -25,8 +25,8 @@ namespace Schnacc.Database
         public List<Highscore> GetHighscores()
         {
             IReadOnlyCollection<FirebaseObject<Highscore>> firebaseHighscores = this.firebaseClient.Child(DatabaseConfig.DatabaseChild)
-                .OrderByKey()
-                .OnceAsync<Highscore>().Result;
+                                                                                    .OrderByKey()
+                                                                                    .OnceAsync<Highscore>().Result;
 
             return firebaseHighscores.Select(highscore => highscore.Object).ToList();
         }
@@ -34,14 +34,14 @@ namespace Schnacc.Database
         public IObservable<FirebaseEvent<Highscore>> GetObservableHighscores()
         {
             IObservable<FirebaseEvent<Highscore>> firebaseHighscores = this.firebaseClient
-                .Child(DatabaseConfig.DatabaseChild)
-                .AsObservable<Highscore>();
+                                                                           .Child(DatabaseConfig.DatabaseChild)
+                                                                           .AsObservable<Highscore>();
             return firebaseHighscores;
         }
 
-        public async void WriteHighscore(Highscore highscore)
+        public async Task WriteHighScore(Highscore highScore)
         {
-            FirebaseObject<Highscore> firebaseObject = await this.firebaseClient.Child(DatabaseConfig.DatabaseChild).PostAsync(highscore, false);
+            await this.firebaseClient.Child(DatabaseConfig.DatabaseChild).PostAsync(highScore, false);
         }
     }
 }

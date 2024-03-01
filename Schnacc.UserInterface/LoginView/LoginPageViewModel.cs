@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using Schnacc.Authorization;
 using Schnacc.Authorization.Exception;
@@ -9,9 +10,9 @@ using Schnacc.UserInterface.RegisterView;
 
 namespace Schnacc.UserInterface.LoginView
 {
-    class LoginPageViewModel : ViewModelBase, INavigatableViewModel
+    internal class LoginPageViewModel : ViewModelBase, INavigatableViewModel
     {
-        private AuthorizationApi authApi;
+        private readonly AuthorizationApi authApi;
         public INavigationService NavigationService { get; set; }
 
         public RelayCommand<object> LoginCommand { get; }
@@ -28,7 +29,7 @@ namespace Schnacc.UserInterface.LoginView
             this.LoginButtonEnabled = true;
             this.NavigationService = navigationService;
             this.ErrorMessage = string.Empty;
-            this.LoginCommand = new RelayCommand<object>(this.Login);
+            this.LoginCommand = new RelayCommand<object>(async (o) => await this.Login(o));
             this.RegisterCommand = new RelayCommand<object>(this.Register);
             this.authApi = new AuthorizationApi();
             this.NavigationService.SetAuthApi(this.authApi);
@@ -39,10 +40,10 @@ namespace Schnacc.UserInterface.LoginView
             this.NavigationService.NavigateTo(new RegisterPageViewModel(this.NavigationService));
         }
 
-        private async void Login(object obj)
+        private async Task Login(object obj)
         {
             this.LoginButtonEnabled = false;
-            string plainPassword = (obj as PasswordBox).Password;
+            string plainPassword = ((obj as PasswordBox)!).Password;
             if (string.IsNullOrEmpty(this.Email) || string.IsNullOrEmpty(plainPassword))
             {
                 this.ErrorMessage = "You have to fill both fields with normal stuff, duh";
@@ -59,10 +60,6 @@ namespace Schnacc.UserInterface.LoginView
             {
                 this.ErrorMessage = e.Message;
                 this.LoginButtonEnabled = true;
-            }
-            catch (Exception e)
-            {
-                throw e;
             }
         }
     }

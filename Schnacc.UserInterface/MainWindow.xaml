@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Schnacc.UserInterface"
         xmlns:homeMenuView="clr-namespace:Schnacc.UserInterface.HomeMenuView"
-        xmlns:playareaView="clr-namespace:Schnacc.UserInterface.PlayareaView"
-        xmlns:highscoreView="clr-namespace:Schnacc.UserInterface.HighscoreView"
+        xmlns:playareaView="clr-namespace:Schnacc.UserInterface.PlayAreaView"
+        xmlns:highscoreView="clr-namespace:Schnacc.UserInterface.HighScoreView"
         xmlns:loginView="clr-namespace:Schnacc.UserInterface.LoginView"
         xmlns:registerView="clr-namespace:Schnacc.UserInterface.RegisterView"
         d:DataContext="{d:DesignInstance local:MainWindowViewModel}"
@@ -22,11 +22,11 @@
                 <DataTemplate DataType="{x:Type homeMenuView:HomeMenuPageViewModel}">
                     <homeMenuView:HomeMenuPageView/>
                 </DataTemplate>                
-                <DataTemplate DataType="{x:Type playareaView:PlayareaViewModel}">
-                    <playareaView:PlayareaPageView/>
+                <DataTemplate DataType="{x:Type playareaView:PlayAreaViewModel}">
+                    <playareaView:PlayAreaPageView/>
                 </DataTemplate>                
-                <DataTemplate DataType="{x:Type playareaView:PlayareaSettingsPageViewModel}">
-                    <playareaView:PlayareaSettingsPageView/>
+                <DataTemplate DataType="{x:Type playareaView:PlayAreaSettingsPageViewModel}">
+                    <playareaView:PlayAreaSettingsPageView/>
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type highscoreView:HighscorePageViewModel}">
                     <highscoreView:HighscorePageView/>

@@ -1,25 +1,21 @@
-﻿using System.Collections.Generic;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace Schnacc.UserInterface.RegisterView {
     public class PasswordValidator : FrameworkElement
     {
-        static IDictionary<PasswordBox, Brush> passwordBoxes = new Dictionary<PasswordBox, Brush>();
-
-        public static readonly DependencyProperty Box1Property = DependencyProperty.Register("Box1", typeof(PasswordBox), typeof(PasswordValidator), new PropertyMetadata(Box1Changed));
-        public static readonly DependencyProperty Box2Property = DependencyProperty.Register("Box2", typeof(PasswordBox), typeof(PasswordValidator), new PropertyMetadata(Box2Changed));
+        public static readonly DependencyProperty Box1Property = DependencyProperty.Register("Box1", typeof(PasswordBox), typeof(PasswordValidator), new PropertyMetadata(PasswordValidator.Box1Changed));
+        public static readonly DependencyProperty Box2Property = DependencyProperty.Register("Box2", typeof(PasswordBox), typeof(PasswordValidator), new PropertyMetadata(PasswordValidator.Box2Changed));
 
         public PasswordBox Box1
         {
-            get => (PasswordBox)this.GetValue(Box1Property);
-            set => this.SetValue(Box1Property, value);
+            get => (PasswordBox)this.GetValue(PasswordValidator.Box1Property);
+            set => this.SetValue(PasswordValidator.Box1Property, value);
         }
         public PasswordBox Box2
         {
-            get => (PasswordBox)this.GetValue(Box2Property);
-            set => this.SetValue(Box2Property, value);
+            get => (PasswordBox)this.GetValue(PasswordValidator.Box2Property);
+            set => this.SetValue(PasswordValidator.Box2Property, value);
         }
 
         private static void Box1Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)

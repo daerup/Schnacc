@@ -6,20 +6,18 @@ namespace Schnacc.Authorization
 {
     public class AuthorizationApi
     {
-        private readonly FirebaseAuthProvider authProvider;
+        private readonly FirebaseAuthProvider authProvider = new FirebaseAuthProvider(new FirebaseConfig(AuthConfig.ApiKey));
         public string AccessToken { get; private set; }
         public string Username { get; private set; }
 
         public bool EmailIsVerified =>
             this.authProvider.GetUserAsync(this.AccessToken).GetAwaiter().GetResult().IsEmailVerified;
 
-        public AuthorizationApi() => this.authProvider = new FirebaseAuthProvider(new FirebaseConfig(AuthConfig.ApiKey));
-
         public  async Task RegisterWithEmail(string email, string password, string displayName)
         {
             try
             {
-                FirebaseAuthLink registeredUserAuth = await this.authProvider.CreateUserWithEmailAndPasswordAsync(email, password, displayName, true);
+                await this.authProvider.CreateUserWithEmailAndPasswordAsync(email, password, displayName, true);
             }
             catch (FirebaseAuthException e) when (e.Reason == AuthErrorReason.EmailExists)
             {
@@ -36,10 +34,6 @@ namespace Schnacc.Authorization
             catch (FirebaseAuthException e) when (e.Reason == AuthErrorReason.Undefined)
             {
                 throw new UndifinedException("Looks like there was an Error. Probably your Internet Connection");
-            }
-            catch (System.Exception e)
-            {
-                throw e;
             }
         }
 
@@ -71,10 +65,6 @@ namespace Schnacc.Authorization
             catch (FirebaseAuthException e) when (e.Reason == AuthErrorReason.Undefined)
             {
                 throw new UndifinedException("Looks like there was an Error. Probably your Internet Connection");
-            }
-            catch (System.Exception e)
-            {
-                throw e;
             }
         }
     }

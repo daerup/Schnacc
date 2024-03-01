@@ -4,13 +4,13 @@ using Schnacc.UserInterface.Infrastructure.Navigation;
 
 namespace Schnacc.UserInterface
 {
-    public partial class App : Application
+    public partial class App
     {
         private void OnStartup(object sender, StartupEventArgs e)
         {
-            NavigationService navigationService = new NavigationService();
-            MainWindowViewModel mainWindowViewModel = new MainWindowViewModel(navigationService, new HomeMenuPageViewModel(navigationService));
-            MainWindow mainWindow = new MainWindow();
+            var navigationService = new NavigationService();
+            var mainWindowViewModel = new MainWindowViewModel(navigationService, new HomeMenuPageViewModel(navigationService));
+            var mainWindow = new MainWindow();
             mainWindow.DataContext = mainWindowViewModel;
             mainWindow.ShowDialog();
         }

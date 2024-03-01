@@ -48,13 +48,13 @@
                 Content="Play" 
                 Grid.Column="1"
                 Grid.Row="1"
-                Command="{Binding GoToPlayareaViewCommand}"/>
+                Command="{Binding GoToPlayAreaViewCommand}"/>
             <Button 
                 MaxHeight="50"
                 Content="Highscore" 
                 Grid.Column="1"
                 Grid.Row="3"
-                Command="{Binding GoToHighscoreViewCommand}"/>
+                Command="{Binding GoToHighScoreViewCommand}"/>
 
             
             <TextBlock 

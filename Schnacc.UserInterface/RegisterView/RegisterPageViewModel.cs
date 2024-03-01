@@ -70,10 +70,6 @@ namespace Schnacc.UserInterface.RegisterView
             {
                 this.ErrorMessage = e.Message;
             }
-            catch (Exception e)
-            {
-                throw e;
-            }
         }
 
         private void Login(object obj)

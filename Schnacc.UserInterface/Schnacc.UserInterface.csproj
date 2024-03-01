@@ -37,4 +37,8 @@
     <ProjectReference Include="..\Schnacc.Domain\Schnacc.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Infrastructure\Controls\" />
+  </ItemGroup>
+
 </Project>

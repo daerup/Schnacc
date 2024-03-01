@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using FluentAssertions;
 using Schnacc.Authorization;
 using Xunit;
@@ -10,13 +11,13 @@ namespace Schnacc.Database.UnitTests
         private Database testee;
 
         [Fact]
-        private async void UserCanFetchHighscores()
+        private async Task UserCanFetchHighscores()
         {
             // Act
-            string email = "hans.muster@mail.ch";
-            string password = "testAccount01";
-            AuthorizationApi authorizationApi = new AuthorizationApi();
-            Database database = this.testee = new Database(await authorizationApi.SignInWithEmail(email, password));
+            const string email = "hans.muster@mail.ch";
+            const string password = "testAccount01";
+            var authorizationApi = new AuthorizationApi();
+            this.testee = new Database(await authorizationApi.SignInWithEmail(email, password));
             
             // Act
             List<Highscore> highscores = this.testee.GetHighscores();

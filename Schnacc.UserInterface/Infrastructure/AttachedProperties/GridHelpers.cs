@@ -15,15 +15,15 @@ namespace Schnacc.UserInterface.Infrastructure.AttachedProperties
         public static readonly DependencyProperty RowCountProperty =
             DependencyProperty.RegisterAttached(
                 "RowCount", typeof(int), typeof(GridHelpers),
-                new PropertyMetadata(-1, RowCountChanged));
+                new PropertyMetadata(-1, GridHelpers.RowCountChanged));
 
         // Get
-        public static int GetRowCount(DependencyObject obj) => (int)obj.GetValue(RowCountProperty);
+        public static int GetRowCount(DependencyObject obj) => (int)obj.GetValue(GridHelpers.RowCountProperty);
 
         // Set
         public static void SetRowCount(DependencyObject obj, int value)
         {
-            obj.SetValue(RowCountProperty, value);
+            obj.SetValue(GridHelpers.RowCountProperty, value);
         }
 
         // Change Event - Adds the Rows
@@ -33,14 +33,14 @@ namespace Schnacc.UserInterface.Infrastructure.AttachedProperties
             if (!(obj is Grid) || (int)e.NewValue < 0)
                 return;
 
-            Grid grid = (Grid)obj;
+            var grid = (Grid)obj;
             grid.RowDefinitions.Clear();
 
             for (int i = 0; i < (int)e.NewValue; i++)
                 grid.RowDefinitions.Add(
                     new RowDefinition { Height = GridLength.Auto });
 
-            SetStarRows(grid);
+            GridHelpers.SetStarRows(grid);
         }
 
         #endregion
@@ -54,15 +54,15 @@ namespace Schnacc.UserInterface.Infrastructure.AttachedProperties
         public static readonly DependencyProperty ColumnCountProperty =
             DependencyProperty.RegisterAttached(
                 "ColumnCount", typeof(int), typeof(GridHelpers),
-                new PropertyMetadata(-1, ColumnCountChanged));
+                new PropertyMetadata(-1, GridHelpers.ColumnCountChanged));
 
         // Get
-        public static int GetColumnCount(DependencyObject obj) => (int)obj.GetValue(ColumnCountProperty);
+        public static int GetColumnCount(DependencyObject obj) => (int)obj.GetValue(GridHelpers.ColumnCountProperty);
 
         // Set
         public static void SetColumnCount(DependencyObject obj, int value)
         {
-            obj.SetValue(ColumnCountProperty, value);
+            obj.SetValue(GridHelpers.ColumnCountProperty, value);
         }
 
         // Change Event - Add the Columns
@@ -72,14 +72,14 @@ namespace Schnacc.UserInterface.Infrastructure.AttachedProperties
             if (!(obj is Grid) || (int)e.NewValue < 0)
                 return;
 
-            Grid grid = (Grid)obj;
+            var grid = (Grid)obj;
             grid.ColumnDefinitions.Clear();
 
             for (int i = 0; i < (int)e.NewValue; i++)
                 grid.ColumnDefinitions.Add(
                     new ColumnDefinition { Width = GridLength.Auto });
 
-            SetStarColumns(grid);
+            GridHelpers.SetStarColumns(grid);
         }
 
         #endregion
@@ -93,15 +93,15 @@ namespace Schnacc.UserInterface.Infrastructure.AttachedProperties
         public static readonly DependencyProperty StarRowsProperty =
             DependencyProperty.RegisterAttached(
                 "StarRows", typeof(string), typeof(GridHelpers),
-                new PropertyMetadata(string.Empty, StarRowsChanged));
+                new PropertyMetadata(string.Empty, GridHelpers.StarRowsChanged));
 
         // Get
-        public static string GetStarRows(DependencyObject obj) => (string)obj.GetValue(StarRowsProperty);
+        public static string GetStarRows(DependencyObject obj) => (string)obj.GetValue(GridHelpers.StarRowsProperty);
 
         // Set
         public static void SetStarRows(DependencyObject obj, string value)
         {
-            obj.SetValue(StarRowsProperty, value);
+            obj.SetValue(GridHelpers.StarRowsProperty, value);
         }
 
         // Change Event - Makes specified Row's Height equal to Star
@@ -111,7 +111,7 @@ namespace Schnacc.UserInterface.Infrastructure.AttachedProperties
             if (!(obj is Grid) || string.IsNullOrEmpty(e.NewValue.ToString()))
                 return;
 
-            SetStarRows((Grid)obj);
+            GridHelpers.SetStarRows((Grid)obj);
         }
 
         #endregion
@@ -125,15 +125,15 @@ namespace Schnacc.UserInterface.Infrastructure.AttachedProperties
         public static readonly DependencyProperty StarColumnsProperty =
             DependencyProperty.RegisterAttached(
                 "StarColumns", typeof(string), typeof(GridHelpers),
-                new PropertyMetadata(string.Empty, StarColumnsChanged));
+                new PropertyMetadata(string.Empty, GridHelpers.StarColumnsChanged));
 
         // Get
-        public static string GetStarColumns(DependencyObject obj) => (string)obj.GetValue(StarColumnsProperty);
+        public static string GetStarColumns(DependencyObject obj) => (string)obj.GetValue(GridHelpers.StarColumnsProperty);
 
         // Set
         public static void SetStarColumns(DependencyObject obj, string value)
         {
-            obj.SetValue(StarColumnsProperty, value);
+            obj.SetValue(GridHelpers.StarColumnsProperty, value);
         }
 
         // Change Event - Makes specified Column's Width equal to Star
@@ -143,7 +143,7 @@ namespace Schnacc.UserInterface.Infrastructure.AttachedProperties
             if (!(obj is Grid) || string.IsNullOrEmpty(e.NewValue.ToString()))
                 return;
 
-            SetStarColumns((Grid)obj);
+            GridHelpers.SetStarColumns((Grid)obj);
         }
 
         #endregion
@@ -151,7 +151,7 @@ namespace Schnacc.UserInterface.Infrastructure.AttachedProperties
         private static void SetStarColumns(Grid grid)
         {
             string[] starColumns =
-                GetStarColumns(grid).Split(',');
+                GridHelpers.GetStarColumns(grid).Split(',');
 
             for (int i = 0; i < grid.ColumnDefinitions.Count; i++)
             {
@@ -164,7 +164,7 @@ namespace Schnacc.UserInterface.Infrastructure.AttachedProperties
         private static void SetStarRows(Grid grid)
         {
             string[] starRows =
-                GetStarRows(grid).Split(',');
+                GridHelpers.GetStarRows(grid).Split(',');
 
             for (int i = 0; i < grid.RowDefinitions.Count; i++)
             {

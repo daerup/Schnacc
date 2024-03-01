@@ -17,7 +17,7 @@ namespace Schnacc.Domain.Playarea
         {
             this.Size = this.GetValidFieldSize(size);
             this.factory = factory;
-            Position startPosition = new Position(this.Size.NumberOfRows / 2, this.Size.NumberOfColumns / 2);
+            var startPosition = new Position(this.Size.NumberOfRows / 2, this.Size.NumberOfColumns / 2);
             this.snake = new Snake.Snake(startPosition);
             this.Food = this.GetRandomFoodInUniquePosition();
             this.SetGameState();

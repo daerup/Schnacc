@@ -1,15 +1,13 @@
-﻿using System.Windows.Controls;
-
-namespace Schnacc.UserInterface.LoginView
+﻿namespace Schnacc.UserInterface.LoginView
 {
     /// <summary>
     /// Interaction logic for LoginView.xaml
     /// </summary>
-    public partial class LoginPageView : UserControl
+    public partial class LoginPageView
     {
         public LoginPageView()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
     }
 }

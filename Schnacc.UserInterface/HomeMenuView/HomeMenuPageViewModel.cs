@@ -1,10 +1,10 @@
 ﻿using System.Windows;
-using Schnacc.UserInterface.HighscoreView;
+using Schnacc.UserInterface.HighScoreView;
 using Schnacc.UserInterface.Infrastructure.Commands;
 using Schnacc.UserInterface.Infrastructure.Navigation;
 using Schnacc.UserInterface.Infrastructure.ViewModels;
 using Schnacc.UserInterface.LoginView;
-using Schnacc.UserInterface.PlayareaView;
+using Schnacc.UserInterface.PlayAreaView;
 using Schnacc.UserInterface.RegisterView;
 
 namespace Schnacc.UserInterface.HomeMenuView
@@ -54,7 +54,7 @@ namespace Schnacc.UserInterface.HomeMenuView
 
         private void NavigateToPlayareaSettings()
         {
-            this.NavigationService.NavigateTo(new PlayareaSettingsPageViewModel(this.NavigationService));
+            this.NavigationService.NavigateTo(new PlayAreaSettingsPageViewModel(this.NavigationService));
         }
     }
 }

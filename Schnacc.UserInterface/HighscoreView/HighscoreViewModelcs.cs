@@ -4,7 +4,7 @@ using Schnacc.Database;
 using Schnacc.UserInterface.Infrastructure.Navigation;
 using Schnacc.UserInterface.Infrastructure.ViewModels;
 
-namespace Schnacc.UserInterface.HighscoreView
+namespace Schnacc.UserInterface.HighScoreView
 {
     public class HighscoreViewModel : ViewModelBase 
     { 

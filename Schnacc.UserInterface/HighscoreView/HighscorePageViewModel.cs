@@ -2,9 +2,9 @@
 using Schnacc.UserInterface.Infrastructure.Navigation;
 using Schnacc.UserInterface.Infrastructure.ViewModels;
 using Schnacc.UserInterface.LoginView;
-using Schnacc.UserInterface.PlayareaView;
+using Schnacc.UserInterface.PlayAreaView;
 
-namespace Schnacc.UserInterface.HighscoreView
+namespace Schnacc.UserInterface.HighScoreView
 {
     public class HighscorePageViewModel : ViewModelBase, INavigatableViewModel
     {
@@ -28,7 +28,7 @@ namespace Schnacc.UserInterface.HighscoreView
 
         private void NavigateToPlayareaSettings()
         {
-            this.NavigationService.NavigateTo(new PlayareaSettingsPageViewModel(this.NavigationService));
+            this.NavigationService.NavigateTo(new PlayAreaSettingsPageViewModel(this.NavigationService));
         }
     }
 }
