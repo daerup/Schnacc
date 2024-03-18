@@ -14,12 +14,10 @@ namespace Schnacc.UserInterface
             this.navigationService = navigationService;
             this.navigationService.OnNavigation += this.Navigate;
         }
-
         public IViewModel CurrentPageViewModel { get; private set; }
-
+        
         public string WindowTitle => "Schnacc";
-
-
+        
         private void Navigate(object sender, NavigationEventArgs navigationArguments)
         {
             this.CurrentPageViewModel = navigationArguments.ViewModelToNavigateTo;

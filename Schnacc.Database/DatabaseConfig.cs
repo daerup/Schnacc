@@ -2,7 +2,7 @@
 {
     public class DatabaseConfig
     {
-        public static readonly string BaseUrl = @"https://schnacc-db.firebaseio.com/";
-        public static readonly string DatabaseChild = @"Highscores";
+        public const string BaseUrl = @"https://schnacc-db.firebaseio.com/";
+        public const string DatabaseChild = @"Highscores";
     }
 }

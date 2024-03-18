@@ -51,7 +51,7 @@ namespace Schnacc.Domain.UnitTests.Food
                     this.testee = new FoodFactory();
                     IFood createdFood = this.testee.CreateRandomFoodBetweenBoundaries(new Position(row, column));
 
-                    return (0 <= createdFood.Position.Row && createdFood.Position.Row <= row && 0 <= createdFood.Position.Column && createdFood.Position.Column <= column);
+                    return 0 <= createdFood.Position.Row && createdFood.Position.Row <= row && 0 <= createdFood.Position.Column && createdFood.Position.Column <= column;
                 };
 
             return func.When(row > 0 && column > 0);

@@ -50,11 +50,13 @@ namespace Schnacc.Domain.Playarea
 
         public void UpdateSnakeDirection(Direction newDirection)
         {
-            if (this.CurrentGameState.Equals(Game.Over) == false)
+            if (this.CurrentGameState.Equals(Game.Over))
             {
-                this.snake.UpdateFacingDirection(newDirection);
-                this.SetGameState();
+                return;
             }
+
+            this.snake.UpdateFacingDirection(newDirection);
+            this.SetGameState();
         }
 
         public void RestartGame()

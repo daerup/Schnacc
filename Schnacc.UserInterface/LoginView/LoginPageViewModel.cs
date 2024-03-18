@@ -43,7 +43,7 @@ namespace Schnacc.UserInterface.LoginView
         private async Task Login(object obj)
         {
             this.LoginButtonEnabled = false;
-            string plainPassword = ((obj as PasswordBox)!).Password;
+            string plainPassword = (obj as PasswordBox)!.Password;
             if (string.IsNullOrEmpty(this.Email) || string.IsNullOrEmpty(plainPassword))
             {
                 this.ErrorMessage = "You have to fill both fields with normal stuff, duh";

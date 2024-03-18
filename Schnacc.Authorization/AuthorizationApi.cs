@@ -41,7 +41,7 @@ namespace Schnacc.Authorization
         {
             try
             {
-                FirebaseAuthLink authLink = (await this.authProvider.SignInWithEmailAndPasswordAsync(email, password));
+                FirebaseAuthLink authLink = await this.authProvider.SignInWithEmailAndPasswordAsync(email, password);
                 this.AccessToken = authLink.FirebaseToken;
                 this.Username = authLink.User.DisplayName;
                 return this.AccessToken;

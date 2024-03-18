@@ -104,7 +104,7 @@ namespace Schnacc.UserInterface.PlayAreaView
 
         public INavigationService NavigationService { get; set; }
 
-        public int Score => (this.playArea.Snake.Body.Count * 100) - (10 * this.moveCount);
+        public int Score => this.playArea.Snake.Body.Count * 100 - 10 * this.moveCount;
         public bool HighscoresAreVisible => !string.IsNullOrEmpty(this.NavigationService.SessionToken);
         public bool ErrorIsVisible => !this.HighscoresAreVisible;
         public int NumberOfRows => this.playArea.Size.NumberOfRows;
@@ -225,7 +225,7 @@ namespace Schnacc.UserInterface.PlayAreaView
             }
         }
 
-        private int CalculateGameSpeed() => 80000 / Math.Max(this.playArea.Size.NumberOfColumns, this.playArea.Size.NumberOfRows) / ((this.difficultyLevel + (this.playArea.Snake.Body.Count / 3)) * 3);
+        private int CalculateGameSpeed() => 80000 / Math.Max(this.playArea.Size.NumberOfColumns, this.playArea.Size.NumberOfRows) / ((this.difficultyLevel + this.playArea.Snake.Body.Count / 3) * 3);
 
         private void ActivateSlowMotion()
         {

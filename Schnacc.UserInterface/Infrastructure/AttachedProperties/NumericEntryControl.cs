@@ -21,29 +21,29 @@ namespace Schnacc.UserInterface.Infrastructure.AttachedProperties
                 var targetTextbox = s as TextBox;
                 if (targetTextbox != null)
                 {
-                    if ((bool)e.OldValue && !((bool)e.NewValue))
+                    if ((bool)e.OldValue && !(bool)e.NewValue)
                     {
-                        targetTextbox.PreviewTextInput -= TextBoxHelpers.targetTextbox_PreviewTextInput;
+                        targetTextbox.PreviewTextInput -= TextBoxHelpers.targetTextboxPreviewTextInput;
                     }
                     if ((bool)e.NewValue)
                     {
-                        targetTextbox.PreviewTextInput += TextBoxHelpers.targetTextbox_PreviewTextInput;
-                        targetTextbox.PreviewKeyDown += TextBoxHelpers.targetTextbox_PreviewKeyDown;
+                        targetTextbox.PreviewTextInput += TextBoxHelpers.targetTextboxPreviewTextInput;
+                        targetTextbox.PreviewKeyDown += TextBoxHelpers.targetTextboxPreviewKeyDown;
                     }
                 }
             }));
 
-        static void targetTextbox_PreviewKeyDown(object sender, KeyEventArgs e)
+        private static void targetTextboxPreviewKeyDown(object sender, KeyEventArgs e)
         {
             e.Handled = e.Key == Key.Space;
         }
 
-        static void targetTextbox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        private static void targetTextboxPreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             char newChar = e.Text[0];
-            e.Handled = !Char.IsNumber(newChar);
+            e.Handled = !char.IsNumber(newChar);
             var textBox = sender as TextBox;
-            if (!string.IsNullOrEmpty(textBox.Text))
+            if (!string.IsNullOrEmpty(textBox!.Text))
             {
                 int textBoxNumber = Convert.ToInt32(textBox.Text);
                 if (textBoxNumber > 25)
