@@ -6,5 +6,5 @@
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=daerup_Schnacc&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=daerup_Schnacc)
 
 # Schnacc
-A simple snake game written in C# using the .NET Core framework. 
+A simple snake game written in C# using the .NET framework. 
 This project is used for the course SWAT and will refactored and extended during the course. 
