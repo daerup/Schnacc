@@ -7,7 +7,7 @@ namespace Schnacc.Authorization
     public class AuthorizationApi
     {
         private readonly FirebaseAuthProvider authProvider = new FirebaseAuthProvider(new FirebaseConfig(AuthConfig.ApiKey));
-        public string AccessToken { get; private set; }
+        private string AccessToken { get; set; }
         public string Username { get; private set; }
 
         public bool EmailIsVerified =>
@@ -33,7 +33,7 @@ namespace Schnacc.Authorization
             }
             catch (FirebaseAuthException e) when (e.Reason == AuthErrorReason.Undefined)
             {
-                throw new UndifinedException("Looks like there was an Error. Probably your Internet Connection");
+                throw new UndefinedException("Looks like there was an Error. Probably your Internet Connection");
             }
         }
 
@@ -64,7 +64,7 @@ namespace Schnacc.Authorization
             }
             catch (FirebaseAuthException e) when (e.Reason == AuthErrorReason.Undefined)
             {
-                throw new UndifinedException("Looks like there was an Error. Probably your Internet Connection");
+                throw new UndefinedException("Looks like there was an Error. Probably your Internet Connection");
             }
         }
     }

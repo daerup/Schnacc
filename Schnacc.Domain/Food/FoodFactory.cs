@@ -20,18 +20,16 @@ namespace Schnacc.Domain.Food
         private List<Type> GetAllFoodTypes()
         {
             Type derivedType = typeof(Food);
-            return Assembly.GetAssembly(typeof(Food)).GetTypes().Where(t => t != derivedType && derivedType.IsAssignableFrom(t)).ToList();
+            return Assembly.GetAssembly(typeof(Food))?.GetTypes().Where(t => t != derivedType && derivedType.IsAssignableFrom(t)).ToList();
         }
 
         private int GetRandomInt(int smallestPossibleNumber, int smallestOutOfRangeNumber)
         {
-            using (var rng = new RNGCryptoServiceProvider())
-            {
-                byte[] buffer = new byte[4];
-                rng.GetBytes(buffer);
-                int result = BitConverter.ToInt32(buffer, 0);
-                return new Random(result).Next(smallestPossibleNumber, smallestOutOfRangeNumber);
-            }
+            using var rng = new RNGCryptoServiceProvider();
+            byte[] buffer = new byte[4];
+            rng.GetBytes(buffer);
+            int result = BitConverter.ToInt32(buffer, 0);
+            return new Random(result).Next(smallestPossibleNumber, smallestOutOfRangeNumber);
         }
     }
 }

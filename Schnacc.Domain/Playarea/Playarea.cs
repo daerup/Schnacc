@@ -11,25 +11,23 @@ namespace Schnacc.Domain.Playarea
 
         private readonly IFoodFactory factory;
 
-        private readonly Snake.Snake snake;
-
         public Playarea(PlayareaSize size, IFoodFactory factory)
         {
             this.Size = this.GetValidFieldSize(size);
             this.factory = factory;
             var startPosition = new Position(this.Size.NumberOfRows / 2, this.Size.NumberOfColumns / 2);
-            this.snake = new Snake.Snake(startPosition);
+            this.Snake = new Snake.Snake(startPosition);
             this.Food = this.GetRandomFoodInUniquePosition();
             this.SetGameState();
         }
 
         public IFood Food { get; private set; }
 
-        public ISnake Snake => this.snake;
+        public ISnake Snake { get; }
 
         public Game CurrentGameState { get; private set; }
 
-        private bool SnakeCollidedWithFood => this.Food.Position.Equals(this.snake.Head.Position);
+        private bool SnakeCollidedWithFood => this.Food.Position.Equals(this.Snake.Head.Position);
 
         public void MoveSnakeWhenAllowed()
         {
@@ -39,13 +37,15 @@ namespace Schnacc.Domain.Playarea
                 return;
             }
 
-            this.snake.Move();
+            this.Snake.Move();
 
-            if (this.SnakeCollidedWithFood)
+            if (!this.SnakeCollidedWithFood)
             {
-                this.snake.Grow();
-                this.Food = this.GetRandomFoodInUniquePosition();
+                return;
             }
+
+            this.Snake.Grow();
+            this.Food = this.GetRandomFoodInUniquePosition();
         }
 
         public void UpdateSnakeDirection(Direction newDirection)
@@ -55,7 +55,7 @@ namespace Schnacc.Domain.Playarea
                 return;
             }
 
-            this.snake.UpdateFacingDirection(newDirection);
+            this.Snake.UpdateFacingDirection(newDirection);
             this.SetGameState();
         }
 
@@ -63,38 +63,38 @@ namespace Schnacc.Domain.Playarea
         {
             if (this.CurrentGameState.Equals(Game.Over))
             {
-                this.snake.ResetSnakeToStartPosition();
+                this.Snake.ResetSnakeToStartPosition();
             }
         }
 
         private void SetGameState()
         {
-            if (this.snake.CurrentDirection.Equals(Direction.None))
+            if (this.Snake.CurrentDirection.Equals(Direction.None))
             {
                 this.CurrentGameState = Game.Start;
-                return;
             }
-
-            if (this.NextPositionIsValid() == false)
+            else if (this.NextPositionIsValid())
+            {
+                this.CurrentGameState = Game.Running;
+            }
+            else
             {
                 this.CurrentGameState = Game.Over;
-                return;
             }
-
-            this.CurrentGameState = Game.Running;
         }
 
-        private bool NextPositionIsValid() => !this.NextPositionCollidesWithSnakeBody() && !this.NextPositionCollidesWithWalls();
+        private bool NextPositionIsValid() =>
+            !this.NextPositionCollidesWithSnakeBody() && !this.NextPositionCollidesWithWalls();
 
         private bool NextPositionCollidesWithSnakeBody()
         {
-            Position nextHeadPosition = this.snake.GetNextHeadPosition();
-            return this.snake.Body.Select(sb => sb.Position).Any(p => p.Equals(nextHeadPosition));
+            Position nextHeadPosition = this.Snake.GetNextHeadPosition();
+            return this.Snake.Body.Select(sb => sb.Position).Any(p => p.Equals(nextHeadPosition));
         }
 
         private bool NextPositionCollidesWithWalls()
         {
-            Position nextPosition = this.snake.GetNextHeadPosition();
+            Position nextPosition = this.Snake.GetNextHeadPosition();
             return
                 nextPosition.Column <= -1 ||
                 nextPosition.Row <= -1 ||
@@ -123,15 +123,14 @@ namespace Schnacc.Domain.Playarea
 
         private IFood GetRandomFoodInUniquePosition()
         {
-            List<Position> allUsedPositions = this.snake.Body.Select(bp => bp.Position).ToList();
-            allUsedPositions.Add(this.snake.Head.Position);
+            List<Position> allUsedPositions = this.Snake.Body.Select(bp => bp.Position).ToList();
+            allUsedPositions.Add(this.Snake.Head.Position);
             IFood randomFood;
 
             do
             {
                 randomFood = this.factory.CreateRandomFoodBetweenBoundaries(this.GetCorner());
-            }
-            while (allUsedPositions.Any(up => up.Equals(randomFood.Position)));
+            } while (allUsedPositions.Exists(up => up.Equals(randomFood.Position)));
 
             return randomFood;
         }

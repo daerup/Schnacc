@@ -6,7 +6,7 @@ namespace Schnacc.Domain.Snake
 {
     public class Snake : ISnake
     {
-        private Position startPosition;
+        private readonly Position startPosition;
         public Snake(Position startPosition)
         {
             this.startPosition = startPosition;
@@ -21,9 +21,9 @@ namespace Schnacc.Domain.Snake
 
         public Position GetNextHeadPosition() => this.FacingDirection.GetNexPosition();
 
-        public SnakeHead Head { get; private set; }
+        public SnakeSegment Head { get; private set; }
 
-        public List<SnakeBodyPart> Body { get; private set; }
+        public List<SnakeSegment> Body { get; private set; }
 
         public void ResetSnakeToStartPosition()
         {
@@ -50,18 +50,18 @@ namespace Schnacc.Domain.Snake
         {
             if (this.Body.Any())
             {
-                this.Body.Add(new SnakeBodyPart(this.Body.Last().Position));
+                this.Body.Add(new SnakeSegment(this.Body.Last().Position));
                 return;
             }
 
-            this.Body.Add(new SnakeBodyPart(this.Head.Position));
+            this.Body.Add(new SnakeSegment(this.Head.Position));
         }
 
         private void InstantiateSnake()
         {
             this.FacingDirection = new NoDirection(this);
-            this.Head = new SnakeHead(this.startPosition);
-            this.Body = new List<SnakeBodyPart>();
+            this.Head = new SnakeSegment(this.startPosition);
+            this.Body = new List<SnakeSegment>();
             this.UpdateFacingDirection(Direction.None);
         }
     }

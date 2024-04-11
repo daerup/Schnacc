@@ -12,12 +12,6 @@ namespace Schnacc.Domain.IntegrationTests
     {
         private Playarea.Playarea testee;
 
-        [Background]
-        public void SetUp()
-        {
-            this.testee = null;
-        }
-
         [Scenario]
         private void WhenTheSnakeCollidesInFruitItGrows()
         {
