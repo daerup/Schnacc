@@ -10,12 +10,12 @@ using Schnacc.UserInterface.RegisterView;
 
 namespace Schnacc.UserInterface.LoginView
 {
-    internal class LoginPageViewModel : ViewModelBase, INavigatableViewModel
+    internal class LoginPageViewModel : ViewModelBase, INavigableViewModel
     {
         private readonly AuthorizationApi authApi;
         public INavigationService NavigationService { get; set; }
 
-        public RelayCommand<object> LoginCommand { get; }
+        public AsyncRelayCommand<object> LoginCommand { get; }
         public RelayCommand<object> RegisterCommand { get; }
 
         public string Email { get; set; }
@@ -29,7 +29,7 @@ namespace Schnacc.UserInterface.LoginView
             this.LoginButtonEnabled = true;
             this.NavigationService = navigationService;
             this.ErrorMessage = string.Empty;
-            this.LoginCommand = new RelayCommand<object>(async (o) => await this.Login(o));
+            this.LoginCommand = new AsyncRelayCommand<object>(this.Login);
             this.RegisterCommand = new RelayCommand<object>(this.Register);
             this.authApi = new AuthorizationApi();
             this.NavigationService.SetAuthApi(this.authApi);

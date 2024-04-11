@@ -25,20 +25,6 @@ namespace Schnacc.UserInterface.Infrastructure.Commands
             remove => CommandManager.RequerySuggested -= value;
         }
 
-        /// <summary>Tries to execute the command by checking the <see cref="CanExecute"/> property 
-        /// and executes the command only when it can be executed. </summary>
-        /// <returns>True if command has been executed; false otherwise. </returns>
-        public bool TryExecute()
-        {
-            if (!this.CanExecute())
-            {
-                return false;
-            }
-
-            this.Execute();
-            return true;
-        }
-
         void ICommand.Execute(object parameter)
         {
             this.Execute();
@@ -48,10 +34,10 @@ namespace Schnacc.UserInterface.Infrastructure.Commands
 
         /// <summary>Defines the method that determines whether the command can execute in its current state.</summary>
         /// <returns>true if this command can be executed; otherwise, false.</returns>
-        public abstract bool CanExecute();
+        protected abstract bool CanExecute();
 
         /// <summary>Defines the method to be called when the command is invoked. </summary>
-        public abstract void Execute();
+        protected abstract void Execute();
     }
 
     /// <summary>Provides an implementation of the <see cref="ICommand"/> interface. </summary>
@@ -66,21 +52,6 @@ namespace Schnacc.UserInterface.Infrastructure.Commands
             remove => CommandManager.RequerySuggested -= value;
         }
 
-        /// <summary>Tries to execute the command by calling the <see cref="CanExecute"/> method 
-        /// and executes the command only when it can be executed. </summary>
-        /// <param name="parameter">Data used by the command.</param>
-        /// <returns>True if command has been executed; false otherwise. </returns>
-        public bool TryExecute(T parameter)
-        {
-            if (!this.CanExecute(parameter))
-            {
-                return false;
-            }
-
-            this.Execute(parameter);
-            return true;
-        }
-
         [DebuggerStepThrough]
         bool ICommand.CanExecute(object parameter) => this.CanExecute((T)parameter);
 
@@ -93,12 +64,12 @@ namespace Schnacc.UserInterface.Infrastructure.Commands
         /// <returns>true if this command can be executed; otherwise, false.</returns>
         /// <param name="parameter">Data used by the command.</param>
         [DebuggerStepThrough]
-        public abstract bool CanExecute(T parameter);
+        protected abstract bool CanExecute(T parameter);
 
         /// <summary>
         /// Defines the method to be called when the command is invoked.
         /// </summary>
         /// <param name="parameter">Data used by the command.</param>
-        public abstract void Execute(T parameter);
+        protected abstract void Execute(T parameter);
     }
 }

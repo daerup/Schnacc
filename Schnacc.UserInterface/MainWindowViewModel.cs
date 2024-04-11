@@ -1,5 +1,4 @@
-﻿using Schnacc.UserInterface.HomeMenuView;
-using Schnacc.UserInterface.Infrastructure.Navigation;
+﻿using Schnacc.UserInterface.Infrastructure.Navigation;
 using Schnacc.UserInterface.Infrastructure.ViewModels;
 
 namespace Schnacc.UserInterface
@@ -8,7 +7,7 @@ namespace Schnacc.UserInterface
     {
         private readonly NavigationService navigationService;
 
-        public MainWindowViewModel(NavigationService navigationService, HomeMenuPageViewModel homeMenuPageViewModel)
+        public MainWindowViewModel(NavigationService navigationService, IViewModel homeMenuPageViewModel)
         {
             this.CurrentPageViewModel = homeMenuPageViewModel;
             this.navigationService = navigationService;

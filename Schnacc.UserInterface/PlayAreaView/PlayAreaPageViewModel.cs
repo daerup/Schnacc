@@ -19,7 +19,7 @@ using Schnacc.UserInterface.LoginView;
 
 namespace Schnacc.UserInterface.PlayAreaView
 {
-    public class PlayAreaViewModel : ViewModelBase, INavigatableViewModel
+    public class PlayAreaViewModel : ViewModelBase, INavigableViewModel
     {
         private readonly Playarea playArea;
         private readonly Database.Database database;
@@ -86,7 +86,7 @@ namespace Schnacc.UserInterface.PlayAreaView
         {
             this.NavigationService = navigationService;
             this.database = new Database.Database(this.NavigationService.SessionToken);
-            this.HighScoreViewModel = new HighscoreViewModel(navigationService, this.database);
+            this.HighscoreViewModel = new HighscoreViewModel(navigationService, this.database);
             this.GoToLoginView = new RelayCommand(this.NavigateToLoginView);
             this.GoToMenuView = new RelayCommand(this.NavigateToMenuView);
             this.playArea = playArea;
@@ -95,7 +95,6 @@ namespace Schnacc.UserInterface.PlayAreaView
             this.InizializePlayarea();
             this.InitializeTimers();
         }
-
 
         private void NavigateToLoginView()
         {
@@ -113,12 +112,13 @@ namespace Schnacc.UserInterface.PlayAreaView
         public bool GameIsOver => this.playArea.CurrentGameState.Equals(Game.Over);
         public bool GameHasStarted => this.playArea.CurrentGameState.Equals(Game.Start);
         public ObservableCollection<SolidColorBrush> ItemsOnPlayArea { get; private set; }
-        public HighscoreViewModel HighScoreViewModel { get; }
+        public HighscoreViewModel HighscoreViewModel { get; }
         public RelayCommand GoToLoginView { get; }
         public RelayCommand GoToMenuView { get; }
 
         public void UpdateSnakeDirectionTo(object sender, KeyEventArgs args)
         {
+            // ReSharper disable once SwitchStatementMissingSomeEnumCasesNoDefault
             switch (args.Key)
             {
                 case Key.Right: this.SetDirectionTo(Direction.Right); break;
@@ -127,7 +127,6 @@ namespace Schnacc.UserInterface.PlayAreaView
                 case Key.Down: this.SetDirectionTo(Direction.Down); break;
                 case Key.Space: this.ActivateSlowMotion(); break;
                 case Key.R: this.Restart(); break;
-                default: return;
             }
         }
 

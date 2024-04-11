@@ -2,8 +2,8 @@
 
 namespace Schnacc.UserInterface.Infrastructure.Navigation
 {
-    public interface INavigatableViewModel : IViewModel
+    public interface INavigableViewModel : IViewModel
     {
-        INavigationService NavigationService { get; set; }
+        public INavigationService NavigationService { get; set; }
     }
 }

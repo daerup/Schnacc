@@ -10,8 +10,10 @@ namespace Schnacc.UserInterface
         {
             var navigationService = new NavigationService();
             var mainWindowViewModel = new MainWindowViewModel(navigationService, new HomeMenuPageViewModel(navigationService));
-            var mainWindow = new MainWindow();
-            mainWindow.DataContext = mainWindowViewModel;
+            var mainWindow = new MainWindow
+            {
+                DataContext = mainWindowViewModel
+            };
             mainWindow.ShowDialog();
         }
     }

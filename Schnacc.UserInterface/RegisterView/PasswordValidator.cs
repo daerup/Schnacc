@@ -4,8 +4,12 @@ using System.Windows.Controls;
 namespace Schnacc.UserInterface.RegisterView {
     public class PasswordValidator : FrameworkElement
     {
-        public static readonly DependencyProperty Box1Property = DependencyProperty.Register("Box1", typeof(PasswordBox), typeof(PasswordValidator), new PropertyMetadata(PasswordValidator.Box1Changed));
-        public static readonly DependencyProperty Box2Property = DependencyProperty.Register("Box2", typeof(PasswordBox), typeof(PasswordValidator), new PropertyMetadata(PasswordValidator.Box2Changed));
+        public static readonly DependencyProperty Box1Property = DependencyProperty.Register(
+            nameof(PasswordValidator.Box1), typeof(PasswordBox), typeof(PasswordValidator),
+            new PropertyMetadata(PasswordValidator.Box1Changed));
+        public static readonly DependencyProperty Box2Property = DependencyProperty.Register(
+            nameof(PasswordValidator.Box2), typeof(PasswordBox), typeof(PasswordValidator),
+            new PropertyMetadata(PasswordValidator.Box2Changed));
 
         public PasswordBox Box1
         {
@@ -23,14 +27,7 @@ namespace Schnacc.UserInterface.RegisterView {
             var pv = (PasswordValidator)d;
             pv.Box1.PasswordChanged += (obj, evt) =>
             {
-                if (pv.Box1.Password != pv.Box2.Password)
-                {
-                    pv.Box2.Tag = "wrong";
-                }
-                else
-                {
-                    pv.Box2.Tag = "correct";
-                }
+                pv.Box2.Tag = pv.Box1.Password != pv.Box2.Password ? "wrong" : "correct";
             };
         }
         private static void Box2Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -38,14 +35,7 @@ namespace Schnacc.UserInterface.RegisterView {
             var pv = (PasswordValidator)d;
             pv.Box2.PasswordChanged += (obj, evt) =>
             {
-                if (pv.Box1.Password != pv.Box2.Password)
-                {
-                    pv.Box2.Tag = "wrong";
-                }
-                else
-                {
-                    pv.Box2.Tag = "correct";
-                }
+                pv.Box2.Tag = pv.Box1.Password != pv.Box2.Password ? "wrong" : "correct";
             };
         }
     }

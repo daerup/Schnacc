@@ -57,7 +57,7 @@
                     <RowDefinition Height="100*"/>
                     <RowDefinition Height="20*"/>
                 </Grid.RowDefinitions>
-                <Grid Column="1" Visibility="{Binding Path=ErrorIsVisible, Converter={StaticResource BoolToVisibilityConverter}}">
+                <Grid Visibility="{Binding Path=ErrorIsVisible, Converter={StaticResource BoolToVisibilityConverter}}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="30*"/>
                         <RowDefinition Height="20*"/>
@@ -87,7 +87,7 @@
                         <TextBlock Text="{Binding Score, StringFormat={}Score: {0}}"/>
                     </Viewbox>
                     <Grid Visibility="{Binding Path=HighscoresAreVisible, Converter={StaticResource BoolToVisibilityConverter}}" ZIndex="10" Grid.Row="2">
-                        <highscoreView:HighScoreView  DataContext="{Binding HighScoreViewModel}" Foreground="Black"/>
+                        <highscoreView:HighScoreView  DataContext="{Binding HighscoreViewModel}" Foreground="Black"/>
                     </Grid>
                 </Grid>
                 <Button 

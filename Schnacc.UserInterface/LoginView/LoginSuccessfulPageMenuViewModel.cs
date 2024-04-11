@@ -6,7 +6,7 @@ using Schnacc.UserInterface.PlayAreaView;
 
 namespace Schnacc.UserInterface.LoginView
 {
-    public class LoginSuccessfulPageMenuViewModel : ViewModelBase, INavigatableViewModel
+    public class LoginSuccessfulPageMenuViewModel : ViewModelBase, INavigableViewModel
     {
         public RelayCommand GoToHighScoreViewCommand { get; }
 

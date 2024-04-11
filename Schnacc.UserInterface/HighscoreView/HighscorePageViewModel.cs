@@ -6,7 +6,7 @@ using Schnacc.UserInterface.PlayAreaView;
 
 namespace Schnacc.UserInterface.HighScoreView
 {
-    public class HighscorePageViewModel : ViewModelBase, INavigatableViewModel
+    public class HighscorePageViewModel : ViewModelBase, INavigableViewModel
     {
         public INavigationService NavigationService { get; set; }
         public HighscoreViewModel HighscoreViewModel { get; private set; }

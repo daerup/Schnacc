@@ -9,7 +9,7 @@ using Schnacc.UserInterface.LoginView;
 
 namespace Schnacc.UserInterface.PlayAreaView
 {
-    public class PlayAreaSettingsPageViewModel : ViewModelBase, INavigatableViewModel
+    public class PlayAreaSettingsPageViewModel : ViewModelBase, INavigableViewModel
     {
         public INavigationService NavigationService { get; set; }
 

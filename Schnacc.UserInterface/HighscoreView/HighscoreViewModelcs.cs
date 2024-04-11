@@ -8,8 +8,7 @@ namespace Schnacc.UserInterface.HighScoreView
 {
     public class HighscoreViewModel : ViewModelBase 
     { 
-
-        private Database.Database db;
+        private readonly Database.Database db;
         public HighscoreViewModel(INavigationService navigationService, Database.Database db)
         {
             this.NavigationService = navigationService;
@@ -24,7 +23,7 @@ namespace Schnacc.UserInterface.HighScoreView
             this.db.GetObservableHighscores().Subscribe(s => this.UpdateHighscores());
         }
 
-        public INavigationService NavigationService { get; }
+        private INavigationService NavigationService { get; }
 
         public List<Highscore> Highscores { get; private set;}
 

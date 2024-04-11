@@ -31,23 +31,18 @@ namespace Schnacc.UserInterface.Infrastructure.Commands
         /// <summary>Initializes a new instance of the <see cref="RelayCommand"/> class. </summary>
         /// <param name="execute">The action to execute. </param>
         /// <param name="canExecute">The predicate to check whether the function can be executed. </param>
-        public RelayCommand(Action execute, Func<bool> canExecute)
+        private RelayCommand(Action execute, Func<bool> canExecute)
         {
-            if (execute == null)
-            {
-                throw new ArgumentNullException(nameof(execute));
-            }
-
-            this.execute = execute;
+            this.execute = execute ?? throw new ArgumentNullException(nameof(execute));
             this.canExecute = canExecute;
         }
 
         /// <summary>Defines the method that determines whether the command can execute in its current state.</summary>
         /// <returns>true if this command can be executed; otherwise, false.</returns>
-        public override bool CanExecute() => this.canExecute == null || this.canExecute();
+        protected override bool CanExecute() => this.canExecute == null || this.canExecute();
 
         /// <summary>Defines the method to be called when the command is invoked. </summary>
-        public override void Execute()
+        protected override void Execute()
         {
             this.execute();
         }
@@ -63,15 +58,8 @@ namespace Schnacc.UserInterface.Infrastructure.Commands
 
         /// <summary>Initializes a new instance of the <see cref="RelayCommand{T}"/> class. </summary>
         /// <param name="execute">The action to execute. </param>
-        public RelayCommand(Action<T> execute)
-            : this(execute, null)
-        {
-        }
-
-        /// <summary>Initializes a new instance of the <see cref="RelayCommand{T}"/> class. </summary>
-        /// <param name="execute">The action to execute. </param>
         /// <param name="canExecute">The predicate to check whether the function can be executed. </param>
-        public RelayCommand(Action<T> execute, Predicate<T> canExecute)
+        public RelayCommand(Action<T> execute, Predicate<T> canExecute = null)
         {
             this.execute = execute ?? throw new ArgumentNullException(nameof(execute));
             this.canExecute = canExecute;
@@ -79,10 +67,10 @@ namespace Schnacc.UserInterface.Infrastructure.Commands
 
         /// <inheritdoc />
         [DebuggerStepThrough]
-        public override bool CanExecute(T parameter) => this.canExecute == null || this.canExecute(parameter);
+        protected override bool CanExecute(T parameter) => this.canExecute == null || this.canExecute(parameter);
 
         /// <inheritdoc />
-        public override void Execute(T parameter)
+        protected override void Execute(T parameter)
         {
             this.execute(parameter);
         }

@@ -9,7 +9,7 @@ using Schnacc.UserInterface.RegisterView;
 
 namespace Schnacc.UserInterface.HomeMenuView
 {
-    public class HomeMenuPageViewModel : ViewModelBase, INavigatableViewModel
+    public class HomeMenuPageViewModel : ViewModelBase, INavigableViewModel
     {
         public RelayCommand GoToPlayareaSettingsView { get; }
         public RelayCommand GoToHighscoresView { get; }

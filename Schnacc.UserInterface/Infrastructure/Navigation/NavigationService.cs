@@ -1,21 +1,18 @@
 ﻿using Schnacc.Authorization;
-using Schnacc.UserInterface.Infrastructure.ViewModels;
 
 namespace Schnacc.UserInterface.Infrastructure.Navigation
 {
     public class NavigationService : INavigationService
     {
         private AuthorizationApi authApi;
-        private IViewModel viewModelToNavigateTo;
 
         public delegate void NavigateHandler(object o, NavigationEventArgs args);
 
         public event NavigateHandler OnNavigation;
 
-        public void NavigateTo(INavigatableViewModel viewModel )
+        public void NavigateTo(INavigableViewModel viewModel)
         {
-            this.viewModelToNavigateTo = viewModel;
-            this.OnNavigation(this, new NavigationEventArgs(this.viewModelToNavigateTo));
+            this.OnNavigation?.Invoke(this, new NavigationEventArgs(viewModel));
         }
 
         public string Username => this.authApi.Username;

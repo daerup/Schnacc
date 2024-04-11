@@ -9,7 +9,7 @@ namespace Schnacc.UserInterface.Infrastructure.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
             
         [NotifyPropertyChangedInvocator]
-        public virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

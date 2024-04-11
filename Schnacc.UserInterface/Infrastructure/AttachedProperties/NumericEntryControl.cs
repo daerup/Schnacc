@@ -18,38 +18,44 @@ namespace Schnacc.UserInterface.Infrastructure.AttachedProperties
         public static readonly DependencyProperty IsNumericProperty =
             DependencyProperty.RegisterAttached("IsNumeric", typeof(bool), typeof(TextBoxHelpers), new PropertyMetadata(false, (s, e) =>
             {
-                var targetTextbox = s as TextBox;
-                if (targetTextbox != null)
+                if (!(s is TextBox targetTextBox))
                 {
-                    if ((bool)e.OldValue && !(bool)e.NewValue)
-                    {
-                        targetTextbox.PreviewTextInput -= TextBoxHelpers.targetTextboxPreviewTextInput;
-                    }
-                    if ((bool)e.NewValue)
-                    {
-                        targetTextbox.PreviewTextInput += TextBoxHelpers.targetTextboxPreviewTextInput;
-                        targetTextbox.PreviewKeyDown += TextBoxHelpers.targetTextboxPreviewKeyDown;
-                    }
+                    return;
                 }
+
+                if ((bool)e.OldValue && !(bool)e.NewValue)
+                {
+                    targetTextBox.PreviewTextInput -= TextBoxHelpers.TargetTextBoxPreviewTextInput;
+                }
+
+                if (!(bool)e.NewValue)
+                {
+                    return;
+                }
+
+                targetTextBox.PreviewTextInput += TextBoxHelpers.TargetTextBoxPreviewTextInput;
+                targetTextBox.PreviewKeyDown += TextBoxHelpers.TargetTextBoxPreviewKeyDown;
             }));
 
-        private static void targetTextboxPreviewKeyDown(object sender, KeyEventArgs e)
+        private static void TargetTextBoxPreviewKeyDown(object sender, KeyEventArgs e)
         {
             e.Handled = e.Key == Key.Space;
         }
 
-        private static void targetTextboxPreviewTextInput(object sender, TextCompositionEventArgs e)
+        private static void TargetTextBoxPreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             char newChar = e.Text[0];
             e.Handled = !char.IsNumber(newChar);
             var textBox = sender as TextBox;
-            if (!string.IsNullOrEmpty(textBox!.Text))
+            if (string.IsNullOrEmpty(textBox!.Text))
             {
-                int textBoxNumber = Convert.ToInt32(textBox.Text);
-                if (textBoxNumber > 25)
-                {
-                    textBox.Text = "25";
-                }
+                return;
+            }
+
+            int textBoxNumber = Convert.ToInt32(textBox.Text);
+            if (textBoxNumber > 25)
+            {
+                textBox.Text = "25";
             }
         }
     }
