@@ -27,7 +27,7 @@ namespace Schnacc.UserInterface.PlayAreaView
         private Timer movementTimer;
         private const int RenderSpeedInMilliSeconds = 50;
         private readonly int gameSpeedInMilliSeconds;
-        private object state;
+        private object timerState;
         private readonly List<Direction> directionsBuffer = new List<Direction>();
         private readonly object directionLock = new object();
         private int moveCount;
@@ -162,9 +162,9 @@ namespace Schnacc.UserInterface.PlayAreaView
 
         private void InitializeTimers()
         {
-            this.state = new object();
-            this.renderTimer = new Timer(this.OnRenderUpdate, this.state, 0, PlayAreaViewModel.RenderSpeedInMilliSeconds);
-            this.movementTimer = new Timer(this.OnGameUpdate, this.state, 0, this.gameSpeedInMilliSeconds);
+            this.timerState = new object();
+            this.renderTimer = new Timer(this.OnRenderUpdate, this.timerState, 0, PlayAreaViewModel.RenderSpeedInMilliSeconds);
+            this.movementTimer = new Timer(this.OnGameUpdate, this.timerState, 0, this.gameSpeedInMilliSeconds);
         }
 
         private void OnGameUpdate(object newGameState)
@@ -255,7 +255,7 @@ namespace Schnacc.UserInterface.PlayAreaView
         {
             this.movementTimer.Dispose();
             this.renderTimer.Dispose();
-            this.state = new object();
+            this.timerState = new object();
             this.Direction = Direction.None;
             this.directionsBuffer.Clear();
             this.ItemsOnPlayArea.Clear();

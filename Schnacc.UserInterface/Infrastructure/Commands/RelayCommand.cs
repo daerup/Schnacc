@@ -42,10 +42,7 @@ namespace Schnacc.UserInterface.Infrastructure.Commands
         protected override bool CanExecute() => this.canExecute == null || this.canExecute();
 
         /// <summary>Defines the method to be called when the command is invoked. </summary>
-        protected override void Execute()
-        {
-            this.execute();
-        }
+        protected override void Execute() => this.execute();
     }
 
     /// <summary>Provides an implementation of the <see cref="ICommand"/> interface. </summary>
@@ -70,9 +67,6 @@ namespace Schnacc.UserInterface.Infrastructure.Commands
         protected override bool CanExecute(T parameter) => this.canExecute == null || this.canExecute(parameter);
 
         /// <inheritdoc />
-        protected override void Execute(T parameter)
-        {
-            this.execute(parameter);
-        }
+        protected override void Execute(T parameter) => this.execute(parameter);
     }
 }

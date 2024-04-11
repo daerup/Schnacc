@@ -32,6 +32,5 @@ namespace Schnacc.UserInterface.HighScoreView
             this.Highscores = this.db.GetHighscores();
             this.OnPropertyChanged(nameof(this.Highscores));
         }
-
     }
 }
