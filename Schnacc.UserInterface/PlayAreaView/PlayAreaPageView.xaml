@@ -15,7 +15,7 @@
     <Grid Loaded="GridLoaded">
         <DockPanel Height="Auto" Width="Auto" LastChildFill="True">
             <Grid VerticalAlignment="Center" HorizontalAlignment="Center" DockPanel.Dock="Left">
-                <ItemsControl ItemsSource="{Binding ItemsOnPlayArea}"  Name="GameStartOverlay">
+                <ItemsControl ItemsSource="{Binding ItemsOnPlayArea, IsAsync=True}"  Name="GameStartOverlay">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <UniformGrid Rows="{Binding NumberOfRows}" Columns="{Binding NumberOfColumns}"/>

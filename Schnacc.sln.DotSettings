@@ -4,4 +4,5 @@
 	
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=Highscores/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=Playarea/@EntryIndexedValue">True</s:Boolean>
-	<s:Boolean x:Key="/Default/UserDictionary/Words/=Schnacc/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Schnacc/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Suppressable/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>

@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
 using Schnacc.Database;
 using Schnacc.Domain.Playarea;
 using Schnacc.Domain.Snake;
 using Schnacc.UserInterface.HighScoreView;
 using Schnacc.UserInterface.HomeMenuView;
 using Schnacc.UserInterface.Infrastructure.Commands;
+using Schnacc.UserInterface.Infrastructure.Extensions;
 using Schnacc.UserInterface.Infrastructure.Navigation;
 using Schnacc.UserInterface.Infrastructure.ViewModels;
 using Schnacc.UserInterface.LoginView;
@@ -39,11 +38,9 @@ namespace Schnacc.UserInterface.PlayAreaView
 
         private bool IsAllowedToWriteHighScore => !this.highScoreIsWritten && this.NavigationService.EmailIsVerified;
         private bool SlowMotionIsActive =>  !this.slowMotionTicks.Equals(0);
-
-        private SolidColorBrush SnakeColor => !this.SlowMotionIsActive ? Brushes.MediumSeaGreen : new SolidColorBrush(Color.FromRgb(57, 255, 20));
-        private SolidColorBrush FoodColor => !this.SlowMotionIsActive ? Brushes.IndianRed : new SolidColorBrush(Color.FromRgb(250, 3, 251));
-        private static SolidColorBrush PlayAreaColor => new SolidColorBrush(Color.FromRgb(100, 100, 100));
-
+        private string SnakeColor => !this.SlowMotionIsActive ? "#3d9e31" : "#6cf85b";
+        private string FoodColor => !this.SlowMotionIsActive ? "#f93910" :"#ff33cc";
+        private string PlayAreaColor => "#646464";
 
         private Direction Direction
         {
@@ -92,7 +89,7 @@ namespace Schnacc.UserInterface.PlayAreaView
             this.playArea = playArea;
             this.difficultyLevel = difficultyLevel;
             this.gameSpeedInMilliSeconds = this.CalculateGameSpeed();
-            this.InizializePlayarea();
+            this.InitializePlayarea();
             this.InitializeTimers();
         }
 
@@ -111,7 +108,7 @@ namespace Schnacc.UserInterface.PlayAreaView
 
         public bool GameIsOver => this.playArea.CurrentGameState.Equals(Game.Over);
         public bool GameHasStarted => this.playArea.CurrentGameState.Equals(Game.Start);
-        public ObservableCollection<SolidColorBrush> ItemsOnPlayArea { get; private set; }
+        public SuppressableObservableCollection<string> ItemsOnPlayArea { get; private set; }
         public HighscoreViewModel HighscoreViewModel { get; }
         public RelayCommand GoToLoginView { get; }
         public RelayCommand GoToMenuView { get; }
@@ -138,25 +135,25 @@ namespace Schnacc.UserInterface.PlayAreaView
             }
         }
 
-        private void InizializePlayarea()
+        private void InitializePlayarea()
         {
-            var playAreaColors = new List<SolidColorBrush>();
+            var playAreaColors = new List<string>();
             for (int i = 0; i < this.NumberOfRows; i++)
             {
                 for (int j = 0; j < this.NumberOfColumns; j++)
                 {
-                    playAreaColors.Add(PlayAreaViewModel.PlayAreaColor);
+                    playAreaColors.Add(this.PlayAreaColor);
                 }
             }
 
-            this.ItemsOnPlayArea = new ObservableCollection<SolidColorBrush>(playAreaColors);
+            this.ItemsOnPlayArea = new SuppressableObservableCollection<string>(playAreaColors);
         }
 
         private void ClearPlayArea()
         {
-            for (int i = 0; i < this.ItemsOnPlayArea.Where(iop => iop != PlayAreaViewModel.PlayAreaColor).ToList().Count; i++)
+            for (int i = 0; i < this.ItemsOnPlayArea.Count; i++)
             {
-                this.ItemsOnPlayArea[i] = PlayAreaViewModel.PlayAreaColor;
+                this.ItemsOnPlayArea[i] = this.PlayAreaColor;
             }
         }
 
@@ -196,6 +193,7 @@ namespace Schnacc.UserInterface.PlayAreaView
             this.OnPropertyChanged(nameof(this.Score));
             Application.Current?.Dispatcher?.Invoke(delegate
             {
+                this.ItemsOnPlayArea.SuppressNotification = true;
                 this.ClearPlayArea();
                 this.ItemsOnPlayArea[this.GetIndexFromPosition(this.playArea.Snake.Head.Position)] = this.SnakeColor;
                 this.ItemsOnPlayArea[this.GetIndexFromPosition(this.playArea.Food.Position)] = this.FoodColor;
@@ -204,9 +202,9 @@ namespace Schnacc.UserInterface.PlayAreaView
                 {
                     this.ItemsOnPlayArea[index] = this.SnakeColor;
                 }
+                this.ItemsOnPlayArea.SuppressNotification = false;
             });
         }
-
 
         private async Task CheckForGameState()
         {
@@ -260,7 +258,7 @@ namespace Schnacc.UserInterface.PlayAreaView
             this.directionsBuffer.Clear();
             this.ItemsOnPlayArea.Clear();
             this.playArea.RestartGame();
-            this.InizializePlayarea();
+            this.InitializePlayarea();
             this.InitializeTimers();
             this.slowMotionTicks = 0;
             this.moveCount = 0;
