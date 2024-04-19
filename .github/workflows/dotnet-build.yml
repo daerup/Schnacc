@@ -9,7 +9,7 @@ jobs:
     strategy:
       matrix:
         include:
-        - dotnet-version: '3.1.x'
+        - dotnet-version: ' '
           tfm: 'netcoreapp3.1'
 
     steps:
@@ -21,5 +21,5 @@ jobs:
       - name: Build
         run: dotnet build --configuration Release --no-restore
       - name: Test with the dotnet CLI
-        run: dotnet test --no-restore --verbosity normal -f="${{ matrix.tfm }}"
+        run: dotnet test --no-build --verbosity normal -f="${{ matrix.tfm }}"
 
