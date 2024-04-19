@@ -4,19 +4,22 @@ on: [push]
 
 jobs:
   build:
+
     runs-on: windows-latest 
     strategy:
       matrix:
-        dotnet-version: [ '3.1.x', '6.0.x' ]
+        include:
+        - dotnet-version: '3.1.x'
+          tfm: 'netcoreapp3.1'
 
     steps:
       - uses: actions/checkout@v4
       - name: Setup dotnet
         uses: actions/setup-dotnet@v3
       - name: Install dependencies
-        run: dotnet restore
+        run: dotnet restore -p:TargetFramework=${{ matrix.tfm }}
       - name: Build
-        run: dotnet build
+        run: dotnet build --configuration Release --no-restore
       - name: Test with the dotnet CLI
-        run: dotnet test
+        run: dotnet test --no-restore --verbosity normal -f=${{ matrix.tfm }}
 
