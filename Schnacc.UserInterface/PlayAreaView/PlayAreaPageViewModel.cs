@@ -202,6 +202,7 @@ namespace Schnacc.UserInterface.PlayAreaView
                 {
                     this.ItemsOnPlayArea[index] = this.SnakeColor;
                 }
+                
                 this.ItemsOnPlayArea.SuppressNotification = false;
             });
         }

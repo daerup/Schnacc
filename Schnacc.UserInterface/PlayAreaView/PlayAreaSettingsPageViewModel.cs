@@ -18,8 +18,8 @@ namespace Schnacc.UserInterface.PlayAreaView
 
         public int DifficultyLevel { get; set; } = 9;
 
-        public string NumberOfRows { get; set; } = "10";
-        public string NumberOfColumns { get; set; } = "10";
+        public string NumberOfRows { get; set; } = "50";
+        public string NumberOfColumns { get; set; } = "50";
 
         public PlayAreaSettingsPageViewModel(INavigationService navigationService)
         {
