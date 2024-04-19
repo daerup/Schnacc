@@ -15,11 +15,6 @@ jobs:
       pull-requests: write
       checks: write
     steps:
-      - uses: joaofouyer/qodana-scan-badge@1.0.0
-        with:
-          generate-coverage: true
-          generate-quality: true
-          generate-qodana-button: true
       - name: 'Qodana Scan'
         uses: JetBrains/qodana-action@v2023.3
         env:
