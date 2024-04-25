@@ -19,9 +19,8 @@ namespace Schnacc.Database.UnitTests
             var authorizationApi = new AuthorizationApi();
             this.testee = new Database(await authorizationApi.SignInWithEmail(email, password));
             
-            // Act
+            // Assert
             List<Highscore> highscores = this.testee.GetHighscores();
-
             highscores.Count.Should().BeGreaterOrEqualTo(1);
         }
     }

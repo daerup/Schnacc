@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+	<EnableWindowsTargeting>true</EnableWindowsTargeting>
     <FileUpgradeFlags>40</FileUpgradeFlags>
     <OldToolsVersion>15.0</OldToolsVersion>
     <UpgradeBackupLocation>C:\Users\darioportmann\source\repos\Schnacc\Backup1\</UpgradeBackupLocation>
