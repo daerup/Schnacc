@@ -11,7 +11,7 @@ namespace Schnacc.Database.UnitTests
         private Database testee;
 
         [Fact(Skip = "failing")]
-        private async Task UserCanFetchHighscores()
+        public async Task UserCanFetchHighscores()
         {
             // Act
             const string email = "hans.muster@mail.ch";

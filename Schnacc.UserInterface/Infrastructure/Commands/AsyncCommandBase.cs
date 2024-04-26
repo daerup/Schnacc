@@ -4,8 +4,6 @@ using System.Windows.Input;
 
 namespace Schnacc.UserInterface.Infrastructure.Commands
 {
-#pragma warning disable SA1402 // File may only contain a single class
-
     public abstract class AsyncCommandBase<T> : ICommand
     {
         /// <summary>Occurs when changes occur that affect whether or not the command should execute. </summary>

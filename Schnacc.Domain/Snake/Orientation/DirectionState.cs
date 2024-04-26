@@ -39,7 +39,7 @@ namespace Schnacc.Domain.Snake.Orientation
 
         public void MoveBody()
         {
-            if (this.Snake.Body.Any() == false)
+            if (!this.Snake.Body.Any())
             {
                 return;
             }

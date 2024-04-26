@@ -1,4 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using FluentAssertions;
 using Schnacc.Domain.Snake;
@@ -6,7 +6,6 @@ using Xbehave;
 
 namespace Schnacc.Domain.IntegrationTests
 {
-    [SuppressMessage("ReSharper", "TooManyDeclarations")]
     public class SnakeMovementTest
     {
         private Snake.Snake testee;
@@ -36,7 +35,7 @@ namespace Schnacc.Domain.IntegrationTests
 
         [Scenario]
         [Example(0, 0)]
-        private void BodyOfSnakeIsFollowingTheSnakeHeadRightwards(int startRow, int startColumn)
+        public void BodyOfSnakeIsFollowingTheSnakeHeadRightwards(int startRow, int startColumn)
         {
             this.GivingASnakeWithABodyFacingInACertainDirection(startRow, startColumn, Direction.Right);
 
@@ -74,7 +73,7 @@ namespace Schnacc.Domain.IntegrationTests
 
         [Scenario]
         [Example(0, 0)]
-        private void BodyOfSnakeIsFollowingTheSnakeHeadLeftwards(int startRow, int startColumn)
+        public void BodyOfSnakeIsFollowingTheSnakeHeadLeftwards(int startRow, int startColumn)
         {
             this.GivingASnakeWithABodyFacingInACertainDirection(startRow, startColumn, Direction.Left);
 
@@ -112,7 +111,7 @@ namespace Schnacc.Domain.IntegrationTests
 
         [Scenario]
         [Example(0, 0)]
-        private void BodyOfSnakeIsFollowingTheSnakeHeadUpwards(int startRow, int startColumn)
+        public void BodyOfSnakeIsFollowingTheSnakeHeadUpwards(int startRow, int startColumn)
         {
             this.GivingASnakeWithABodyFacingInACertainDirection(startRow, startColumn, Direction.Up);
 
@@ -150,7 +149,7 @@ namespace Schnacc.Domain.IntegrationTests
 
         [Scenario]
         [Example(0, 0)]
-        private void BodyOfSnakeIsFollowingTheSnakeHeadDownwards(int startRow, int startColumn)
+        public void BodyOfSnakeIsFollowingTheSnakeHeadDownwards(int startRow, int startColumn)
         {
             this.GivingASnakeWithABodyFacingInACertainDirection(startRow, startColumn, Direction.Down);
 
@@ -188,7 +187,7 @@ namespace Schnacc.Domain.IntegrationTests
 
         [Scenario]
         [Example(0, 0)]
-        private void BodyOfSnakeIsCapableOfMovingInCircularMotions(int startRow, int startColumn)
+        public void BodyOfSnakeIsCapableOfMovingInCircularMotions(int startRow, int startColumn)
         {
             this.GivingASnakeWithABodyFacingInACertainDirection(startRow, startColumn, Direction.Right);
 
