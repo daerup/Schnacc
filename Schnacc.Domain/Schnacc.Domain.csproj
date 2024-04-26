@@ -6,7 +6,4 @@
     <OldToolsVersion>15.0</OldToolsVersion>
     <UpgradeBackupLocation>C:\Users\darioportmann\source\repos\Schnacc\Backup1\</UpgradeBackupLocation>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="System.Windows.Interactivity.WPF" Version="2.0.20525" />
-  </ItemGroup>
 </Project>
