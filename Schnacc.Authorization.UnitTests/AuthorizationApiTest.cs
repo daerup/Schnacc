@@ -11,7 +11,7 @@ namespace Schnacc.Authorization.UnitTests
         private readonly AuthorizationApi testee = new AuthorizationApi();
 
         [Fact(Skip = "failing")]
-        public async Task UserCanSignInWithEmailAndPassword()
+        private async Task UserCanSignInWithEmailAndPassword()
         {
             // Arrange
             const string email = "hans.muster@mail.ch";
@@ -25,7 +25,7 @@ namespace Schnacc.Authorization.UnitTests
         }
 
         [Fact(Skip = "failing")]
-        public void WhenNotRegisteredUserCanNotSignIn()
+        private void WhenNotRegisteredUserCanNotSignIn()
         {
             // Arrange
             const string email = "hans.muster@notRegistered.ch";

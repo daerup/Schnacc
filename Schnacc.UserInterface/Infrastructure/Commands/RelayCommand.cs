@@ -12,6 +12,7 @@ using System.Windows.Input;
 
 namespace Schnacc.UserInterface.Infrastructure.Commands
 {
+#pragma warning disable SA1402 // File may only contain a single class
 
     /// <summary>Provides an implementation of the <see cref="ICommand"/> interface. </summary>
     public class RelayCommand : CommandBase

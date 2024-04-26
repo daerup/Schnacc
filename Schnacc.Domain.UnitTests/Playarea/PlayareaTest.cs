@@ -16,7 +16,7 @@ namespace Schnacc.Domain.UnitTests.Playarea
         [InlineData(3, 2)]
         [InlineData(4, 4)]
         [InlineData(4, 0)]
-        public void PlayareaSizeIsAtLeast4RowsAnd4Columns(int numberOfRows, int numberOfColumns)
+        private void PlayareaSizeIsAtLeast4RowsAnd4Columns(int numberOfRows, int numberOfColumns)
         {
             // Arrange
             var size = new PlayareaSize(numberOfRows, numberOfColumns);
@@ -30,7 +30,7 @@ namespace Schnacc.Domain.UnitTests.Playarea
         }
 
         [Fact]
-        public void NewlyCreatedPlaygroundShouldHaveStartGamestate()
+        private void NewlyCreatedPlaygroundShouldHaveStartGamestate()
         {
             // Act
             this.testee = new Domain.Playarea.Playarea(new PlayareaSize(10, 10), A.Dummy<IFoodFactory>());
@@ -44,7 +44,7 @@ namespace Schnacc.Domain.UnitTests.Playarea
         [InlineData(Direction.Left)]
         [InlineData(Direction.Up)]
         [InlineData(Direction.Down)]
-        public void WhenDirectionOfSnakeSetPlaygroundShouldHaveRunningGamestate(Direction newFacingDirection)
+        private void WhenDirectionOfSnakeSetPlaygroundShouldHaveRunningGamestate(Direction newFacingDirection)
         {
             // Arrange
             this.testee = new Domain.Playarea.Playarea(new PlayareaSize(10, 10), A.Dummy<IFoodFactory>());
@@ -57,7 +57,7 @@ namespace Schnacc.Domain.UnitTests.Playarea
         }
 
         [Fact]
-        public void SnakeShouldNotMoveWhenDirectionIsNeverUpdated()
+        private void SnakeShouldNotMoveWhenDirectionIsNeverUpdated()
         {
             // Arrange
             var size = new PlayareaSize(10, 10);

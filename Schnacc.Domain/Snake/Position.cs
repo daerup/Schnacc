@@ -1,8 +1,6 @@
-﻿using System.Collections;
-
-namespace Schnacc.Domain.Snake
+﻿namespace Schnacc.Domain.Snake
 {
-    public class Position : IEqualityComparer
+    public class Position
     {
         public Position(int row, int column)
         {
@@ -20,16 +18,6 @@ namespace Schnacc.Domain.Snake
 
         public int Column { get; }
 
-        public new bool Equals(object x, object y) => x is Position positionX && y is Position positionY && positionX.Row == positionY.Row && positionX.Column == positionY.Column;
-
-        public int GetHashCode(object obj)
-        {
-            if (obj is Position position)
-            {
-                return position.Row.GetHashCode() ^ position.Column.GetHashCode();
-            }
-
-            return 0;
-        }
+        public bool Equals(Position other) => this.Row == other.Row && this.Column == other.Column;
     }
 }

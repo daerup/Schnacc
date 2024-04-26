@@ -13,7 +13,7 @@ namespace Schnacc.Domain.IntegrationTests
         private Playarea.Playarea testee;
 
         [Scenario]
-        public void WhenTheSnakeCollidesInFruitItGrows()
+        private void WhenTheSnakeCollidesInFruitItGrows()
         {
             IFoodFactory foodFactory = null;
 
@@ -46,7 +46,7 @@ namespace Schnacc.Domain.IntegrationTests
         }
 
         [Scenario]
-        public void SnakeCannotBeResetUnlessTheGameIsOver()
+        private void SnakeCannotBeResetUnlessTheGameIsOver()
         {
             IFoodFactory foodFactory = null;
             "Given a food factory"
@@ -91,7 +91,7 @@ namespace Schnacc.Domain.IntegrationTests
         }
 
         [Scenario]
-        public void SnakeCannotMoveWhenTheGameIsOver()
+        private void SnakeCannotMoveWhenTheGameIsOver()
         {
             IFoodFactory foodFactory = null;
             "Given a food factory"
@@ -138,7 +138,7 @@ namespace Schnacc.Domain.IntegrationTests
         }
 
         [Scenario]
-        public void GameIsOverWhenSnakeCollidesWithRightWall()
+        private void GameIsOverWhenSnakeCollidesWithRightWall()
         {
             IFoodFactory foodFactory = null;
 
@@ -174,7 +174,7 @@ namespace Schnacc.Domain.IntegrationTests
         }
 
         [Scenario]
-        public void GameIsOverWhenSnakeCollidesWithLeftWall()
+        private void GameIsOverWhenSnakeCollidesWithLeftWall()
         {
             IFoodFactory foodFactory = null;
 
@@ -210,7 +210,7 @@ namespace Schnacc.Domain.IntegrationTests
         }
 
         [Scenario]
-        public void GameIsOverWhenSnakeCollidesWithTopWall()
+        private void GameIsOverWhenSnakeCollidesWithTopWall()
         {
             IFoodFactory foodFactory = null;
 
@@ -246,7 +246,7 @@ namespace Schnacc.Domain.IntegrationTests
         }
 
         [Scenario]
-        public void GameIsOverWhenSnakeCollidesWithBottomWall()
+        private void GameIsOverWhenSnakeCollidesWithBottomWall()
         {
             IFoodFactory foodFactory = null;
             "Given a food factory"
@@ -281,7 +281,7 @@ namespace Schnacc.Domain.IntegrationTests
         }
 
         [Scenario]
-        public void GameIsOverWhenSnakeCollidesWithItself()
+        private void GameIsOverWhenSnakeCollidesWithItself()
         {
             IFoodFactory foodFactory = null;
             "Given a food factory"

@@ -11,7 +11,7 @@ namespace Schnacc.Domain.UnitTests.Food
         private readonly IFood testee = new Watermelon(A.Dummy<Position>());
 
         [Fact]
-        public void WatermelonInstanceShouldBeNamedWatermelon()
+        private void WatermelonInstanceShouldBeNamedWatermelon()
         {
             // Assert
             this.testee.Name.Should().Be("Watermelon");

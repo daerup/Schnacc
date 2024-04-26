@@ -13,7 +13,7 @@ namespace Schnacc.Domain.UnitTests.Food
         private FoodFactory testee;
 
         [Fact]
-        public void CreateRandomFoodShouldCreateFoodType()
+        private void CreateRandomFoodShouldCreateFoodType()
         {
             for (int i = 0; i < 30; i++)
             {
@@ -28,7 +28,7 @@ namespace Schnacc.Domain.UnitTests.Food
         }
 
         [Fact]
-        public void CreateRandomFoodShouldCreateFoodAtRandomPosition()
+        private void CreateRandomFoodShouldCreateFoodAtRandomPosition()
         {
             for (int i = 0; i < 30; i++)
             {

@@ -10,7 +10,7 @@ namespace Schnacc.Domain.UnitTests.Snake
         private readonly Domain.Snake.Snake testee = new Domain.Snake.Snake(new Position(0, 0));
 
         [Fact]
-        public void ForwardsFacingSnakeShouldMoveFarwards()
+        private void ForwardsFacingSnakeShouldMoveFarwards()
         {
             // Arrange
             this.testee.ResetSnakeToStartPosition();
@@ -25,7 +25,7 @@ namespace Schnacc.Domain.UnitTests.Snake
         }
 
         [Fact]
-        public void BackwardsFacingSnakeShouldMoveBackwards()
+        private void BackwardsFacingSnakeShouldMoveBackwards()
         {
             // Arrange
             this.testee.ResetSnakeToStartPosition();
@@ -40,7 +40,7 @@ namespace Schnacc.Domain.UnitTests.Snake
         }
 
         [Fact]
-        public void UpwardsFacingSnakeShouldMoveUpwards()
+        private void UpwardsFacingSnakeShouldMoveUpwards()
         {
             // Arrange
             this.testee.ResetSnakeToStartPosition();
@@ -55,7 +55,7 @@ namespace Schnacc.Domain.UnitTests.Snake
         }
 
         [Fact]
-        public void DownwardsFacingSnakeShouldMoveDownwards()
+        private void DownwardsFacingSnakeShouldMoveDownwards()
         {
             // Arrange
             this.testee.ResetSnakeToStartPosition();
@@ -70,7 +70,7 @@ namespace Schnacc.Domain.UnitTests.Snake
         }
 
         [Fact]
-        public void StillStandingSnakeShouldNotMove()
+        private void StillStandingSnakeShouldNotMove()
         {
             // Arrange
             this.testee.ResetSnakeToStartPosition();
@@ -93,7 +93,7 @@ namespace Schnacc.Domain.UnitTests.Snake
         [InlineData(Direction.Up, Direction.Left)]
         [InlineData(Direction.Down, Direction.Right)]
         [InlineData(Direction.Down, Direction.Left)]
-        public void SnakeShouldBeAbleToChangeDirectionBy90Degrees(Direction startDirection, Direction newDirection)
+        private void SnakeShouldBeAbleToChangeDirectionBy90Degrees(Direction startDirection, Direction newDirection)
         {
             // Arrange
             this.testee.ResetSnakeToStartPosition();
@@ -111,7 +111,7 @@ namespace Schnacc.Domain.UnitTests.Snake
         [InlineData(Direction.Left, Direction.Right)]
         [InlineData(Direction.Up, Direction.Down)]
         [InlineData(Direction.Down, Direction.Up)]
-        public void SnakeShouldNotBeAbleToChangeDirectionBy180Degrees(Direction startDirection, Direction newDirection)
+        private void SnakeShouldNotBeAbleToChangeDirectionBy180Degrees(Direction startDirection, Direction newDirection)
         {
             // Arrange
             this.testee.ResetSnakeToStartPosition();
@@ -130,7 +130,7 @@ namespace Schnacc.Domain.UnitTests.Snake
         [InlineData(Direction.Up)]
         [InlineData(Direction.Down)]
         [InlineData(Direction.None)]
-        public void SnakeShouldBeAbleToChangeIntoEveryDirectionWhenNotMoving(Direction newDirection)
+        private void SnakeShouldBeAbleToChangeIntoEveryDirectionWhenNotMoving(Direction newDirection)
         {
             // Arrange
             this.testee.ResetSnakeToStartPosition();
@@ -148,7 +148,7 @@ namespace Schnacc.Domain.UnitTests.Snake
         [InlineData(Direction.Left)]
         [InlineData(Direction.Up)]
         [InlineData(Direction.Down)]
-        public void SnakeShouldNotBeAbleToChangeIntoNoDirectionWhenAlreadyMoving(Direction newDirection)
+        private void SnakeShouldNotBeAbleToChangeIntoNoDirectionWhenAlreadyMoving(Direction newDirection)
         {
             // Arrange
             this.testee.ResetSnakeToStartPosition();
@@ -167,7 +167,7 @@ namespace Schnacc.Domain.UnitTests.Snake
         [InlineData(Direction.Up)]
         [InlineData(Direction.Down)]
         [InlineData(Direction.None)]
-        public void WhenNewDirectionIsSameAsOldOneNothingChanges(Direction sameDirection)
+        private void WhenNewDirectionIsSameAsOldOneNothingChanges(Direction sameDirection)
         {
             // Arrange
             this.testee.ResetSnakeToStartPosition();
@@ -180,7 +180,7 @@ namespace Schnacc.Domain.UnitTests.Snake
         }
 
         [Fact]
-        public void WhenSnakeGrowsForTheFirstTimeABodyPartShouldBeAddedAfterTheHeadOfTheSnake()
+        private void WhenSnakeGrowsForTheFirstTimeABodyPartShouldBeAddedAfterTheHeadOfTheSnake()
         {
             // Arrange
             this.testee.ResetSnakeToStartPosition();
@@ -196,7 +196,7 @@ namespace Schnacc.Domain.UnitTests.Snake
         }
 
         [Fact]
-        public void WhenTheSnakeGrowsABodyPartShouldBeAddedAtTheEndOfTheSnake()
+        private void WhenTheSnakeGrowsABodyPartShouldBeAddedAtTheEndOfTheSnake()
         {
             // Arrange
             this.testee.ResetSnakeToStartPosition();
@@ -213,7 +213,7 @@ namespace Schnacc.Domain.UnitTests.Snake
         }
 
         [Fact]
-        public void WhenSnakeHasABodyItMovesWithTheHead()
+        private void WhenSnakeHasABodyItMovesWithTheHead()
         {
             // Arrange
             this.testee.ResetSnakeToStartPosition();
