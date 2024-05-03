@@ -6,8 +6,7 @@ namespace Schnacc.Domain.Snake.Orientation
     {
         public RightwardDirection(DirectionState state)
         {
-            this.ValidNewDirections =
-                new List<Direction> { Direction.Up, Direction.Down };
+            this.ValidNewDirections = new List<Direction> { Direction.Up, Direction.Down };
             this.Snake = state.Snake;
         }
 
