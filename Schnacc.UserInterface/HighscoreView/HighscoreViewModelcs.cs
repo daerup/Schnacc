@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Schnacc.Database;
+using Schnacc.Domain.Score;
 using Schnacc.UserInterface.Infrastructure.Navigation;
 using Schnacc.UserInterface.Infrastructure.ViewModels;
 

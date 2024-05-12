@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Input;
 using Schnacc.Database;
 using Schnacc.Domain.Playarea;
+using Schnacc.Domain.Score;
 using Schnacc.Domain.Snake;
 using Schnacc.UserInterface.HighScoreView;
 using Schnacc.UserInterface.HomeMenuView;

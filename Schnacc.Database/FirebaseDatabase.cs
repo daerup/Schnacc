@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Firebase.Database;
 using Firebase.Database.Query;
 using Firebase.Database.Streaming;
+using Schnacc.Domain.Score;
 
 namespace Schnacc.Database
 {
