@@ -27,5 +27,43 @@ The controls are buffered, so you can press multiple keys in rapid succession an
 
 >**Note**: Only logged in players get to have their highscores saved.
 
+# Run
+To run the game, clone the repository and open the solution in Visual Studio or your preferred IDE.
+
+Edit `secret.json` and add the firebase api key alternatively you can uterlize the offline mode.
+For this set the ``secrets.json`` file to:
+
+```json
+{
+  "AuthConfig": {
+    "ApiKey": "offline"
+  }
+}
+```
+
+Afterwards, build the solution and run the project `Schnacc.UserInterface`.
 # Architecture
-The solution follows was originally designed to follow the Onion Architecture. In hindsight, I feel like the ``domain`` project is a bit overloaded and could be furter split up. The UI is implemented using WPF and the MVVM pattern.
+The UI is implemented using WPF and the MVVM pattern. The solution was originally designed to follow the Onion Architecture. In hindsight, I feel like the ``domain`` project is a bit overloaded and could be furter split up.
+For example, the movement was implemented using the strategy pattern and is located in the ``domain`` project. Stuff like this could be moved to a separate project.
+
+![alt text](img/architecture.png)
+
+## Architecture Decisions Records (ADR)
+### Upgrade to .NET Core
+---
+
+#### Context and Problem Statement
+
+Upgrade from deprecated .NET Framework to .NET Core, to also support Linux and MacOS. For this, the integration tests (written in xBehave) need to be rewritten, since xBehave does not support .NET Core.
+
+#### Considered Options
+
+* recreate the integration tests in .NET Core
+* remove the integration tests
+* automatically convert xBehave tests to SpecFlow tests
+
+#### Decision Outcome
+
+Automatic conversion of the xBehave tests is not possible. The effort to recreate the integration tests in .NET Core is too high. The upgrade is postponed.
+
+---

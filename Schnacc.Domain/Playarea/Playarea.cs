@@ -25,14 +25,14 @@ namespace Schnacc.Domain.Playarea
 
         public ISnake Snake { get; }
 
-        public Game CurrentGameState { get; private set; }
+        public GameState CurrentGameStateState { get; private set; }
 
         private bool SnakeCollidedWithFood => this.Food.Position.Equals(this.Snake.Head.Position);
 
         public void MoveSnakeWhenAllowed()
         {
             this.SetGameState();
-            if (this.CurrentGameState.Equals(Game.Over))
+            if (this.CurrentGameStateState.Equals(GameState.Over))
             {
                 return;
             }
@@ -50,7 +50,7 @@ namespace Schnacc.Domain.Playarea
 
         public void UpdateSnakeDirection(Direction newDirection)
         {
-            if (this.CurrentGameState.Equals(Game.Over))
+            if (this.CurrentGameStateState.Equals(GameState.Over))
             {
                 return;
             }
@@ -61,7 +61,7 @@ namespace Schnacc.Domain.Playarea
 
         public void RestartGame()
         {
-            if (this.CurrentGameState.Equals(Game.Over))
+            if (this.CurrentGameStateState.Equals(GameState.Over))
             {
                 this.Snake.ResetSnakeToStartPosition();
             }
@@ -71,15 +71,15 @@ namespace Schnacc.Domain.Playarea
         {
             if (this.Snake.CurrentDirection.Equals(Direction.None))
             {
-                this.CurrentGameState = Game.Start;
+                this.CurrentGameStateState = GameState.Start;
             }
             else if (this.NextPositionIsValid())
             {
-                this.CurrentGameState = Game.Running;
+                this.CurrentGameStateState = GameState.Running;
             }
             else
             {
-                this.CurrentGameState = Game.Over;
+                this.CurrentGameStateState = GameState.Over;
             }
         }
 

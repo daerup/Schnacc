@@ -5,6 +5,8 @@ using Schnacc.UserInterface.HomeMenuView;
 using Schnacc.UserInterface.Infrastructure.Navigation;
 using System.IO;
 using System.Threading.Tasks;
+using System.Windows.Navigation;
+using NavigationService = Schnacc.UserInterface.Infrastructure.Navigation.NavigationService;
 
 namespace Schnacc.UserInterface
 {
@@ -19,21 +21,31 @@ namespace Schnacc.UserInterface
                                                   .Build();
             
             var config = appSettings.GetSection(nameof(AuthConfig)).Get<AuthConfig>();
-            var api = new AuthorizationApi(config);
+
+            if(config.ApiKey == "offline")
+            {
+                this.LoadWindow(new NavigationService(new OfflineAuthorizationApi()));
+                return;
+            }
+
+            var api = new FirebaseAuthorizationApi(config);
             var navigationService = new NavigationService(api);
-            
             Application.Current?.Dispatcher?.Invoke(async ()=>
             {
                 navigationService.SessionToken = await api.SignInAnonymous();
-                var mainWindowViewModel = new MainWindowViewModel(navigationService, new HomeMenuPageViewModel(navigationService));
-                var mainWindow = new MainWindow
-                {
-                    DataContext = mainWindowViewModel
-                };
-                mainWindow.ShowDialog();
+                this.LoadWindow(navigationService);
             });
+        }
 
-            
+        private void LoadWindow(NavigationService navigationService)
+        {
+
+            var mainWindowViewModel = new MainWindowViewModel(navigationService, new HomeMenuPageViewModel(navigationService));
+            var mainWindow = new MainWindow
+            {
+                DataContext = mainWindowViewModel
+            };
+            mainWindow.ShowDialog();
         }
     }
 }

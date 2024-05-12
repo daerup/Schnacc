@@ -1,6 +1,6 @@
 ﻿namespace Schnacc.Domain.Playarea
 {
-    public enum Game
+    public enum GameState
     {
         Over,
         Running,

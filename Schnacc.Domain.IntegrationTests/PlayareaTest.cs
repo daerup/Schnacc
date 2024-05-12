@@ -56,12 +56,12 @@ namespace Schnacc.Domain.IntegrationTests
             "And given the snake at position row 2 and column 2"
                 .x(() => this._testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 2)));
             "And the game state is start"
-                .x(() => this._testee.CurrentGameState.Should().Be(Game.Start));
+                .x(() => this._testee.CurrentGameStateState.Should().Be(GameState.Start));
 
             "When the direction of the snake is updated for the first time"
                 .x(() => this._testee.UpdateSnakeDirection(Direction.Right));
             "Then the game state should be running"
-                .x(() => this._testee.CurrentGameState.Should().Be(Game.Running));
+                .x(() => this._testee.CurrentGameStateState.Should().Be(GameState.Running));
 
             "When the snake tries to be reset without being GameOver"
                 .x(() => this._testee.RestartGame());
@@ -82,7 +82,7 @@ namespace Schnacc.Domain.IntegrationTests
             "Then the snake should not have moved"
                 .x(() => this._testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 3)));
             "And then the game is over"
-                .x(() => this._testee.CurrentGameState.Should().Be(Game.Over));
+                .x(() => this._testee.CurrentGameStateState.Should().Be(GameState.Over));
 
             "When the snake tries to be reset with the game state being GameOVer"
                 .x(() => this._testee.RestartGame());
@@ -101,38 +101,38 @@ namespace Schnacc.Domain.IntegrationTests
             "And given the snake at position row 2 and column 1"
                 .x(() => this._testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 2)));
             "And the game state is start"
-                .x(() => this._testee.CurrentGameState.Should().Be(Game.Start));
+                .x(() => this._testee.CurrentGameStateState.Should().Be(GameState.Start));
 
             "When the direction of the snake is updated for the first time"
                 .x(() => this._testee.UpdateSnakeDirection(Direction.Right));
             "Then the game state should be running"
-                .x(() => this._testee.CurrentGameState.Should().Be(Game.Running));
+                .x(() => this._testee.CurrentGameStateState.Should().Be(GameState.Running));
 
             "When the snake moves"
                 .x(() => this._testee.MoveSnakeWhenAllowed());
             "Then the snake should have moved"
                 .x(() => this._testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 3)));
             "Then the game state should be running"
-                .x(() => this._testee.CurrentGameState.Should().Be(Game.Running));
+                .x(() => this._testee.CurrentGameStateState.Should().Be(GameState.Running));
 
             "When the snake moves"
                 .x(() => this._testee.MoveSnakeWhenAllowed());
             "Then the snake should have moved"
                 .x(() => this._testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 4)));
             "Then the game state should be running"
-                .x(() => this._testee.CurrentGameState.Should().Be(Game.Running));
+                .x(() => this._testee.CurrentGameStateState.Should().Be(GameState.Running));
 
             "When the snake moves outside of playarea"
                 .x(() => this._testee.MoveSnakeWhenAllowed());
             "Then the snake should not have moved"
                 .x(() => this._testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 4)));
             "And then the game is over"
-                .x(() => this._testee.CurrentGameState.Should().Be(Game.Over));
+                .x(() => this._testee.CurrentGameStateState.Should().Be(GameState.Over));
 
             "When the snake tries to move"
                 .x(() => this._testee.MoveSnakeWhenAllowed());
             "And when the game is over"
-                .x(() => this._testee.CurrentGameState.Should().Be(Game.Over));
+                .x(() => this._testee.CurrentGameStateState.Should().Be(GameState.Over));
             "Then the snake should not have moved"
                 .x(() => this._testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 4)));
         }
@@ -156,21 +156,21 @@ namespace Schnacc.Domain.IntegrationTests
             "Then the snake should have moved"
                 .x(() => this._testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 3)));
             "Then the game state should be running"
-                .x(() => this._testee.CurrentGameState.Should().Be(Game.Running));
+                .x(() => this._testee.CurrentGameStateState.Should().Be(GameState.Running));
 
             "When the snake moves"
                 .x(() => this._testee.MoveSnakeWhenAllowed());
             "Then the snake should have moved"
                 .x(() => this._testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 4)));
             "Then the game state should be running"
-                .x(() => this._testee.CurrentGameState.Should().Be(Game.Running));
+                .x(() => this._testee.CurrentGameStateState.Should().Be(GameState.Running));
 
             "When the snake moves into wall"
                 .x(() => this._testee.MoveSnakeWhenAllowed());
             "Then the snake should not have moved"
                 .x(() => this._testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 4)));
             "Then the game state should be running"
-                .x(() => this._testee.CurrentGameState.Should().Be(Game.Over));
+                .x(() => this._testee.CurrentGameStateState.Should().Be(GameState.Over));
         }
 
         [Scenario]
@@ -192,21 +192,21 @@ namespace Schnacc.Domain.IntegrationTests
             "Then the snake should have moved"
                 .x(() => this._testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 1)));
             "Then the game state should be running"
-                .x(() => this._testee.CurrentGameState.Should().Be(Game.Running));
+                .x(() => this._testee.CurrentGameStateState.Should().Be(GameState.Running));
 
             "When the snake moves"
                 .x(() => this._testee.MoveSnakeWhenAllowed());
             "Then the snake should have moved"
                 .x(() => this._testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 0)));
             "Then the game state should be running"
-                .x(() => this._testee.CurrentGameState.Should().Be(Game.Running));
+                .x(() => this._testee.CurrentGameStateState.Should().Be(GameState.Running));
 
             "When the snake moves into wall"
                 .x(() => this._testee.MoveSnakeWhenAllowed());
             "Then the snake should not have moved"
                 .x(() => this._testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(2, 0)));
             "Then the game state should be running"
-                .x(() => this._testee.CurrentGameState.Should().Be(Game.Over));
+                .x(() => this._testee.CurrentGameStateState.Should().Be(GameState.Over));
         }
 
         [Scenario]
@@ -228,21 +228,21 @@ namespace Schnacc.Domain.IntegrationTests
             "Then the snake should have moved"
                 .x(() => this._testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(1, 2)));
             "Then the game state should be running"
-                .x(() => this._testee.CurrentGameState.Should().Be(Game.Running));
+                .x(() => this._testee.CurrentGameStateState.Should().Be(GameState.Running));
 
             "When the snake moves"
                 .x(() => this._testee.MoveSnakeWhenAllowed());
             "Then the snake should have moved"
                 .x(() => this._testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(0, 2)));
             "Then the game state should be running"
-                .x(() => this._testee.CurrentGameState.Should().Be(Game.Running));
+                .x(() => this._testee.CurrentGameStateState.Should().Be(GameState.Running));
 
             "When the snake moves into wall"
                 .x(() => this._testee.MoveSnakeWhenAllowed());
             "Then the snake should not have moved"
                 .x(() => this._testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(0, 2)));
             "Then the game state should be running"
-                .x(() => this._testee.CurrentGameState.Should().Be(Game.Over));
+                .x(() => this._testee.CurrentGameStateState.Should().Be(GameState.Over));
         }
 
         [Scenario]
@@ -263,21 +263,21 @@ namespace Schnacc.Domain.IntegrationTests
             "Then the snake should have moved"
                 .x(() => this._testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(3, 2)));
             "Then the game state should be running"
-                .x(() => this._testee.CurrentGameState.Should().Be(Game.Running));
+                .x(() => this._testee.CurrentGameStateState.Should().Be(GameState.Running));
 
             "When the snake moves"
                 .x(() => this._testee.MoveSnakeWhenAllowed());
             "Then the snake should have moved"
                 .x(() => this._testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(4, 2)));
             "Then the game state should be running"
-                .x(() => this._testee.CurrentGameState.Should().Be(Game.Running));
+                .x(() => this._testee.CurrentGameStateState.Should().Be(GameState.Running));
 
             "When the snake moves into wall"
                 .x(() => this._testee.MoveSnakeWhenAllowed());
             "Then the snake should not have moved"
                 .x(() => this._testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(4, 2)));
             "Then the game state should be running"
-                .x(() => this._testee.CurrentGameState.Should().Be(Game.Over));
+                .x(() => this._testee.CurrentGameStateState.Should().Be(GameState.Over));
         }
 
         [Scenario]
@@ -351,8 +351,8 @@ namespace Schnacc.Domain.IntegrationTests
                 .x(() => this._testee.UpdateSnakeDirection(Direction.Down));
             "And when the snake moves"
                 .x(() => this._testee.MoveSnakeWhenAllowed());
-            "Then the snake should have collided with itself and the Game is over"
-                .x(() => this._testee.CurrentGameState.Should().Be(Game.Over));
+            "Then the snake should have collided with itself and the GameState is over"
+                .x(() => this._testee.CurrentGameStateState.Should().Be(GameState.Over));
             "Then the snake has not moved"
                 .x(() => this._testee.Snake.Head.Position.Should().BeEquivalentTo(new Position(4, 9)));
         }

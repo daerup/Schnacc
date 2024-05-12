@@ -39,7 +39,7 @@ namespace Schnacc.UserInterface.PlayAreaView
 
         private void NavigateToMenuView()
         {
-            if (string.IsNullOrEmpty(this.NavigationService.SessionToken))
+            if(this.NavigationService.AuthorizationApi.IsAnonymous)
             {
                 this.NavigationService.NavigateTo(new HomeMenuPageViewModel(this.NavigationService));
             }

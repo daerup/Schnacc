@@ -36,7 +36,7 @@ namespace Schnacc.Domain.UnitTests.Playarea
             this._testee = new Domain.Playarea.Playarea(new PlayareaSize(10, 10), A.Dummy<IFoodFactory>());
 
             // Assert
-            this._testee.CurrentGameState.Should().Be(Game.Start);
+            this._testee.CurrentGameStateState.Should().Be(GameState.Start);
         }
 
         [Theory]
@@ -53,7 +53,7 @@ namespace Schnacc.Domain.UnitTests.Playarea
             this._testee.UpdateSnakeDirection(newFacingDirection);
 
             // Assert
-            this._testee.CurrentGameState.Should().Be(Game.Running);
+            this._testee.CurrentGameStateState.Should().Be(GameState.Running);
         }
 
         [Fact]

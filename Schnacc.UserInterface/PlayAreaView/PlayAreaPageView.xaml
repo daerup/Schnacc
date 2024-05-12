@@ -39,7 +39,7 @@
                     <Rectangle Fill="IndianRed" Opacity="0.5" Name="GameOverOverlay"/>
                     <Viewbox StretchDirection="DownOnly" Height="{Binding ElementName=GameOverOverlay,Path=ActualHeight}" Width="{Binding ElementName=GameOverOverlay,Path=ActualWidth}">
                         <TextBlock Foreground="White" FontSize="20">
-                            Game over :(<LineBreak/><LineBreak/> 
+                            GameState over :(<LineBreak/><LineBreak/> 
                             Press R to restart
                         </TextBlock>
                     </Viewbox>

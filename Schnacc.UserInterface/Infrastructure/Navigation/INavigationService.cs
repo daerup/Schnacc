@@ -5,7 +5,7 @@ namespace Schnacc.UserInterface.Infrastructure.Navigation
     public interface INavigationService
     {
         void NavigateTo(INavigableViewModel viewModel);
-        AuthorizationApi AuthorizationApi { get; }
+        IAuthorizationApi AuthorizationApi { get; }
         string SessionToken { get; set; }
     }
 }

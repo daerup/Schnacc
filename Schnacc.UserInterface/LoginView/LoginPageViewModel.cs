@@ -13,7 +13,7 @@ namespace Schnacc.UserInterface.LoginView
 {
     internal class LoginPageViewModel : ViewModelBase, INavigableViewModel
     {
-        private readonly AuthorizationApi _authApi;
+        private readonly IAuthorizationApi _authApi;
         public INavigationService NavigationService { get; set; }
 
         public AsyncRelayCommand<object> LoginCommand { get; }

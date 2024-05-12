@@ -13,7 +13,7 @@ namespace Schnacc.UserInterface.RegisterView
 {
     public class RegisterPageViewModel : ViewModelBase, INavigableViewModel
     {
-        private readonly AuthorizationApi _authApi;
+        private readonly IAuthorizationApi _authApi;
         private string _errorCheck;
         public INavigationService NavigationService { get; set; }
         public RelayCommand LoginCommand { get; }

@@ -105,8 +105,8 @@ namespace Schnacc.UserInterface.PlayAreaView
         public int NumberOfRows => this._playArea.Size.NumberOfRows;
         public int NumberOfColumns => this._playArea.Size.NumberOfColumns;
 
-        public bool GameIsOver => this._playArea.CurrentGameState.Equals(Game.Over);
-        public bool GameHasStarted => this._playArea.CurrentGameState.Equals(Game.Start);
+        public bool GameIsOver => this._playArea.CurrentGameStateState.Equals(GameState.Over);
+        public bool GameHasStarted => this._playArea.CurrentGameStateState.Equals(GameState.Start);
         public SuppressableObservableCollection<string> ItemsOnPlayArea { get; private set; }
         public HighscoreViewModel HighscoreViewModel { get; }
         public RelayCommand GoToLoginView { get; }
@@ -224,7 +224,7 @@ namespace Schnacc.UserInterface.PlayAreaView
 
         private void ActivateSlowMotion()
         {
-            if (this.SlowMotionIsActive || !this._playArea.CurrentGameState.Equals(Game.Running))
+            if (this.SlowMotionIsActive || !this._playArea.CurrentGameStateState.Equals(GameState.Running))
             {
                 return;
             }

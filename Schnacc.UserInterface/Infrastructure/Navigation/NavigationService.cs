@@ -4,7 +4,7 @@ namespace Schnacc.UserInterface.Infrastructure.Navigation
 {
     public class NavigationService : INavigationService
     {
-        public NavigationService(AuthorizationApi authApi)
+        public NavigationService(IAuthorizationApi authApi)
         {
             this.AuthorizationApi = authApi;
         }
@@ -18,7 +18,7 @@ namespace Schnacc.UserInterface.Infrastructure.Navigation
             this.OnNavigation?.Invoke(this, new NavigationEventArgs(viewModel));
         }
 
-        public AuthorizationApi AuthorizationApi { get; }
+        public IAuthorizationApi AuthorizationApi { get; }
         public string SessionToken { get; set; }
     }
 }
