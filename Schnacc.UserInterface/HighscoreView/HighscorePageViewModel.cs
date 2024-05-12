@@ -1,4 +1,5 @@
-﻿using Schnacc.UserInterface.Infrastructure.Commands;
+﻿using Schnacc.Database;
+using Schnacc.UserInterface.Infrastructure.Commands;
 using Schnacc.UserInterface.Infrastructure.Navigation;
 using Schnacc.UserInterface.Infrastructure.ViewModels;
 using Schnacc.UserInterface.LoginView;
@@ -16,7 +17,7 @@ namespace Schnacc.UserInterface.HighScoreView
         public HighscorePageViewModel(INavigationService navigationService)
         {
             this.NavigationService = navigationService;
-            this.HighscoreViewModel = new HighscoreViewModel(this.NavigationService, new Database.Database(this.NavigationService.SessionToken));
+            this.HighscoreViewModel = new HighscoreViewModel(this.NavigationService, new FirebaseDatabase(config: new FirebaseDatabaseConfig { SessionKey = this.NavigationService.SessionToken }));
             this.GoToPlayareaSettingsView = new RelayCommand(this.NavigateToPlayareaSettings);
             this.GoToLoginSuccessfulMenusView = new RelayCommand(this.NavigateToLoginSuccessfulMenu);
         }

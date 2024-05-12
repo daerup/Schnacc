@@ -21,7 +21,7 @@ namespace Schnacc.UserInterface.PlayAreaView
     public class PlayAreaViewModel : ViewModelBase, INavigableViewModel
     {
         private readonly Playarea _playArea;
-        private readonly Database.Database _database;
+        private readonly FirebaseDatabase _firebaseDatabase;
         private Timer _renderTimer;
         private Timer _movementTimer;
         private const int _renderSpeedInMilliSeconds = 50;
@@ -81,8 +81,8 @@ namespace Schnacc.UserInterface.PlayAreaView
         public PlayAreaViewModel(INavigationService navigationService, Playarea playArea, int difficultyLevel)
         {
             this.NavigationService = navigationService;
-            this._database = new Database.Database(this.NavigationService.SessionToken);
-            this.HighscoreViewModel = new HighscoreViewModel(navigationService, this._database);
+            this._firebaseDatabase = new FirebaseDatabase(new FirebaseDatabaseConfig { SessionKey = this.NavigationService.SessionToken });
+            this.HighscoreViewModel = new HighscoreViewModel(navigationService, this._firebaseDatabase);
             this.GoToLoginView = new RelayCommand(this.NavigateToLoginView);
             this.GoToMenuView = new RelayCommand(this.NavigateToMenuView);
             this._playArea = playArea;
@@ -212,7 +212,7 @@ namespace Schnacc.UserInterface.PlayAreaView
                 if (this.IsAllowedToWriteHighScore)
                 {
                     var newHighScore = new Highscore(this.NavigationService.Username, this.Score);
-                    await this._database.WriteHighScore(newHighScore);
+                    await this._firebaseDatabase.WriteHighScore(newHighScore);
                     this._highScoreIsWritten = true; 
                 }
 

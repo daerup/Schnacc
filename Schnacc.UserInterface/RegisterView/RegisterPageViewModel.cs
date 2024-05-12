@@ -45,7 +45,7 @@ namespace Schnacc.UserInterface.RegisterView
             this.ErrorCheck = "wrong";
             this.LoginCommand = new RelayCommand<object>(this.Login);
             this.RegisterCommand = new AsyncRelayCommand<object>(this.Register);
-            this._authApi = new AuthorizationApi();
+            this._authApi = this.NavigationService.AuthorizationApi;
             this.LoginContent = "I already have an account";
             this.LoginContentFontSize = 12;
         }

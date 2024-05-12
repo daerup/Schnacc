@@ -7,7 +7,7 @@ namespace Schnacc.UserInterface.Infrastructure.ViewModels
     public class ViewModelBase : INotifyPropertyChanged, IViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
-            
+
         [NotifyPropertyChangedInvocator]
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

@@ -9,11 +9,11 @@ namespace Schnacc.UserInterface.HighScoreView
 {
     public class HighscoreViewModel : ViewModelBase 
     { 
-        private readonly Database.Database _db;
+        private readonly FirebaseDatabase _db;
         private INavigationService NavigationService { get; }
 
         public List<Highscore> Highscores { get; private set;}
-        public HighscoreViewModel(INavigationService navigationService, Database.Database db)
+        public HighscoreViewModel(INavigationService navigationService, FirebaseDatabase db)
         {
             this.NavigationService = navigationService;
 

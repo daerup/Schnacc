@@ -31,8 +31,7 @@ namespace Schnacc.UserInterface.LoginView
             this.ErrorMessage = string.Empty;
             this.LoginCommand = new AsyncRelayCommand<object>(this.Login);
             this.RegisterCommand = new RelayCommand<object>(this.Register);
-            this._authApi = new AuthorizationApi();
-            this.NavigationService.SetAuthApi(this._authApi);
+            this._authApi = this.NavigationService.AuthorizationApi;
         }
 
         private void Register(object obj)

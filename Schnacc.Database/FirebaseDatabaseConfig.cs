@@ -2,8 +2,8 @@
 {
     public class FirebaseDatabaseConfig
     {
-        public string BaseUrl { get; set; }
-        public string DatabaseChild { get; set; }
-        public string ApiKey{ get; set; }
+        public string BaseUrl => "https://schnacc-swat-default-rtdb.firebaseio.com/";
+        public string DatabaseChild => "Highscores";
+        public string SessionKey{ get; set; }
     }
 }
