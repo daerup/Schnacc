@@ -33,9 +33,11 @@ namespace Schnacc.UserInterface.PlayAreaView
         private DateTime _lastDirectionChange;
         private readonly int _difficultyLevel;
         private int _slowMotionTicks;
+
+        private object writingHighScoreLock = new object();
         private bool _highScoreIsWritten;
 
-        private bool IsAllowedToWriteHighScore => !this._highScoreIsWritten && this.NavigationService.AuthorizationApi.IsAnonymous && this.NavigationService.AuthorizationApi.EmailIsVerified;
+        private bool UserIsAllowedToWriteHighScore => !this.NavigationService.AuthorizationApi.IsAnonymous && this.NavigationService.AuthorizationApi.EmailIsVerified;
         private bool SlowMotionIsActive =>  !this._slowMotionTicks.Equals(0);
         private string SnakeColor => !this.SlowMotionIsActive ? "#3d9e31" : "#6cf85b";
         private string FoodColor => !this.SlowMotionIsActive ? "#f93910" :"#ff33cc";
@@ -207,15 +209,14 @@ namespace Schnacc.UserInterface.PlayAreaView
 
         private async Task CheckForGameState()
         {
-            if (this.GameIsOver && this.SessionTokenPresent)
+            if (this.GameIsOver)
             {
-                if (this.IsAllowedToWriteHighScore)
+                if (this.UserIsAllowedToWriteHighScore && !this._highScoreIsWritten)
                 {
+                    this._highScoreIsWritten = true;
                     var newHighScore = new Highscore(this.NavigationService.AuthorizationApi.Username, this.Score);
                     await this._firebaseDatabase.WriteHighScore(newHighScore);
-                    this._highScoreIsWritten = true; 
                 }
-
                 await this._movementTimer.DisposeAsync();
                 await this._renderTimer.DisposeAsync();
             }
