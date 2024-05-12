@@ -55,6 +55,12 @@
                 Grid.Column="1"
                 Grid.Row="3"
                 Command="{Binding GoToHighScoreViewCommand}"/>
+            <Button 
+                MaxHeight="50"
+                Content="Sign out" 
+                Grid.Column="1"
+                Grid.Row="5"
+                Command="{Binding GoToLoggedoutViewCommand}"/>
 
             
             <TextBlock 

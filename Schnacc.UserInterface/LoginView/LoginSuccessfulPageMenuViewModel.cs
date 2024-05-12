@@ -1,9 +1,11 @@
 ﻿using Schnacc.UserInterface.HighScoreView;
+using Schnacc.UserInterface.HomeMenuView;
 using Schnacc.UserInterface.Infrastructure.Commands;
 using Schnacc.UserInterface.Infrastructure.Navigation;
 using Schnacc.UserInterface.Infrastructure.ViewModels;
 using Schnacc.UserInterface.PlayAreaView;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace Schnacc.UserInterface.LoginView
 {
@@ -12,7 +14,8 @@ namespace Schnacc.UserInterface.LoginView
         public RelayCommand GoToHighScoreViewCommand { get; }
 
         public RelayCommand GoToPlayAreaViewCommand { get; }
-        
+        public RelayCommand GoToLoggedoutViewCommand { get; }
+
         public LoginSuccessfulPageMenuViewModel(INavigationService navigationService)
         {
             this.NavigationService = navigationService;
@@ -21,6 +24,7 @@ namespace Schnacc.UserInterface.LoginView
                 ? string.Empty 
                 : "Warning: You're E-Mail is not verified. You can't upload your highscore unless your E-Mail is verified";
             this.GoToHighScoreViewCommand = new RelayCommand(this.NavigateToHighScore);
+            this.GoToLoggedoutViewCommand = new RelayCommand(this.NavigateToLoggedOutMenu);
         }
 
         private void NavigateToHighScore()
@@ -38,5 +42,12 @@ namespace Schnacc.UserInterface.LoginView
 
         private void NavigateToPlayAreaSettings() => 
             this.NavigationService.NavigateTo(new PlayAreaSettingsPageViewModel(this.NavigationService));
+
+        private void NavigateToLoggedOutMenu()
+        {
+            this.NavigationService.AuthorizationApi.SignOut();
+            this.NavigationService.SessionToken = null;
+            this.NavigationService.NavigateTo(new HomeMenuPageViewModel(this.NavigationService));
+        }
     }
 }

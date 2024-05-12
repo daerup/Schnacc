@@ -84,5 +84,12 @@ namespace Schnacc.Authorization
             this.IsAnonymous = true;
             return this.AccessToken;
         }
+
+        public void SignOut()
+        {
+            this.AccessToken = null;
+            this.Username = null;
+            this.IsAnonymous = true;
+        }
     }
 }
