@@ -1,7 +1,7 @@
 ﻿using FakeItEasy;
 using FluentAssertions;
 using Schnacc.Domain.Food;
-using Schnacc.Domain.Snake;
+using Schnacc.Domain.Playarea;
 using Xunit;
 
 namespace Schnacc.Domain.UnitTests.Food

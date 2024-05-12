@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Schnacc.Domain.Playarea;
+using System.Collections.Generic;
 
 namespace Schnacc.Domain.Snake.Orientation
 {

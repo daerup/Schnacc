@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using FluentAssertions;
+using Schnacc.Domain.Playarea;
 using Schnacc.Domain.Snake;
 using Xunit;
 

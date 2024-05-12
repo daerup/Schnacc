@@ -1,4 +1,6 @@
-﻿namespace Schnacc.Domain.Snake
+﻿using Schnacc.Domain.Playarea;
+
+namespace Schnacc.Domain.Snake
 {
     public class SnakeSegment
     {

@@ -1,4 +1,4 @@
-﻿using Schnacc.Domain.Snake;
+﻿using Schnacc.Domain.Playarea;
 
 namespace Schnacc.Domain.Food
 {

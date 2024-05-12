@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography;
-using Schnacc.Domain.Snake;
+using Schnacc.Domain.Playarea;
 
 namespace Schnacc.Domain.Food
 {

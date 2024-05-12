@@ -1,4 +1,6 @@
-﻿namespace Schnacc.Domain.Snake.Orientation
+﻿using Schnacc.Domain.Playarea;
+
+namespace Schnacc.Domain.Snake.Orientation
 {
     public interface IDirectionState
     {
