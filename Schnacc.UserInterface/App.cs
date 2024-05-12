@@ -4,6 +4,7 @@ using System.Windows;
 using Schnacc.UserInterface.HomeMenuView;
 using Schnacc.UserInterface.Infrastructure.Navigation;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace Schnacc.UserInterface
 {
@@ -18,13 +19,21 @@ namespace Schnacc.UserInterface
                                                   .Build();
             
             var config = appSettings.GetSection(nameof(AuthConfig)).Get<AuthConfig>();
-            var navigationService = new NavigationService(new AuthorizationApi(config));
-            var mainWindowViewModel = new MainWindowViewModel(navigationService, new HomeMenuPageViewModel(navigationService));
-            var mainWindow = new MainWindow
+            var api = new AuthorizationApi(config);
+            var navigationService = new NavigationService(api);
+            
+            Application.Current?.Dispatcher?.Invoke(async ()=>
             {
-                DataContext = mainWindowViewModel
-            };
-            mainWindow.ShowDialog();
+                navigationService.SessionToken = await api.SignInAnonymous();
+                var mainWindowViewModel = new MainWindowViewModel(navigationService, new HomeMenuPageViewModel(navigationService));
+                var mainWindow = new MainWindow
+                {
+                    DataContext = mainWindowViewModel
+                };
+                mainWindow.ShowDialog();
+            });
+
+            
         }
     }
 }

@@ -27,7 +27,7 @@
             Grid.Row="1"
             Grid.Column="1"
             MaxHeight="50"
-            Command="{Binding GoToLoginSuccessfulMenusView}"/>
+            Command="{Binding GoToMenuView}"/>
 
         <Button 
             Content="Play"

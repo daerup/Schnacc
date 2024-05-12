@@ -22,7 +22,7 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" VerticalAlignment="Bottom" >
             <Viewbox StretchDirection="DownOnly" VerticalAlignment="Stretch">
-                <TextBlock HorizontalAlignment="Center" Style="{StaticResource PressStartFontTitle}" FontWeight="Bold">Highscores</TextBlock>
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource PressStartFontTitle}" FontWeight="Bold">Highscores</TextBlock>
             </Viewbox>
             <Border BorderThickness="0,0,0,2" BorderBrush="Silver" Margin="0,10" VerticalAlignment="Bottom"></Border>
         </StackPanel>
@@ -30,7 +30,7 @@
             <ItemsControl ItemsSource="{Binding Source={StaticResource HighScoreListViewSource}}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <DockPanel Margin="7">
+                        <DockPanel Margin="0, 0, 0, 10">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>

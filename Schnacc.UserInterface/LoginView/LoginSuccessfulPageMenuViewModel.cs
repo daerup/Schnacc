@@ -4,8 +4,7 @@ using Schnacc.UserInterface.Infrastructure.Commands;
 using Schnacc.UserInterface.Infrastructure.Navigation;
 using Schnacc.UserInterface.Infrastructure.ViewModels;
 using Schnacc.UserInterface.PlayAreaView;
-using System;
-using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 namespace Schnacc.UserInterface.LoginView
 {
@@ -14,7 +13,7 @@ namespace Schnacc.UserInterface.LoginView
         public RelayCommand GoToHighScoreViewCommand { get; }
 
         public RelayCommand GoToPlayAreaViewCommand { get; }
-        public RelayCommand GoToLoggedOutViewCommand { get; }
+        public AsyncRelayCommand<object> GoToLoggedOutViewCommand { get; }
 
         public LoginSuccessfulPageMenuViewModel(INavigationService navigationService)
         {
@@ -24,7 +23,7 @@ namespace Schnacc.UserInterface.LoginView
                 ? string.Empty 
                 : "Warning: You're E-Mail is not verified. You can't upload your highscore unless your E-Mail is verified";
             this.GoToHighScoreViewCommand = new RelayCommand(this.NavigateToHighScore);
-            this.GoToLoggedOutViewCommand = new RelayCommand(this.NavigateToLoggedOutMenu);
+            this.GoToLoggedOutViewCommand = new AsyncRelayCommand<object>(this.NavigateToLoggedOutMenu);
         }
 
         private void NavigateToHighScore()
@@ -38,15 +37,14 @@ namespace Schnacc.UserInterface.LoginView
         public bool MessageIsVisible => !string.IsNullOrEmpty(this.MessageContent);
 
         public string MessageContent { get; private set; }
-
-
+        
         private void NavigateToPlayAreaSettings() => 
             this.NavigationService.NavigateTo(new PlayAreaSettingsPageViewModel(this.NavigationService));
 
-        private void NavigateToLoggedOutMenu()
+        private async Task NavigateToLoggedOutMenu(object _)
         {
             this.NavigationService.AuthorizationApi.SignOut();
-            this.NavigationService.SessionToken = null;
+            this.NavigationService.SessionToken = await this.NavigationService.AuthorizationApi.SignInAnonymous();
             this.NavigationService.NavigateTo(new HomeMenuPageViewModel(this.NavigationService));
         }
     }

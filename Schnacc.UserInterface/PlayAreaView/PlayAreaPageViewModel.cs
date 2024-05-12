@@ -35,7 +35,7 @@ namespace Schnacc.UserInterface.PlayAreaView
         private int _slowMotionTicks;
         private bool _highScoreIsWritten;
 
-        private bool IsAllowedToWriteHighScore => !this._highScoreIsWritten && this.NavigationService.AuthorizationApi.EmailIsVerified;
+        private bool IsAllowedToWriteHighScore => !this._highScoreIsWritten && this.NavigationService.AuthorizationApi.IsAnonymous && this.NavigationService.AuthorizationApi.EmailIsVerified;
         private bool SlowMotionIsActive =>  !this._slowMotionTicks.Equals(0);
         private string SnakeColor => !this.SlowMotionIsActive ? "#3d9e31" : "#6cf85b";
         private string FoodColor => !this.SlowMotionIsActive ? "#f93910" :"#ff33cc";
@@ -100,8 +100,8 @@ namespace Schnacc.UserInterface.PlayAreaView
         public INavigationService NavigationService { get; set; }
 
         public int Score => this._playArea.Snake.Body.Count * 100 - 10 * this._moveCount;
-        public bool HighscoresAreVisible => !string.IsNullOrEmpty(this.NavigationService.SessionToken);
-        public bool ErrorIsVisible => !this.HighscoresAreVisible;
+        public bool SessionTokenPresent => !string.IsNullOrEmpty(this.NavigationService.SessionToken);
+        public bool ErrorIsVisible => !this.SessionTokenPresent || this.NavigationService.AuthorizationApi.IsAnonymous;
         public int NumberOfRows => this._playArea.Size.NumberOfRows;
         public int NumberOfColumns => this._playArea.Size.NumberOfColumns;
 
@@ -207,7 +207,7 @@ namespace Schnacc.UserInterface.PlayAreaView
 
         private async Task CheckForGameState()
         {
-            if (this.GameIsOver && this.HighscoresAreVisible)
+            if (this.GameIsOver && this.SessionTokenPresent)
             {
                 if (this.IsAllowedToWriteHighScore)
                 {
@@ -238,7 +238,7 @@ namespace Schnacc.UserInterface.PlayAreaView
 
         private void NavigateToMenuView()
         {
-            if (string.IsNullOrEmpty(this.NavigationService.SessionToken))
+            if(this.NavigationService.AuthorizationApi.IsAnonymous)
             {
                 this.NavigationService.NavigateTo(new HomeMenuPageViewModel(this.NavigationService));
             }
