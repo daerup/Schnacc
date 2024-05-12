@@ -6,10 +6,10 @@ namespace Schnacc.UserInterface.RegisterView {
     {
         public static readonly DependencyProperty EnterPasswordProperty = DependencyProperty.Register(
             nameof(PasswordValidator.EnterPassword), typeof(PasswordBox), typeof(PasswordValidator),
-            new PropertyMetadata(PasswordValidator.Box1Changed));
+            new PropertyMetadata((d, _) => PasswordValidator.EnterPasswordChanged(d)));
         public static readonly DependencyProperty RepeatPasswordProperty = DependencyProperty.Register(
             nameof(PasswordValidator.RepeatPassword), typeof(PasswordBox), typeof(PasswordValidator),
-            new PropertyMetadata(PasswordValidator.Box2Changed));
+            new PropertyMetadata((d, _) => PasswordValidator.RepeatPasswordChanged(d)));
 
         public PasswordBox EnterPassword
         {
@@ -22,7 +22,7 @@ namespace Schnacc.UserInterface.RegisterView {
             set => this.SetValue(PasswordValidator.RepeatPasswordProperty, value);
         }
 
-        private static void Box1Changed(DependencyObject d, DependencyPropertyChangedEventArgs _)
+        private static void EnterPasswordChanged(DependencyObject d)
         {
             var pv = (PasswordValidator)d;
             pv.EnterPassword.PasswordChanged += (obj, evt) =>
@@ -30,7 +30,7 @@ namespace Schnacc.UserInterface.RegisterView {
                 pv.RepeatPassword.Tag = pv.EnterPassword.Password == pv.RepeatPassword.Password;
             };
         }
-        private static void Box2Changed(DependencyObject d, DependencyPropertyChangedEventArgs _)
+        private static void RepeatPasswordChanged(DependencyObject d)
         {
             var pv = (PasswordValidator)d;
             pv.RepeatPassword.PasswordChanged += (obj, evt) =>

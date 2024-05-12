@@ -1,6 +1,8 @@
-﻿namespace Schnacc.Domain.Playarea
+﻿using System;
+
+namespace Schnacc.Domain.Playarea
 {
-    public sealed class Position
+    public sealed class Position : IEquatable<Position>
     {
         public Position(int row, int column)
         {
@@ -18,6 +20,6 @@
 
         public int Column { get; }
 
-        public bool Equals(Position other) => this.Row == other.Row && this.Column == other.Column;
+        public bool Equals(Position other) => other != null && this.Row == other.Row && this.Column == other.Column;
     }
 }
