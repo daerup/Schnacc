@@ -1,6 +1,6 @@
 ﻿namespace Schnacc.Domain.Playarea
 {
-    public class Position
+    public sealed class Position
     {
         public Position(int row, int column)
         {

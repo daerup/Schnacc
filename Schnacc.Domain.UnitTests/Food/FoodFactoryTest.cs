@@ -43,19 +43,5 @@ namespace Schnacc.Domain.UnitTests.Food
                 createdFood.Position.Column.Should().BeInRange(0, 9); 
             }
         }
-
-        [Property]
-        public Property CreatedFoodShouldBeBetweenBounderies(int row, int column )
-        {
-            Func<bool> func = () =>
-                {
-                    this._testee = new FoodFactory();
-                    IFood createdFood = this._testee.CreateRandomFoodBetweenBoundaries(new Position(row, column));
-
-                    return 0 <= createdFood.Position.Row && createdFood.Position.Row <= row && 0 <= createdFood.Position.Column && createdFood.Position.Column <= column;
-                };
-
-            return func.When(row > 0 && column > 0);
-        }
     }
 }

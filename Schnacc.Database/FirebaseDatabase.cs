@@ -41,6 +41,7 @@ namespace Schnacc.Database
                        .AsObservable<Highscore>()
                        .Scan(new List<FirebaseEvent<Highscore>>(), (list, change) =>
                        {
+                           // ReSharper disable once SwitchStatementHandlesSomeKnownEnumValuesWithDefault
                            switch(change.EventType)
                            {
                                case FirebaseEventType.InsertOrUpdate:
@@ -58,8 +59,6 @@ namespace Schnacc.Database
                                case FirebaseEventType.Delete:
                                    list.RemoveAll(h => h.Key == change.Key);
                                    break;
-                               default:
-                                   throw new ArgumentOutOfRangeException();
                            }
                            return list;
                        })

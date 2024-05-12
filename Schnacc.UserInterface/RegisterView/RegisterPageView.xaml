@@ -92,12 +92,12 @@
             Grid.Row="11"
             Grid.Column="1"
             PasswordChar="☻"
-            Tag="{Binding ErrorCheck, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            Tag="{Binding PasswordMatch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         <local:PasswordValidator
             Grid.Row="7"
             Grid.Column="1"
-            Box1="{Binding ElementName=PasswordBox}"
-            Box2="{Binding ElementName=RepeatPasswordBox}"/>
+            EnterPassword="{Binding ElementName=PasswordBox}"
+            RepeatPassword="{Binding ElementName=RepeatPasswordBox}"/>
         <TextBlock
             Grid.Row="13"
             Grid.Column="1"

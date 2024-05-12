@@ -4,38 +4,38 @@ using System.Windows.Controls;
 namespace Schnacc.UserInterface.RegisterView {
     public class PasswordValidator : FrameworkElement
     {
-        public static readonly DependencyProperty Box1Property = DependencyProperty.Register(
-            nameof(PasswordValidator.Box1), typeof(PasswordBox), typeof(PasswordValidator),
+        public static readonly DependencyProperty EnterPasswordProperty = DependencyProperty.Register(
+            nameof(PasswordValidator.EnterPassword), typeof(PasswordBox), typeof(PasswordValidator),
             new PropertyMetadata(PasswordValidator.Box1Changed));
-        public static readonly DependencyProperty Box2Property = DependencyProperty.Register(
-            nameof(PasswordValidator.Box2), typeof(PasswordBox), typeof(PasswordValidator),
+        public static readonly DependencyProperty RepeatPasswordProperty = DependencyProperty.Register(
+            nameof(PasswordValidator.RepeatPassword), typeof(PasswordBox), typeof(PasswordValidator),
             new PropertyMetadata(PasswordValidator.Box2Changed));
 
-        public PasswordBox Box1
+        public PasswordBox EnterPassword
         {
-            get => (PasswordBox)this.GetValue(PasswordValidator.Box1Property);
-            set => this.SetValue(PasswordValidator.Box1Property, value);
+            get => (PasswordBox)this.GetValue(PasswordValidator.EnterPasswordProperty);
+            set => this.SetValue(PasswordValidator.EnterPasswordProperty, value);
         }
-        public PasswordBox Box2
+        public PasswordBox RepeatPassword
         {
-            get => (PasswordBox)this.GetValue(PasswordValidator.Box2Property);
-            set => this.SetValue(PasswordValidator.Box2Property, value);
+            get => (PasswordBox)this.GetValue(PasswordValidator.RepeatPasswordProperty);
+            set => this.SetValue(PasswordValidator.RepeatPasswordProperty, value);
         }
 
-        private static void Box1Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void Box1Changed(DependencyObject d, DependencyPropertyChangedEventArgs _)
         {
             var pv = (PasswordValidator)d;
-            pv.Box1.PasswordChanged += (obj, evt) =>
+            pv.EnterPassword.PasswordChanged += (obj, evt) =>
             {
-                pv.Box2.Tag = pv.Box1.Password != pv.Box2.Password ? "wrong" : "correct";
+                pv.RepeatPassword.Tag = pv.EnterPassword.Password == pv.RepeatPassword.Password;
             };
         }
-        private static void Box2Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void Box2Changed(DependencyObject d, DependencyPropertyChangedEventArgs _)
         {
             var pv = (PasswordValidator)d;
-            pv.Box2.PasswordChanged += (obj, evt) =>
+            pv.RepeatPassword.PasswordChanged += (obj, evt) =>
             {
-                pv.Box2.Tag = pv.Box1.Password != pv.Box2.Password ? "wrong" : "correct";
+                pv.RepeatPassword.Tag = pv.EnterPassword.Password == pv.RepeatPassword.Password;
             };
         }
     }

@@ -45,7 +45,7 @@ namespace Schnacc.UserInterface.Infrastructure.Commands
 
         /// <summary>Defines the method to be called when the command is invoked. </summary>
         /// <param name="parameter">The parameter for the command.</param>
-        private async void Execute(T parameter)
+        private async Task Execute(T parameter)
         {
             if (!this.CanExecuteTask(parameter))
             {

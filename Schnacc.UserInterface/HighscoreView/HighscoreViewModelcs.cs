@@ -10,7 +10,6 @@ namespace Schnacc.UserInterface.HighScoreView
 {
     public class HighscoreViewModel : ViewModelBase 
     { 
-        private readonly FirebaseDatabase _db;
         private INavigationService NavigationService { get; }
 
         public List<Highscore> Highscores { get; private set;}
@@ -23,9 +22,8 @@ namespace Schnacc.UserInterface.HighScoreView
                 return;
             }
 
-            this._db = db;
-            this.Highscores = this._db.GetHighscores().ToList();
-            this._db.GetObservableHighscores().Subscribe(this.UpdateHighscores);
+            this.Highscores = db.GetHighscores().ToList();
+            db.GetObservableHighscores().Subscribe(this.UpdateHighscores);
         }
 
         private void UpdateHighscores(IReadOnlyCollection<Highscore> highscores)

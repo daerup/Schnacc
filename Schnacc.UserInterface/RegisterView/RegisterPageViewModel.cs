@@ -14,7 +14,7 @@ namespace Schnacc.UserInterface.RegisterView
     public class RegisterPageViewModel : ViewModelBase, INavigableViewModel
     {
         private readonly IAuthorizationApi _authApi;
-        private string _errorCheck;
+        private bool? _passwordMatch;
         public INavigationService NavigationService { get; set; }
         public RelayCommand LoginCommand { get; }
         public AsyncRelayCommand<object> RegisterCommand { get; }
@@ -25,16 +25,17 @@ namespace Schnacc.UserInterface.RegisterView
 
         public string ErrorMessage { get; private set; }
 
-        public string ErrorCheck
+        public bool PasswordMatch
         {
-            set
+            get => this._passwordMatch ?? false;
+            set  
             {
-                this.ErrorMessage = value == "wrong" ? "The passwords do not match" : string.Empty;
-                this._errorCheck = value;
+                this.ErrorMessage = value ? string.Empty : "The passwords do not match";
+                this._passwordMatch = value;
             }
         }
 
-        public bool RegisterButtonEnabled => !this._errorCheck.Equals("wrong") && !string.IsNullOrEmpty(this.Email) && !string.IsNullOrEmpty(this.Username);
+        public bool RegisterButtonEnabled => this.PasswordMatch && !string.IsNullOrEmpty(this.Email) && !string.IsNullOrEmpty(this.Username);
 
         public string LoginContent { get; private set; }
 
@@ -44,7 +45,7 @@ namespace Schnacc.UserInterface.RegisterView
         {
             this.NavigationService = navigationService;
             this.ErrorMessage = string.Empty;
-            this.ErrorCheck = "wrong";
+            this.PasswordMatch = false;
             this.LoginCommand = new RelayCommand(this.Login);
             this.RegisterCommand = new AsyncRelayCommand<object>(this.Register);
             this.CancelCommand = new RelayCommand(this.Cancel);

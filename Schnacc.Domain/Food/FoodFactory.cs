@@ -14,7 +14,8 @@ namespace Schnacc.Domain.Food
             var allFoodTypes = this.GetAllFoodTypes();
             int randomRow = this.GetRandomInt(0, boundaries.Row);
             int randomColumn = this.GetRandomInt(0, boundaries.Column);
-            return (Food)Activator.CreateInstance(allFoodTypes.ElementAt(this.GetRandomInt(0, allFoodTypes.Count)), new Position(randomRow, randomColumn));
+            int randomFood = this.GetRandomInt(0, allFoodTypes.Count);
+            return (Food)Activator.CreateInstance(allFoodTypes[randomFood], new Position(randomRow, randomColumn));
         }
 
         private List<Type> GetAllFoodTypes()
