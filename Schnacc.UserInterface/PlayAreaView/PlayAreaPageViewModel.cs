@@ -66,12 +66,12 @@ namespace Schnacc.UserInterface.PlayAreaView
 
                 lock (this._directionLock)
                 {
-                    if (DateTime.Now.Subtract(this._lastDirectionChange) > TimeSpan.FromMilliseconds(500))
+                    if (DateTime.UtcNow.Subtract(this._lastDirectionChange) > TimeSpan.FromMilliseconds(500))
                     {
                         this._directionsBuffer.Clear();
                     }
 
-                    this._lastDirectionChange = DateTime.Now;
+                    this._lastDirectionChange = DateTime.UtcNow;
                     this._directionsBuffer.Enqueue(value);
                     this._lastDirection = value;
                 }
