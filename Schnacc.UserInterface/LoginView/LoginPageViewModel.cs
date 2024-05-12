@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using Schnacc.Authorization;
 using Schnacc.Authorization.Exception;
+using Schnacc.UserInterface.HomeMenuView;
 using Schnacc.UserInterface.Infrastructure.Commands;
 using Schnacc.UserInterface.Infrastructure.Navigation;
 using Schnacc.UserInterface.Infrastructure.ViewModels;
@@ -16,7 +17,8 @@ namespace Schnacc.UserInterface.LoginView
         public INavigationService NavigationService { get; set; }
 
         public AsyncRelayCommand<object> LoginCommand { get; }
-        public RelayCommand<object> RegisterCommand { get; }
+        public RelayCommand RegisterCommand { get; }
+        public RelayCommand CancelCommand { get; }
 
         public string Email { get; set; }
 
@@ -30,19 +32,20 @@ namespace Schnacc.UserInterface.LoginView
             this.NavigationService = navigationService;
             this.ErrorMessage = string.Empty;
             this.LoginCommand = new AsyncRelayCommand<object>(this.Login);
-            this.RegisterCommand = new RelayCommand<object>(this.Register);
+            this.RegisterCommand = new RelayCommand(this.Register);
+            this.CancelCommand = new RelayCommand(this.Cancel);
             this._authApi = this.NavigationService.AuthorizationApi;
         }
 
-        private void Register(object obj)
+        private void Register()
         {
             this.NavigationService.NavigateTo(new RegisterPageViewModel(this.NavigationService));
         }
 
-        private async Task Login(object obj)
+        private async Task Login(object passwordBox)
         {
             this.LoginButtonEnabled = false;
-            string plainPassword = (obj as PasswordBox)!.Password;
+            string plainPassword = (passwordBox as PasswordBox)!.Password;
             if (string.IsNullOrEmpty(this.Email) || string.IsNullOrEmpty(plainPassword))
             {
                 this.ErrorMessage = "You have to fill both fields with normal stuff, duh";
@@ -60,6 +63,10 @@ namespace Schnacc.UserInterface.LoginView
                 this.ErrorMessage = e.Message;
                 this.LoginButtonEnabled = true;
             }
+        }
+        private void Cancel()
+        {
+            this.NavigationService.NavigateTo(new HomeMenuPageViewModel(this.NavigationService));
         }
     }
 }

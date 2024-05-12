@@ -14,7 +14,7 @@ namespace Schnacc.UserInterface.LoginView
         public RelayCommand GoToHighScoreViewCommand { get; }
 
         public RelayCommand GoToPlayAreaViewCommand { get; }
-        public RelayCommand GoToLoggedoutViewCommand { get; }
+        public RelayCommand GoToLoggedOutViewCommand { get; }
 
         public LoginSuccessfulPageMenuViewModel(INavigationService navigationService)
         {
@@ -24,7 +24,7 @@ namespace Schnacc.UserInterface.LoginView
                 ? string.Empty 
                 : "Warning: You're E-Mail is not verified. You can't upload your highscore unless your E-Mail is verified";
             this.GoToHighScoreViewCommand = new RelayCommand(this.NavigateToHighScore);
-            this.GoToLoggedoutViewCommand = new RelayCommand(this.NavigateToLoggedOutMenu);
+            this.GoToLoggedOutViewCommand = new RelayCommand(this.NavigateToLoggedOutMenu);
         }
 
         private void NavigateToHighScore()

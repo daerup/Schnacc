@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using Schnacc.Authorization;
 using Schnacc.Authorization.Exception;
+using Schnacc.UserInterface.HomeMenuView;
 using Schnacc.UserInterface.Infrastructure.Commands;
 using Schnacc.UserInterface.Infrastructure.Navigation;
 using Schnacc.UserInterface.Infrastructure.ViewModels;
@@ -15,8 +16,9 @@ namespace Schnacc.UserInterface.RegisterView
         private readonly AuthorizationApi _authApi;
         private string _errorCheck;
         public INavigationService NavigationService { get; set; }
-        public RelayCommand<object> LoginCommand { get; }
+        public RelayCommand LoginCommand { get; }
         public AsyncRelayCommand<object> RegisterCommand { get; }
+        public RelayCommand CancelCommand { get; }
 
         public string Username { get; set; }
         public string Email { get; set; }
@@ -43,18 +45,19 @@ namespace Schnacc.UserInterface.RegisterView
             this.NavigationService = navigationService;
             this.ErrorMessage = string.Empty;
             this.ErrorCheck = "wrong";
-            this.LoginCommand = new RelayCommand<object>(this.Login);
+            this.LoginCommand = new RelayCommand(this.Login);
             this.RegisterCommand = new AsyncRelayCommand<object>(this.Register);
+            this.CancelCommand = new RelayCommand(this.Cancel);
             this._authApi = this.NavigationService.AuthorizationApi;
             this.LoginContent = "I already have an account";
             this.LoginContentFontSize = 12;
         }
 
-        private async Task Register(object obj)
+        private async Task Register(object passwordBox)
         {
             try
             {
-                string plainPassword = (obj as PasswordBox)?.Password;
+                string plainPassword = (passwordBox as PasswordBox)?.Password;
                 await this._authApi.RegisterWithEmail(this.Email, plainPassword, this.Username);
                 this.ErrorMessage = "Please confirm our email";
                 this.LoginContent = "Login";
@@ -66,9 +69,14 @@ namespace Schnacc.UserInterface.RegisterView
             }
         }
 
-        private void Login(object obj)
+        private void Login()
         {
             this.NavigationService.NavigateTo(new LoginPageViewModel(this.NavigationService));
+        }
+
+        private void Cancel()
+        {
+            this.NavigationService.NavigateTo(new HomeMenuPageViewModel(this.NavigationService));
         }
     }
 }

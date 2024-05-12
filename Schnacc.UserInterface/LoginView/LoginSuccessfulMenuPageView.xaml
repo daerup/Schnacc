@@ -35,7 +35,7 @@
                 <RowDefinition Height="20*"/>
                 <RowDefinition Height="50*"/>
                 <RowDefinition Height="20*"/>
-                <RowDefinition Height="70*"/>
+                <RowDefinition Height="50*"/>
                 <RowDefinition Height="100*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -60,7 +60,7 @@
                 Content="Sign out" 
                 Grid.Column="1"
                 Grid.Row="5"
-                Command="{Binding GoToLoggedoutViewCommand}"/>
+                Command="{Binding GoToLoggedOutViewCommand}"/>
 
             
             <TextBlock 

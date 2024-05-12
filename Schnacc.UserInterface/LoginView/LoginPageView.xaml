@@ -67,23 +67,31 @@
             Style="{StaticResource InputFontContent}"/>
         <Grid Grid.Row="8" Grid.Column="1">
             <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100*"/>
-            <ColumnDefinition Width="10*"/>
-            <ColumnDefinition Width="100*"/>
+                <ColumnDefinition Width="15*"/>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="40*"/>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="15*"/>
         </Grid.ColumnDefinitions>
         <Button
-            Grid.Column="2"
+            Grid.Column="0"
+            MaxHeight="50"
+            Content="Cancel"
+            FontSize="10"
+            Command="{Binding CancelCommand}"/>
+        <Button
+            Grid.Column="4"
             MaxHeight="50"
             Content="Connect"
+            FontSize="10"
             IsEnabled="{Binding LoginButtonEnabled}"
-            Command="{Binding LoginCommand}"        
-            CommandParameter="{Binding ElementName=PasswordBox}" />
+            CommandParameter="{Binding ElementName=PasswordBox}"
+            Command="{Binding LoginCommand}"/>
         <Button
             MaxHeight="50"
-            Grid.Column="0"
-            FontSize="15"
-            Command="{Binding RegisterCommand}"        
-            CommandParameter="{Binding ElementName=PasswordBox}">
+            Grid.Column="2"
+            FontSize="10"
+            Command="{Binding RegisterCommand}">
             <TextBlock Text="I don't have an account" TextWrapping="Wrap" />
         </Button>
         </Grid>
