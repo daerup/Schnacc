@@ -27,7 +27,7 @@ namespace Schnacc.UserInterface.PlayAreaView
         private Timer _movementTimer;
         private const int _renderSpeedInMilliSeconds = 50;
         private readonly int _gameSpeedInMilliSeconds;
-        private readonly List<Direction> _directionsBuffer = new List<Direction>();
+        private readonly Queue<Direction> _directionsBuffer = new Queue<Direction>();
         private readonly object _directionLock = new object();
         private int _moveCount;
         private Direction _lastDirection = Direction.None;
@@ -51,8 +51,8 @@ namespace Schnacc.UserInterface.PlayAreaView
                     {
                         return Direction.None;
                     }
-                    var nextDirection = this._directionsBuffer.First();
-                    this._directionsBuffer.Remove(nextDirection);
+
+                    var nextDirection = this._directionsBuffer.Dequeue();
                     this._moveCount++;
                     return nextDirection;
                 }
@@ -72,7 +72,7 @@ namespace Schnacc.UserInterface.PlayAreaView
                     }
 
                     this._lastDirectionChange = DateTime.Now;
-                    this._directionsBuffer.Add(value);
+                    this._directionsBuffer.Enqueue(value);
                     this._lastDirection = value;
                 }
             }

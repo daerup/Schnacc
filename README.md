@@ -27,6 +27,7 @@ The controls are buffered, so you can press keys in rapid succession and the sna
 
 >**Note**: Only logged in players with verified email addresses get to have their highscores saved.
 
+> **Disclaimer**: The performance is horrendous. I would not recommend increasing the area size over 10x10.
 # Run
 To run the game, clone the repository and open the solution in Visual Studio or your preferred IDE.
 
