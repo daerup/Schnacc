@@ -5,13 +5,13 @@ namespace Schnacc.UserInterface
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        private readonly NavigationService navigationService;
+        private readonly NavigationService _navigationService;
 
         public MainWindowViewModel(NavigationService navigationService, IViewModel homeMenuPageViewModel)
         {
             this.CurrentPageViewModel = homeMenuPageViewModel;
-            this.navigationService = navigationService;
-            this.navigationService.OnNavigation += this.Navigate;
+            this._navigationService = navigationService;
+            this._navigationService.OnNavigation += this.Navigate;
         }
         public IViewModel CurrentPageViewModel { get; private set; }
         

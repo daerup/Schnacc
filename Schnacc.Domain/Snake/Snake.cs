@@ -6,10 +6,10 @@ namespace Schnacc.Domain.Snake
 {
     public class Snake : ISnake
     {
-        private readonly Position startPosition;
+        private readonly Position _startPosition;
         public Snake(Position startPosition)
         {
-            this.startPosition = startPosition;
+            this._startPosition = startPosition;
             this.InstantiateSnake();
         }
 
@@ -60,7 +60,7 @@ namespace Schnacc.Domain.Snake
         private void InstantiateSnake()
         {
             this.FacingDirection = new NoDirection(this);
-            this.Head = new SnakeSegment(this.startPosition);
+            this.Head = new SnakeSegment(this._startPosition);
             this.Body = new List<SnakeSegment>();
             this.UpdateFacingDirection(Direction.None);
         }

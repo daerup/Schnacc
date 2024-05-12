@@ -1,7 +1,7 @@
 ﻿namespace Schnacc.Authorization
 {
-    internal abstract class AuthConfig
+    public class AuthConfig
     {
-        public const string ApiKey = "AIzaSyAGV3M4RdAkGuLDBSUPqcaWvW9vNGxRZYI";
+        public string ApiKey { get; set; }
     }
 }

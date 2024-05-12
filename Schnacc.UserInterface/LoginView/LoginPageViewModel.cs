@@ -12,7 +12,7 @@ namespace Schnacc.UserInterface.LoginView
 {
     internal class LoginPageViewModel : ViewModelBase, INavigableViewModel
     {
-        private readonly AuthorizationApi authApi;
+        private readonly AuthorizationApi _authApi;
         public INavigationService NavigationService { get; set; }
 
         public AsyncRelayCommand<object> LoginCommand { get; }
@@ -31,8 +31,8 @@ namespace Schnacc.UserInterface.LoginView
             this.ErrorMessage = string.Empty;
             this.LoginCommand = new AsyncRelayCommand<object>(this.Login);
             this.RegisterCommand = new RelayCommand<object>(this.Register);
-            this.authApi = new AuthorizationApi();
-            this.NavigationService.SetAuthApi(this.authApi);
+            this._authApi = new AuthorizationApi();
+            this.NavigationService.SetAuthApi(this._authApi);
         }
 
         private void Register(object obj)
@@ -53,7 +53,7 @@ namespace Schnacc.UserInterface.LoginView
 
             try
             {
-                this.NavigationService.SessionToken = await this.authApi.SignInWithEmail(this.Email, plainPassword);
+                this.NavigationService.SessionToken = await this._authApi.SignInWithEmail(this.Email, plainPassword);
                 this.NavigationService.NavigateTo(new LoginSuccessfulPageMenuViewModel(this.NavigationService));
             }
             catch (Exception e) when (e is IFirebaseHandledException)

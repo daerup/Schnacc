@@ -10,7 +10,7 @@ namespace Schnacc.Domain.UnitTests.Food
 {
     public class FoodFactoryTest
     {
-        private FoodFactory testee;
+        private FoodFactory _testee;
 
         [Fact]
         private void CreateRandomFoodShouldCreateFoodType()
@@ -18,8 +18,8 @@ namespace Schnacc.Domain.UnitTests.Food
             for (int i = 0; i < 30; i++)
             {
                 // Act
-                this.testee = new FoodFactory();
-                IFood createdFood = this.testee.CreateRandomFoodBetweenBoundaries(new Position(10, 10));
+                this._testee = new FoodFactory();
+                IFood createdFood = this._testee.CreateRandomFoodBetweenBoundaries(new Position(10, 10));
 
                 // Assert
                 createdFood.Should().NotBeNull();
@@ -33,8 +33,8 @@ namespace Schnacc.Domain.UnitTests.Food
             for (int i = 0; i < 30; i++)
             {
                 // Act
-                this.testee = new FoodFactory();
-                IFood createdFood = this.testee.CreateRandomFoodBetweenBoundaries(new Position(10, 10));
+                this._testee = new FoodFactory();
+                IFood createdFood = this._testee.CreateRandomFoodBetweenBoundaries(new Position(10, 10));
 
                 // Assert
                 createdFood.Should().NotBeNull();
@@ -48,8 +48,8 @@ namespace Schnacc.Domain.UnitTests.Food
         {
             Func<bool> func = () =>
                 {
-                    this.testee = new FoodFactory();
-                    IFood createdFood = this.testee.CreateRandomFoodBetweenBoundaries(new Position(row, column));
+                    this._testee = new FoodFactory();
+                    IFood createdFood = this._testee.CreateRandomFoodBetweenBoundaries(new Position(row, column));
 
                     return 0 <= createdFood.Position.Row && createdFood.Position.Row <= row && 0 <= createdFood.Position.Column && createdFood.Position.Column <= column;
                 };

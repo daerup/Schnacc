@@ -8,13 +8,13 @@ namespace Schnacc.Domain.UnitTests.Food
 {
     public class AppleTest
     {
-        private readonly IFood testee = new Apple(A.Dummy<Position>());
+        private readonly IFood _testee = new Apple(A.Dummy<Position>());
 
         [Fact]
         private void AppleInstanceShouldBeNamedApple()
         {
             // Assert
-            this.testee.Name.Should().Be("Apple");
+            this._testee.Name.Should().Be("Apple");
         }
     }
 }

@@ -6,7 +6,7 @@ namespace Schnacc.Domain.Snake.Orientation
 {
     public abstract class DirectionState : IDirectionState
     {
-        private readonly Dictionary<Direction, Type> directionToTypeMapper = new Dictionary<Direction, Type>
+        private readonly Dictionary<Direction, Type> _directionToTypeMapper = new Dictionary<Direction, Type>
                                                                       {
                                                                           { Direction.Right, typeof(RightwardDirection) },
                                                                           { Direction.Left, typeof(LeftwardDirection) },
@@ -21,7 +21,7 @@ namespace Schnacc.Domain.Snake.Orientation
 
         public Direction GetDirectionFromDirectionState()
         {
-            return this.directionToTypeMapper.FirstOrDefault(x => x.Value == this.GetType()).Key;
+            return this._directionToTypeMapper.FirstOrDefault(x => x.Value == this.GetType()).Key;
         }
 
         // ReSharper disable once FlagArgument
@@ -63,6 +63,6 @@ namespace Schnacc.Domain.Snake.Orientation
 
         private bool NewDirectionIsValid(Direction newDirection) => this.ValidNewDirections.Contains(newDirection);
 
-        private DirectionState GetNewOrientationState(Direction newDirection, DirectionState caller) => (DirectionState)Activator.CreateInstance(this.directionToTypeMapper[newDirection], caller);
+        private DirectionState GetNewOrientationState(Direction newDirection, DirectionState caller) => (DirectionState)Activator.CreateInstance(this._directionToTypeMapper[newDirection], caller);
     }
 }

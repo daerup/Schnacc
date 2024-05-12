@@ -10,9 +10,9 @@ namespace Schnacc.UserInterface.Infrastructure.Commands
     /// <typeparam name="TParameter">The type of the command parameter. </typeparam>
     public class AsyncRelayCommand<TParameter> : AsyncCommandBase<TParameter>
     {
-        private readonly Func<TParameter, Task> execute;
+        private readonly Func<TParameter, Task> _execute;
 
-        private readonly Predicate<TParameter> canExecute;
+        private readonly Predicate<TParameter> _canExecute;
 
         /// <summary>Initializes a new instance of the <see cref="AsyncRelayCommand{TParameter}"/> class. </summary>
         /// <param name="execute">The function. </param>
@@ -26,12 +26,12 @@ namespace Schnacc.UserInterface.Infrastructure.Commands
         /// <param name="canExecute">The predicate to check whether the function can be executed. </param>
         private AsyncRelayCommand(Func<TParameter, Task> execute, Predicate<TParameter> canExecute)
         {
-            this.execute = execute ?? throw new ArgumentNullException(nameof(execute));
-            this.canExecute = canExecute;
+            this._execute = execute ?? throw new ArgumentNullException(nameof(execute));
+            this._canExecute = canExecute;
         }
 
-        protected override Task ExecuteAsync(TParameter parameter) => this.execute(parameter);
+        protected override Task ExecuteAsync(TParameter parameter) => this._execute(parameter);
 
-        protected override bool CanExecuteTask(TParameter parameter) => this.canExecute(parameter);
+        protected override bool CanExecuteTask(TParameter parameter) => this._canExecute(parameter);
     }
 }

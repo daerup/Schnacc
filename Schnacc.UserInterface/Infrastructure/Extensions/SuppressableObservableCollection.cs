@@ -10,17 +10,17 @@ namespace Schnacc.UserInterface.Infrastructure.Extensions
         {
         }
         
-        private bool notificationHasBeenSuppressed;
-        private bool suppressNotification;
+        private bool _notificationHasBeenSuppressed;
+        private bool _suppressNotification;
         public bool SuppressNotification
         {
-            get => this.suppressNotification;
+            get => this._suppressNotification;
             set
             {
-                this.suppressNotification = value;
-                if (this.suppressNotification || !this.notificationHasBeenSuppressed) return;
+                this._suppressNotification = value;
+                if (this._suppressNotification || !this._notificationHasBeenSuppressed) return;
                 this.OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
-                this.notificationHasBeenSuppressed = false;
+                this._notificationHasBeenSuppressed = false;
             }
         }
 
@@ -28,7 +28,7 @@ namespace Schnacc.UserInterface.Infrastructure.Extensions
         {
             if (this.SuppressNotification)
             {
-                this.notificationHasBeenSuppressed = true;
+                this._notificationHasBeenSuppressed = true;
                 return;
             }
             base.OnCollectionChanged(e);

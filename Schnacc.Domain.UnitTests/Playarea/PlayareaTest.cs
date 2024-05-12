@@ -9,7 +9,7 @@ namespace Schnacc.Domain.UnitTests.Playarea
 {
     public class PlayareaTest
     {
-        private Domain.Playarea.Playarea testee;
+        private Domain.Playarea.Playarea _testee;
 
         [Theory]
         [InlineData(0, 0)]
@@ -23,20 +23,20 @@ namespace Schnacc.Domain.UnitTests.Playarea
             var factory = A.Dummy<FoodFactory>();
 
             // Act
-            this.testee = new Domain.Playarea.Playarea(size, factory);
+            this._testee = new Domain.Playarea.Playarea(size, factory);
 
             // Assert
-            this.testee.Size.Should().BeEquivalentTo(new PlayareaSize(4, 4));
+            this._testee.Size.Should().BeEquivalentTo(new PlayareaSize(4, 4));
         }
 
         [Fact]
         private void NewlyCreatedPlaygroundShouldHaveStartGamestate()
         {
             // Act
-            this.testee = new Domain.Playarea.Playarea(new PlayareaSize(10, 10), A.Dummy<IFoodFactory>());
+            this._testee = new Domain.Playarea.Playarea(new PlayareaSize(10, 10), A.Dummy<IFoodFactory>());
 
             // Assert
-            this.testee.CurrentGameState.Should().Be(Game.Start);
+            this._testee.CurrentGameState.Should().Be(Game.Start);
         }
 
         [Theory]
@@ -47,13 +47,13 @@ namespace Schnacc.Domain.UnitTests.Playarea
         private void WhenDirectionOfSnakeSetPlaygroundShouldHaveRunningGamestate(Direction newFacingDirection)
         {
             // Arrange
-            this.testee = new Domain.Playarea.Playarea(new PlayareaSize(10, 10), A.Dummy<IFoodFactory>());
+            this._testee = new Domain.Playarea.Playarea(new PlayareaSize(10, 10), A.Dummy<IFoodFactory>());
 
             // Act
-            this.testee.UpdateSnakeDirection(newFacingDirection);
+            this._testee.UpdateSnakeDirection(newFacingDirection);
 
             // Assert
-            this.testee.CurrentGameState.Should().Be(Game.Running);
+            this._testee.CurrentGameState.Should().Be(Game.Running);
         }
 
         [Fact]
@@ -62,14 +62,14 @@ namespace Schnacc.Domain.UnitTests.Playarea
             // Arrange
             var size = new PlayareaSize(10, 10);
             var foodFactory = A.Dummy<IFoodFactory>();
-            this.testee = new Domain.Playarea.Playarea(size, foodFactory);
-            Position previousHeadPosition = this.testee.Snake.Head.Position;
+            this._testee = new Domain.Playarea.Playarea(size, foodFactory);
+            Position previousHeadPosition = this._testee.Snake.Head.Position;
 
             // Act
-            this.testee.MoveSnakeWhenAllowed();
+            this._testee.MoveSnakeWhenAllowed();
 
             // Assert
-            this.testee.Snake.Head.Position.Should().BeEquivalentTo(previousHeadPosition);
+            this._testee.Snake.Head.Position.Should().BeEquivalentTo(previousHeadPosition);
         }
     }
 }

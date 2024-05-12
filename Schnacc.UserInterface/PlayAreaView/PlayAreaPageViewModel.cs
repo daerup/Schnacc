@@ -20,23 +20,23 @@ namespace Schnacc.UserInterface.PlayAreaView
 {
     public class PlayAreaViewModel : ViewModelBase, INavigableViewModel
     {
-        private readonly Playarea playArea;
-        private readonly Database.Database database;
-        private Timer renderTimer;
-        private Timer movementTimer;
-        private const int RenderSpeedInMilliSeconds = 50;
-        private readonly int gameSpeedInMilliSeconds;
-        private readonly List<Direction> directionsBuffer = new List<Direction>();
-        private readonly object directionLock = new object();
-        private int moveCount;
-        private Direction lastDirection = Direction.None;
-        private DateTime lastDirectionChange;
-        private readonly int difficultyLevel;
-        private int slowMotionTicks;
-        private bool highScoreIsWritten;
+        private readonly Playarea _playArea;
+        private readonly Database.Database _database;
+        private Timer _renderTimer;
+        private Timer _movementTimer;
+        private const int _renderSpeedInMilliSeconds = 50;
+        private readonly int _gameSpeedInMilliSeconds;
+        private readonly List<Direction> _directionsBuffer = new List<Direction>();
+        private readonly object _directionLock = new object();
+        private int _moveCount;
+        private Direction _lastDirection = Direction.None;
+        private DateTime _lastDirectionChange;
+        private readonly int _difficultyLevel;
+        private int _slowMotionTicks;
+        private bool _highScoreIsWritten;
 
-        private bool IsAllowedToWriteHighScore => !this.highScoreIsWritten && this.NavigationService.EmailIsVerified;
-        private bool SlowMotionIsActive =>  !this.slowMotionTicks.Equals(0);
+        private bool IsAllowedToWriteHighScore => !this._highScoreIsWritten && this.NavigationService.EmailIsVerified;
+        private bool SlowMotionIsActive =>  !this._slowMotionTicks.Equals(0);
         private string SnakeColor => !this.SlowMotionIsActive ? "#3d9e31" : "#6cf85b";
         private string FoodColor => !this.SlowMotionIsActive ? "#f93910" :"#ff33cc";
         private string PlayAreaColor => "#646464";
@@ -45,35 +45,35 @@ namespace Schnacc.UserInterface.PlayAreaView
         {
             get
             {
-                lock (this.directionLock)
+                lock (this._directionLock)
                 {
-                    if (this.directionsBuffer.Count <= 0)
+                    if (this._directionsBuffer.Count <= 0)
                     {
                         return Direction.None;
                     }
-                    Direction o = this.directionsBuffer.First();
-                    this.directionsBuffer.Remove(o);
-                    this.moveCount++;
+                    Direction o = this._directionsBuffer.First();
+                    this._directionsBuffer.Remove(o);
+                    this._moveCount++;
                     return o;
                 }
             }
             set
             {
-                if (value == this.lastDirection)
+                if (value == this._lastDirection)
                 {
                     return;
                 }
 
-                lock (this.directionLock)
+                lock (this._directionLock)
                 {
-                    if (DateTime.Now.Subtract(this.lastDirectionChange) > TimeSpan.FromMilliseconds(500))
+                    if (DateTime.Now.Subtract(this._lastDirectionChange) > TimeSpan.FromMilliseconds(500))
                     {
-                        this.directionsBuffer.Clear();
+                        this._directionsBuffer.Clear();
                     }
 
-                    this.lastDirectionChange = DateTime.Now;
-                    this.directionsBuffer.Add(value);
-                    this.lastDirection = value;
+                    this._lastDirectionChange = DateTime.Now;
+                    this._directionsBuffer.Add(value);
+                    this._lastDirection = value;
                 }
             }
         }
@@ -81,13 +81,13 @@ namespace Schnacc.UserInterface.PlayAreaView
         public PlayAreaViewModel(INavigationService navigationService, Playarea playArea, int difficultyLevel)
         {
             this.NavigationService = navigationService;
-            this.database = new Database.Database(this.NavigationService.SessionToken);
-            this.HighscoreViewModel = new HighscoreViewModel(navigationService, this.database);
+            this._database = new Database.Database(this.NavigationService.SessionToken);
+            this.HighscoreViewModel = new HighscoreViewModel(navigationService, this._database);
             this.GoToLoginView = new RelayCommand(this.NavigateToLoginView);
             this.GoToMenuView = new RelayCommand(this.NavigateToMenuView);
-            this.playArea = playArea;
-            this.difficultyLevel = difficultyLevel;
-            this.gameSpeedInMilliSeconds = this.CalculateGameSpeed();
+            this._playArea = playArea;
+            this._difficultyLevel = difficultyLevel;
+            this._gameSpeedInMilliSeconds = this.CalculateGameSpeed();
             this.InitializePlayarea();
             this.InitializeTimers();
         }
@@ -99,14 +99,14 @@ namespace Schnacc.UserInterface.PlayAreaView
 
         public INavigationService NavigationService { get; set; }
 
-        public int Score => this.playArea.Snake.Body.Count * 100 - 10 * this.moveCount;
+        public int Score => this._playArea.Snake.Body.Count * 100 - 10 * this._moveCount;
         public bool HighscoresAreVisible => !string.IsNullOrEmpty(this.NavigationService.SessionToken);
         public bool ErrorIsVisible => !this.HighscoresAreVisible;
-        public int NumberOfRows => this.playArea.Size.NumberOfRows;
-        public int NumberOfColumns => this.playArea.Size.NumberOfColumns;
+        public int NumberOfRows => this._playArea.Size.NumberOfRows;
+        public int NumberOfColumns => this._playArea.Size.NumberOfColumns;
 
-        public bool GameIsOver => this.playArea.CurrentGameState.Equals(Game.Over);
-        public bool GameHasStarted => this.playArea.CurrentGameState.Equals(Game.Start);
+        public bool GameIsOver => this._playArea.CurrentGameState.Equals(Game.Over);
+        public bool GameHasStarted => this._playArea.CurrentGameState.Equals(Game.Start);
         public SuppressableObservableCollection<string> ItemsOnPlayArea { get; private set; }
         public HighscoreViewModel HighscoreViewModel { get; }
         public RelayCommand GoToLoginView { get; }
@@ -158,22 +158,22 @@ namespace Schnacc.UserInterface.PlayAreaView
 
         private void InitializeTimers()
         {
-            this.renderTimer = new Timer(this.OnRenderUpdate, null, 0, PlayAreaViewModel.RenderSpeedInMilliSeconds);
-            this.movementTimer = new Timer(this.OnGameUpdate, null, 0, this.gameSpeedInMilliSeconds);
+            this._renderTimer = new Timer(this.OnRenderUpdate, null, 0, PlayAreaViewModel._renderSpeedInMilliSeconds);
+            this._movementTimer = new Timer(this.OnGameUpdate, null, 0, this._gameSpeedInMilliSeconds);
         }
 
         private void OnGameUpdate(object newGameState)
         {
-            this.playArea.UpdateSnakeDirection(this.Direction);
-            this.playArea.MoveSnakeWhenAllowed();
+            this._playArea.UpdateSnakeDirection(this.Direction);
+            this._playArea.MoveSnakeWhenAllowed();
 
             if (this.SlowMotionIsActive)
             {
-                this.slowMotionTicks -= 1;
+                this._slowMotionTicks -= 1;
             }
             else
             {
-                this.movementTimer?.Change(this.CalculateGameSpeed(), this.CalculateGameSpeed());
+                this._movementTimer?.Change(this.CalculateGameSpeed(), this.CalculateGameSpeed());
             }
             this.CheckForGameState().GetAwaiter().GetResult();
         }
@@ -193,10 +193,10 @@ namespace Schnacc.UserInterface.PlayAreaView
             {
                 this.ItemsOnPlayArea.SuppressNotification = true;
                 this.ClearPlayArea();
-                this.ItemsOnPlayArea[this.GetIndexFromPosition(this.playArea.Snake.Head.Position)] = this.SnakeColor;
-                this.ItemsOnPlayArea[this.GetIndexFromPosition(this.playArea.Food.Position)] = this.FoodColor;
+                this.ItemsOnPlayArea[this.GetIndexFromPosition(this._playArea.Snake.Head.Position)] = this.SnakeColor;
+                this.ItemsOnPlayArea[this.GetIndexFromPosition(this._playArea.Food.Position)] = this.FoodColor;
 
-                foreach (int index in this.playArea.Snake.Body.Select(t => this.GetIndexFromPosition(t.Position)))
+                foreach (int index in this._playArea.Snake.Body.Select(t => this.GetIndexFromPosition(t.Position)))
                 {
                     this.ItemsOnPlayArea[index] = this.SnakeColor;
                 }
@@ -212,28 +212,28 @@ namespace Schnacc.UserInterface.PlayAreaView
                 if (this.IsAllowedToWriteHighScore)
                 {
                     var newHighScore = new Highscore(this.NavigationService.Username, this.Score);
-                    await this.database.WriteHighScore(newHighScore);
-                    this.highScoreIsWritten = true; 
+                    await this._database.WriteHighScore(newHighScore);
+                    this._highScoreIsWritten = true; 
                 }
 
-                await this.movementTimer.DisposeAsync();
-                await this.renderTimer.DisposeAsync();
+                await this._movementTimer.DisposeAsync();
+                await this._renderTimer.DisposeAsync();
             }
         }
 
-        private int CalculateGameSpeed() => 80000 / Math.Max(this.playArea.Size.NumberOfColumns, this.playArea.Size.NumberOfRows) / ((this.difficultyLevel + this.playArea.Snake.Body.Count / 3) * 3);
+        private int CalculateGameSpeed() => 80000 / Math.Max(this._playArea.Size.NumberOfColumns, this._playArea.Size.NumberOfRows) / ((this._difficultyLevel + this._playArea.Snake.Body.Count / 3) * 3);
 
         private void ActivateSlowMotion()
         {
-            if (this.SlowMotionIsActive || !this.playArea.CurrentGameState.Equals(Game.Running))
+            if (this.SlowMotionIsActive || !this._playArea.CurrentGameState.Equals(Game.Running))
             {
                 return;
             }
 
             int newGameSpeed = (int)(this.CalculateGameSpeed() * 2.5);
-            this.movementTimer?.Change(newGameSpeed, newGameSpeed);
-            this.slowMotionTicks = this.difficultyLevel / 2;
-            this.moveCount += 20;
+            this._movementTimer?.Change(newGameSpeed, newGameSpeed);
+            this._slowMotionTicks = this._difficultyLevel / 2;
+            this._moveCount += 20;
         }
 
         private void NavigateToMenuView()
@@ -250,17 +250,17 @@ namespace Schnacc.UserInterface.PlayAreaView
 
         private void Restart()
         {
-            this.movementTimer.Dispose();
-            this.renderTimer.Dispose();
+            this._movementTimer.Dispose();
+            this._renderTimer.Dispose();
             this.Direction = Direction.None;
-            this.directionsBuffer.Clear();
+            this._directionsBuffer.Clear();
             this.ItemsOnPlayArea.Clear();
-            this.playArea.RestartGame();
+            this._playArea.RestartGame();
             this.InitializePlayarea();
             this.InitializeTimers();
-            this.slowMotionTicks = 0;
-            this.moveCount = 0;
-            this.highScoreIsWritten = false;
+            this._slowMotionTicks = 0;
+            this._moveCount = 0;
+            this._highScoreIsWritten = false;
         }
     }
 }

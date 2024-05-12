@@ -7,81 +7,81 @@ namespace Schnacc.Domain.UnitTests.Snake
 {
     public class SnakeTest
     {
-        private readonly Domain.Snake.Snake testee = new Domain.Snake.Snake(new Position(0, 0));
+        private readonly Domain.Snake.Snake _testee = new Domain.Snake.Snake(new Position(0, 0));
 
         [Fact]
         private void ForwardsFacingSnakeShouldMoveFarwards()
         {
             // Arrange
-            this.testee.ResetSnakeToStartPosition();
-            this.testee.UpdateFacingDirection(Direction.Right);
+            this._testee.ResetSnakeToStartPosition();
+            this._testee.UpdateFacingDirection(Direction.Right);
             
             // Act
-            this.testee.Move();
+            this._testee.Move();
 
             // Assert
-            this.testee.Head.Position.Row.Should().Be(0);
-            this.testee.Head.Position.Column.Should().Be(1);
+            this._testee.Head.Position.Row.Should().Be(0);
+            this._testee.Head.Position.Column.Should().Be(1);
         }
 
         [Fact]
         private void BackwardsFacingSnakeShouldMoveBackwards()
         {
             // Arrange
-            this.testee.ResetSnakeToStartPosition();
-            this.testee.UpdateFacingDirection(Direction.Left);
+            this._testee.ResetSnakeToStartPosition();
+            this._testee.UpdateFacingDirection(Direction.Left);
             
             // Act
-            this.testee.Move();
+            this._testee.Move();
 
             // Assert
-            this.testee.Head.Position.Row.Should().Be(0);
-            this.testee.Head.Position.Column.Should().Be(-1);
+            this._testee.Head.Position.Row.Should().Be(0);
+            this._testee.Head.Position.Column.Should().Be(-1);
         }
 
         [Fact]
         private void UpwardsFacingSnakeShouldMoveUpwards()
         {
             // Arrange
-            this.testee.ResetSnakeToStartPosition();
-            this.testee.UpdateFacingDirection(Direction.Up);
+            this._testee.ResetSnakeToStartPosition();
+            this._testee.UpdateFacingDirection(Direction.Up);
             
             // Act
-            this.testee.Move();
+            this._testee.Move();
 
             // Assert
-            this.testee.Head.Position.Row.Should().Be(-1);
-            this.testee.Head.Position.Column.Should().Be(0);
+            this._testee.Head.Position.Row.Should().Be(-1);
+            this._testee.Head.Position.Column.Should().Be(0);
         }
 
         [Fact]
         private void DownwardsFacingSnakeShouldMoveDownwards()
         {
             // Arrange
-            this.testee.ResetSnakeToStartPosition();
-            this.testee.UpdateFacingDirection(Direction.Down);
+            this._testee.ResetSnakeToStartPosition();
+            this._testee.UpdateFacingDirection(Direction.Down);
             
             // Act
-            this.testee.Move();
+            this._testee.Move();
 
             // Assert
-            this.testee.Head.Position.Row.Should().Be(1);
-            this.testee.Head.Position.Column.Should().Be(0);
+            this._testee.Head.Position.Row.Should().Be(1);
+            this._testee.Head.Position.Column.Should().Be(0);
         }
 
         [Fact]
         private void StillStandingSnakeShouldNotMove()
         {
             // Arrange
-            this.testee.ResetSnakeToStartPosition();
-            this.testee.UpdateFacingDirection(Direction.None);
+            this._testee.ResetSnakeToStartPosition();
+            this._testee.UpdateFacingDirection(Direction.None);
             
             // Act
-            this.testee.Move();
+            this._testee.Move();
 
             // Assert
-            this.testee.Head.Position.Row.Should().Be(0);
-            this.testee.Head.Position.Column.Should().Be(0);
+            this._testee.Head.Position.Row.Should().Be(0);
+            this._testee.Head.Position.Column.Should().Be(0);
         }
 
         [Theory]
@@ -96,14 +96,14 @@ namespace Schnacc.Domain.UnitTests.Snake
         private void SnakeShouldBeAbleToChangeDirectionBy90Degrees(Direction startDirection, Direction newDirection)
         {
             // Arrange
-            this.testee.ResetSnakeToStartPosition();
-            this.testee.UpdateFacingDirection(startDirection);
+            this._testee.ResetSnakeToStartPosition();
+            this._testee.UpdateFacingDirection(startDirection);
 
             // Act
-            this.testee.UpdateFacingDirection(newDirection);
+            this._testee.UpdateFacingDirection(newDirection);
 
             // Assert
-            this.testee.CurrentDirection.Should().Be(newDirection);
+            this._testee.CurrentDirection.Should().Be(newDirection);
         }
 
         [Theory]
@@ -114,14 +114,14 @@ namespace Schnacc.Domain.UnitTests.Snake
         private void SnakeShouldNotBeAbleToChangeDirectionBy180Degrees(Direction startDirection, Direction newDirection)
         {
             // Arrange
-            this.testee.ResetSnakeToStartPosition();
-            this.testee.UpdateFacingDirection(startDirection);
+            this._testee.ResetSnakeToStartPosition();
+            this._testee.UpdateFacingDirection(startDirection);
 
             // Act
-            this.testee.UpdateFacingDirection(newDirection);
+            this._testee.UpdateFacingDirection(newDirection);
 
             // Assert
-            this.testee.CurrentDirection.Should().NotBe(newDirection);
+            this._testee.CurrentDirection.Should().NotBe(newDirection);
         }
 
         [Theory]
@@ -133,14 +133,14 @@ namespace Schnacc.Domain.UnitTests.Snake
         private void SnakeShouldBeAbleToChangeIntoEveryDirectionWhenNotMoving(Direction newDirection)
         {
             // Arrange
-            this.testee.ResetSnakeToStartPosition();
-            this.testee.UpdateFacingDirection(Direction.None);
+            this._testee.ResetSnakeToStartPosition();
+            this._testee.UpdateFacingDirection(Direction.None);
 
             // Act
-            this.testee.UpdateFacingDirection(newDirection);
+            this._testee.UpdateFacingDirection(newDirection);
 
             // Assert
-            this.testee.CurrentDirection.Should().Be(newDirection);
+            this._testee.CurrentDirection.Should().Be(newDirection);
         }
 
         [Theory]
@@ -151,14 +151,14 @@ namespace Schnacc.Domain.UnitTests.Snake
         private void SnakeShouldNotBeAbleToChangeIntoNoDirectionWhenAlreadyMoving(Direction newDirection)
         {
             // Arrange
-            this.testee.ResetSnakeToStartPosition();
-            this.testee.UpdateFacingDirection(newDirection);
+            this._testee.ResetSnakeToStartPosition();
+            this._testee.UpdateFacingDirection(newDirection);
 
             // Act
-            this.testee.UpdateFacingDirection(Direction.None);
+            this._testee.UpdateFacingDirection(Direction.None);
 
             // Assert
-            this.testee.CurrentDirection.Should().NotBe(Direction.None);
+            this._testee.CurrentDirection.Should().NotBe(Direction.None);
         }
 
         [Theory]
@@ -170,65 +170,65 @@ namespace Schnacc.Domain.UnitTests.Snake
         private void WhenNewDirectionIsSameAsOldOneNothingChanges(Direction sameDirection)
         {
             // Arrange
-            this.testee.ResetSnakeToStartPosition();
+            this._testee.ResetSnakeToStartPosition();
 
             // Act
-            this.testee.UpdateFacingDirection(sameDirection);
+            this._testee.UpdateFacingDirection(sameDirection);
 
             // Assert
-            this.testee.CurrentDirection.Should().Be(sameDirection);
+            this._testee.CurrentDirection.Should().Be(sameDirection);
         }
 
         [Fact]
         private void WhenSnakeGrowsForTheFirstTimeABodyPartShouldBeAddedAfterTheHeadOfTheSnake()
         {
             // Arrange
-            this.testee.ResetSnakeToStartPosition();
-            Position positionOfHead = this.testee.Head.Position;
+            this._testee.ResetSnakeToStartPosition();
+            Position positionOfHead = this._testee.Head.Position;
 
             // Act
-            this.testee.Grow();
+            this._testee.Grow();
 
             // Assert
-            this.testee.Body.Count.Should().Be(1);
-            this.testee.Body.Last().Position.Should().Be(positionOfHead);
-            this.testee.HasCollidedWithItSelf.Should().Be(false);
+            this._testee.Body.Count.Should().Be(1);
+            this._testee.Body.Last().Position.Should().Be(positionOfHead);
+            this._testee.HasCollidedWithItSelf.Should().Be(false);
         }
 
         [Fact]
         private void WhenTheSnakeGrowsABodyPartShouldBeAddedAtTheEndOfTheSnake()
         {
             // Arrange
-            this.testee.ResetSnakeToStartPosition();
-            this.testee.Grow();
-            Position positionOfLastBodyPart = this.testee.Body.Last().Position;
+            this._testee.ResetSnakeToStartPosition();
+            this._testee.Grow();
+            Position positionOfLastBodyPart = this._testee.Body.Last().Position;
 
             // Act
-            this.testee.Grow();
+            this._testee.Grow();
 
             // Assert
-            this.testee.Body.Count.Should().Be(2);
-            this.testee.Body.Last().Position.Should().Be(positionOfLastBodyPart);
-            this.testee.HasCollidedWithItSelf.Should().Be(false);
+            this._testee.Body.Count.Should().Be(2);
+            this._testee.Body.Last().Position.Should().Be(positionOfLastBodyPart);
+            this._testee.HasCollidedWithItSelf.Should().Be(false);
         }
 
         [Fact]
         private void WhenSnakeHasABodyItMovesWithTheHead()
         {
             // Arrange
-            this.testee.ResetSnakeToStartPosition();
-            this.testee.UpdateFacingDirection(Direction.Right);
-            this.testee.Grow();
+            this._testee.ResetSnakeToStartPosition();
+            this._testee.UpdateFacingDirection(Direction.Right);
+            this._testee.Grow();
 
             // Act
-            this.testee.Move();
+            this._testee.Move();
 
             // Assert
-            this.testee.Head.Position.Row.Should().Be(0);
-            this.testee.Head.Position.Column.Should().Be(1);
-            this.testee.Body.Last().Position.Row.Should().Be(0);
-            this.testee.Body.Last().Position.Column.Should().Be(0);
-            this.testee.HasCollidedWithItSelf.Should().Be(false);
+            this._testee.Head.Position.Row.Should().Be(0);
+            this._testee.Head.Position.Column.Should().Be(1);
+            this._testee.Body.Last().Position.Row.Should().Be(0);
+            this._testee.Body.Last().Position.Column.Should().Be(0);
+            this._testee.HasCollidedWithItSelf.Should().Be(false);
         }
     }
 }

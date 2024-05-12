@@ -6,18 +6,24 @@ namespace Schnacc.Authorization
 {
     public class AuthorizationApi
     {
-        private readonly FirebaseAuthProvider authProvider = new FirebaseAuthProvider(new FirebaseConfig(AuthConfig.ApiKey));
+        private readonly AuthConfig _config;
+        private readonly FirebaseAuthProvider _authProvider = new FirebaseAuthProvider(new FirebaseConfig(_config.ApiKey));
         private string AccessToken { get; set; }
         public string Username { get; private set; }
 
         public bool EmailIsVerified =>
-            this.authProvider.GetUserAsync(this.AccessToken).GetAwaiter().GetResult().IsEmailVerified;
+            this._authProvider.GetUserAsync(this.AccessToken).GetAwaiter().GetResult().IsEmailVerified;
+
+        public AuthorizationApi(AuthConfig config)
+        {
+            this._config = config;
+        }
 
         public  async Task RegisterWithEmail(string email, string password, string displayName)
         {
             try
             {
-                await this.authProvider.CreateUserWithEmailAndPasswordAsync(email, password, displayName, true);
+                var link = await this._authProvider.CreateUserWithEmailAndPasswordAsync(email, password, displayName, true);
             }
             catch (FirebaseAuthException e) when (e.Reason == AuthErrorReason.EmailExists)
             {
@@ -41,7 +47,7 @@ namespace Schnacc.Authorization
         {
             try
             {
-                FirebaseAuthLink authLink = await this.authProvider.SignInWithEmailAndPasswordAsync(email, password);
+                var authLink = await this._authProvider.SignInWithEmailAndPasswordAsync(email, password);
                 this.AccessToken = authLink.FirebaseToken;
                 this.Username = authLink.User.DisplayName;
                 return this.AccessToken;

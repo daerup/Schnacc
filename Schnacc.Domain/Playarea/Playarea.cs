@@ -9,12 +9,12 @@ namespace Schnacc.Domain.Playarea
     {
         public readonly PlayareaSize Size;
 
-        private readonly IFoodFactory factory;
+        private readonly IFoodFactory _factory;
 
         public Playarea(PlayareaSize size, IFoodFactory factory)
         {
             this.Size = this.GetValidFieldSize(size);
-            this.factory = factory;
+            this._factory = factory;
             var startPosition = new Position(this.Size.NumberOfRows / 2, this.Size.NumberOfColumns / 2);
             this.Snake = new Snake.Snake(startPosition);
             this.Food = this.GetRandomFoodInUniquePosition();
@@ -129,7 +129,7 @@ namespace Schnacc.Domain.Playarea
 
             do
             {
-                randomFood = this.factory.CreateRandomFoodBetweenBoundaries(this.GetCorner());
+                randomFood = this._factory.CreateRandomFoodBetweenBoundaries(this.GetCorner());
             } while (allUsedPositions.Exists(up => up.Equals(randomFood.Position)));
 
             return randomFood;

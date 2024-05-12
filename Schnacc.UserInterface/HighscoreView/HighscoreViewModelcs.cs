@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Schnacc.Database;
 using Schnacc.UserInterface.Infrastructure.Navigation;
 using Schnacc.UserInterface.Infrastructure.ViewModels;
@@ -8,7 +9,10 @@ namespace Schnacc.UserInterface.HighScoreView
 {
     public class HighscoreViewModel : ViewModelBase 
     { 
-        private readonly Database.Database db;
+        private readonly Database.Database _db;
+        private INavigationService NavigationService { get; }
+
+        public List<Highscore> Highscores { get; private set;}
         public HighscoreViewModel(INavigationService navigationService, Database.Database db)
         {
             this.NavigationService = navigationService;
@@ -18,18 +22,14 @@ namespace Schnacc.UserInterface.HighScoreView
                 return;
             }
 
-            this.db = db;
-            this.Highscores = this.db.GetHighscores();
-            this.db.GetObservableHighscores().Subscribe(s => this.UpdateHighscores());
+            this._db = db;
+            this.Highscores = this._db.GetHighscores().ToList();
+            this._db.GetObservableHighscores().Subscribe(this.UpdateHighscores);
         }
 
-        private INavigationService NavigationService { get; }
-
-        public List<Highscore> Highscores { get; private set;}
-
-        private void UpdateHighscores()
+        private void UpdateHighscores(IReadOnlyCollection<Highscore> highscores)
         {
-            this.Highscores = this.db.GetHighscores();
+            this.Highscores = highscores.ToList();
             this.OnPropertyChanged(nameof(this.Highscores));
         }
     }

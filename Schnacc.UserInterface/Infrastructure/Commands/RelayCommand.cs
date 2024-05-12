@@ -17,9 +17,9 @@ namespace Schnacc.UserInterface.Infrastructure.Commands
     /// <summary>Provides an implementation of the <see cref="ICommand"/> interface. </summary>
     public class RelayCommand : CommandBase
     {
-        private readonly Action execute;
+        private readonly Action _execute;
 
-        private readonly Func<bool> canExecute;
+        private readonly Func<bool> _canExecute;
 
         /// <summary>Initializes a new instance of the <see cref="RelayCommand"/> class. </summary>
         /// <param name="execute">The action to execute. </param>
@@ -33,40 +33,40 @@ namespace Schnacc.UserInterface.Infrastructure.Commands
         /// <param name="canExecute">The predicate to check whether the function can be executed. </param>
         private RelayCommand(Action execute, Func<bool> canExecute)
         {
-            this.execute = execute ?? throw new ArgumentNullException(nameof(execute));
-            this.canExecute = canExecute;
+            this._execute = execute ?? throw new ArgumentNullException(nameof(execute));
+            this._canExecute = canExecute;
         }
 
         /// <summary>Defines the method that determines whether the command can execute in its current state.</summary>
         /// <returns>true if this command can be executed; otherwise, false.</returns>
-        protected override bool CanExecute() => this.canExecute == null || this.canExecute();
+        protected override bool CanExecute() => this._canExecute == null || this._canExecute();
 
         /// <summary>Defines the method to be called when the command is invoked. </summary>
-        protected override void Execute() => this.execute();
+        protected override void Execute() => this._execute();
     }
 
     /// <summary>Provides an implementation of the <see cref="ICommand"/> interface. </summary>
     /// <typeparam name="T">The type of the command parameter. </typeparam>
     public class RelayCommand<T> : CommandBase<T>
     {
-        private readonly Action<T> execute;
+        private readonly Action<T> _execute;
 
-        private readonly Predicate<T> canExecute;
+        private readonly Predicate<T> _canExecute;
 
         /// <summary>Initializes a new instance of the <see cref="RelayCommand{T}"/> class. </summary>
         /// <param name="execute">The action to execute. </param>
         /// <param name="canExecute">The predicate to check whether the function can be executed. </param>
         public RelayCommand(Action<T> execute, Predicate<T> canExecute = null)
         {
-            this.execute = execute ?? throw new ArgumentNullException(nameof(execute));
-            this.canExecute = canExecute;
+            this._execute = execute ?? throw new ArgumentNullException(nameof(execute));
+            this._canExecute = canExecute;
         }
 
         /// <inheritdoc />
         [DebuggerStepThrough]
-        protected override bool CanExecute(T parameter) => this.canExecute == null || this.canExecute(parameter);
+        protected override bool CanExecute(T parameter) => this._canExecute == null || this._canExecute(parameter);
 
         /// <inheritdoc />
-        protected override void Execute(T parameter) => this.execute(parameter);
+        protected override void Execute(T parameter) => this._execute(parameter);
     }
 }

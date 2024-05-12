@@ -12,8 +12,8 @@ namespace Schnacc.UserInterface.RegisterView
 {
     public class RegisterPageViewModel : ViewModelBase, INavigableViewModel
     {
-        private readonly AuthorizationApi authApi;
-        private string errorCheck;
+        private readonly AuthorizationApi _authApi;
+        private string _errorCheck;
         public INavigationService NavigationService { get; set; }
         public RelayCommand<object> LoginCommand { get; }
         public AsyncRelayCommand<object> RegisterCommand { get; }
@@ -28,11 +28,11 @@ namespace Schnacc.UserInterface.RegisterView
             set
             {
                 this.ErrorMessage = value == "wrong" ? "The passwords do not match" : string.Empty;
-                this.errorCheck = value;
+                this._errorCheck = value;
             }
         }
 
-        public bool RegisterButtonEnabled => !this.errorCheck.Equals("wrong") && !string.IsNullOrEmpty(this.Email) && !string.IsNullOrEmpty(this.Username);
+        public bool RegisterButtonEnabled => !this._errorCheck.Equals("wrong") && !string.IsNullOrEmpty(this.Email) && !string.IsNullOrEmpty(this.Username);
 
         public string LoginContent { get; private set; }
 
@@ -45,7 +45,7 @@ namespace Schnacc.UserInterface.RegisterView
             this.ErrorCheck = "wrong";
             this.LoginCommand = new RelayCommand<object>(this.Login);
             this.RegisterCommand = new AsyncRelayCommand<object>(this.Register);
-            this.authApi = new AuthorizationApi();
+            this._authApi = new AuthorizationApi();
             this.LoginContent = "I already have an account";
             this.LoginContentFontSize = 12;
         }
@@ -55,7 +55,7 @@ namespace Schnacc.UserInterface.RegisterView
             try
             {
                 string plainPassword = (obj as PasswordBox)?.Password;
-                await this.authApi.RegisterWithEmail(this.Email, plainPassword, this.Username);
+                await this._authApi.RegisterWithEmail(this.Email, plainPassword, this.Username);
                 this.ErrorMessage = "Please confirm our email";
                 this.LoginContent = "Login";
                 this.LoginContentFontSize = 20;

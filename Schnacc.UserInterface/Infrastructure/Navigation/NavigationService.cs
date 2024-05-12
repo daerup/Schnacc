@@ -4,7 +4,7 @@ namespace Schnacc.UserInterface.Infrastructure.Navigation
 {
     public class NavigationService : INavigationService
     {
-        private AuthorizationApi authApi;
+        private AuthorizationApi _authApi;
 
         public delegate void NavigateHandler(object o, NavigationEventArgs args);
 
@@ -15,13 +15,13 @@ namespace Schnacc.UserInterface.Infrastructure.Navigation
             this.OnNavigation?.Invoke(this, new NavigationEventArgs(viewModel));
         }
 
-        public string Username => this.authApi.Username;
+        public string Username => this._authApi.Username;
 
         public string SessionToken { get; set; }
-        public bool EmailIsVerified => this.authApi.EmailIsVerified;
+        public bool EmailIsVerified => this._authApi.EmailIsVerified;
         public void SetAuthApi(AuthorizationApi api)
         {
-            this.authApi = api;
+            this._authApi = api;
         }
     }
 }
