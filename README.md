@@ -1,7 +1,7 @@
+![BuildAndTest](https://github.com/daerup/Schnacc/actions/workflows/dotnet-build.yml/badge.svg)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=daerup_Schnacc&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=daerup_Schnacc)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=daerup_Schnacc&metric=bugs)](https://sonarcloud.io/summary/new_code?id=daerup_Schnacc)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=daerup_Schnacc&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=daerup_Schnacc)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=daerup_Schnacc&metric=coverage)](https://sonarcloud.io/summary/new_code?id=daerup_Schnacc)
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=daerup_Schnacc&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=daerup_Schnacc)
 
 # Schnacc
@@ -14,7 +14,7 @@ Eat the food to grow the snake and gain points. Play live agains other players a
 Play strategically and do not move unnecessarily, as you will loose points for every move you make.
 The further you progress, the faster the snake will move.
 
-To fast? Activate slow motion in exchange for points and take a breath.
+Too fast? Activate slow motion in exchange for points and take a breath.
 
 Controls:
 - <kbd>↑</kbd> Move up
@@ -23,14 +23,14 @@ Controls:
 - <kbd>→</kbd> Move right
 - <kbd>Space</kbd> Activate slow motion
 
-The controls are buffered, so you can press multiple keys in rapid succession and the snake will move in that direction.
+The controls are buffered, so you can press keys in rapid succession and the snake will move the buffered directions in order after every game tick.
 
->**Note**: Only logged in players get to have their highscores saved.
+>**Note**: Only logged in players with verified email addresses get to have their highscores saved.
 
 # Run
 To run the game, clone the repository and open the solution in Visual Studio or your preferred IDE.
 
-Edit `secret.json` and add the firebase api key alternatively you can uterlize the offline mode.
+Edit `secret.json` and add the firebase api key. Alternatively you can utilize the offline mode.
 For this set the ``secrets.json`` file to:
 
 ```json
@@ -43,8 +43,7 @@ For this set the ``secrets.json`` file to:
 
 Afterwards, build the solution and run the project `Schnacc.UserInterface`.
 # Architecture
-The UI is implemented using WPF and the MVVM pattern. The solution was originally designed to follow the Onion Architecture. In hindsight, I feel like the ``domain`` project is a bit overloaded and could be furter split up.
-For example, the movement was implemented using the strategy pattern and is located in the ``domain`` project. Stuff like this could be moved to a separate project.
+The UI is implemented using WPF and the MVVM pattern. The solution was originally designed to follow the Onion Architecture. In hindsight, I am not 100% sure if the splits are made correctly.
 
 ![alt text](img/architecture.png)
 
@@ -58,9 +57,9 @@ Upgrade from deprecated .NET Framework to .NET Core, to also support Linux and M
 
 #### Considered Options
 
-* recreate the integration tests in .NET Core
+* recreate the integration tests in SpecFlow
 * remove the integration tests
-* automatically convert xBehave tests to SpecFlow tests
+* dont upgrade to .NET Core
 
 #### Decision Outcome
 
