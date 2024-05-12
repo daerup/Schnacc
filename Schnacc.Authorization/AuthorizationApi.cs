@@ -6,26 +6,24 @@ namespace Schnacc.Authorization
 {
     public class AuthorizationApi
     {
-        private readonly AuthConfig _config;
         private readonly FirebaseAuthProvider _authProvider;
         private string AccessToken { get; set; }
         public string Username { get; private set; }
+        public bool IsAnonymous { get; private set; } = true;
 
         public bool EmailIsVerified =>
             this._authProvider.GetUserAsync(this.AccessToken).GetAwaiter().GetResult().IsEmailVerified;
 
         public AuthorizationApi(AuthConfig config)
         {
-            this._config = config;
-            this._authProvider = new FirebaseAuthProvider(new FirebaseConfig(this._config.ApiKey));
+            this._authProvider = new FirebaseAuthProvider(new FirebaseConfig(config.ApiKey));
         }
 
         public async Task RegisterWithEmail(string email, string password, string displayName)
         {
             try
             {
-                var link =
-                    await this._authProvider.CreateUserWithEmailAndPasswordAsync(email, password, displayName, true);
+                await this._authProvider.CreateUserWithEmailAndPasswordAsync(email, password, displayName, true);
             }
             catch(FirebaseAuthException e) when(e.Reason == AuthErrorReason.EmailExists)
             {
@@ -53,6 +51,7 @@ namespace Schnacc.Authorization
                 var authLink = await this._authProvider.SignInWithEmailAndPasswordAsync(email, password);
                 this.AccessToken = authLink.FirebaseToken;
                 this.Username = authLink.User.DisplayName;
+                this.IsAnonymous = false;
                 return this.AccessToken;
             }
             catch(FirebaseAuthException e) when(e.Reason == AuthErrorReason.UnknownEmailAddress)
@@ -82,6 +81,7 @@ namespace Schnacc.Authorization
         {
             var authLink = await this._authProvider.SignInAnonymouslyAsync();
             this.AccessToken = authLink.FirebaseToken;
+            this.IsAnonymous = true;
             return this.AccessToken;
         }
     }

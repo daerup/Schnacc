@@ -35,7 +35,7 @@ namespace Schnacc.UserInterface.PlayAreaView
         private int _slowMotionTicks;
         private bool _highScoreIsWritten;
 
-        private bool IsAllowedToWriteHighScore => !this._highScoreIsWritten && this.NavigationService.EmailIsVerified;
+        private bool IsAllowedToWriteHighScore => !this._highScoreIsWritten && this.NavigationService.AuthorizationApi.EmailIsVerified;
         private bool SlowMotionIsActive =>  !this._slowMotionTicks.Equals(0);
         private string SnakeColor => !this.SlowMotionIsActive ? "#3d9e31" : "#6cf85b";
         private string FoodColor => !this.SlowMotionIsActive ? "#f93910" :"#ff33cc";
@@ -51,10 +51,10 @@ namespace Schnacc.UserInterface.PlayAreaView
                     {
                         return Direction.None;
                     }
-                    Direction o = this._directionsBuffer.First();
-                    this._directionsBuffer.Remove(o);
+                    var nextDirection = this._directionsBuffer.First();
+                    this._directionsBuffer.Remove(nextDirection);
                     this._moveCount++;
-                    return o;
+                    return nextDirection;
                 }
             }
             set
@@ -211,7 +211,7 @@ namespace Schnacc.UserInterface.PlayAreaView
             {
                 if (this.IsAllowedToWriteHighScore)
                 {
-                    var newHighScore = new Highscore(this.NavigationService.Username, this.Score);
+                    var newHighScore = new Highscore(this.NavigationService.AuthorizationApi.Username, this.Score);
                     await this._firebaseDatabase.WriteHighScore(newHighScore);
                     this._highScoreIsWritten = true; 
                 }
