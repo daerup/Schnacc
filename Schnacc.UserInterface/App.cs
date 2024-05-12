@@ -13,7 +13,8 @@ namespace Schnacc.UserInterface
         {
             var configurationBuilder = new ConfigurationBuilder();
             var appSettings = configurationBuilder.SetBasePath(Directory.GetCurrentDirectory())
-                                                  .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                                                  .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                                                  .AddJsonFile("secrets.json", optional: true, reloadOnChange: true)
                                                   .Build();
             
             var config = appSettings.GetSection(nameof(AuthConfig)).Get<AuthConfig>();
