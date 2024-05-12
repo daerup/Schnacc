@@ -33,10 +33,7 @@ namespace Schnacc.UserInterface.PlayAreaView
         private DateTime _lastDirectionChange;
         private readonly int _difficultyLevel;
         private int _slowMotionTicks;
-
-        private object writingHighScoreLock = new object();
         private bool _highScoreIsWritten;
-
         private bool UserIsAllowedToWriteHighScore => !this.NavigationService.AuthorizationApi.IsAnonymous && this.NavigationService.AuthorizationApi.EmailIsVerified;
         private bool SlowMotionIsActive =>  !this._slowMotionTicks.Equals(0);
         private string SnakeColor => !this.SlowMotionIsActive ? "#3d9e31" : "#6cf85b";

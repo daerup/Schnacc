@@ -18,7 +18,11 @@ namespace Schnacc.UserInterface.Infrastructure.Extensions
             set
             {
                 this._suppressNotification = value;
-                if (this._suppressNotification || !this._notificationHasBeenSuppressed) return;
+                if (this._suppressNotification || !this._notificationHasBeenSuppressed)
+                {
+                    return;
+                }
+
                 this.OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
                 this._notificationHasBeenSuppressed = false;
             }

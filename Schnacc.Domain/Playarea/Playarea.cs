@@ -88,13 +88,13 @@ namespace Schnacc.Domain.Playarea
 
         private bool NextPositionCollidesWithSnakeBody()
         {
-            Position nextHeadPosition = this.Snake.GetNextHeadPosition();
+            var nextHeadPosition = this.Snake.GetNextHeadPosition();
             return this.Snake.Body.Select(sb => sb.Position).Any(p => p.Equals(nextHeadPosition));
         }
 
         private bool NextPositionCollidesWithWalls()
         {
-            Position nextPosition = this.Snake.GetNextHeadPosition();
+            var nextPosition = this.Snake.GetNextHeadPosition();
             return
                 nextPosition.Column <= -1 ||
                 nextPosition.Row <= -1 ||
@@ -123,7 +123,7 @@ namespace Schnacc.Domain.Playarea
 
         private IFood GetRandomFoodInUniquePosition()
         {
-            List<Position> allUsedPositions = this.Snake.Body.Select(bp => bp.Position).ToList();
+            var allUsedPositions = this.Snake.Body.Select(bp => bp.Position).ToList();
             allUsedPositions.Add(this.Snake.Head.Position);
             IFood randomFood;
 

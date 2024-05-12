@@ -11,7 +11,7 @@ namespace Schnacc.Domain.Food
     {
         public Food CreateRandomFoodBetweenBoundaries(Position boundaries)
         {
-            List<Type> allFoodTypes = this.GetAllFoodTypes();
+            var allFoodTypes = this.GetAllFoodTypes();
             int randomRow = this.GetRandomInt(0, boundaries.Row);
             int randomColumn = this.GetRandomInt(0, boundaries.Column);
             return (Food)Activator.CreateInstance(allFoodTypes.ElementAt(this.GetRandomInt(0, allFoodTypes.Count)), new Position(randomRow, randomColumn));
@@ -19,7 +19,7 @@ namespace Schnacc.Domain.Food
 
         private List<Type> GetAllFoodTypes()
         {
-            Type derivedType = typeof(Food);
+            var derivedType = typeof(Food);
             return Assembly.GetAssembly(typeof(Food))?.GetTypes().Where(t => t != derivedType && derivedType.IsAssignableFrom(t)).ToList();
         }
 

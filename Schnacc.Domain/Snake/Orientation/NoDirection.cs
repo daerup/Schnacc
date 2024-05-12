@@ -25,7 +25,7 @@ namespace Schnacc.Domain.Snake.Orientation
 
         public override Position GetNexPosition()
         {
-            Position previousPosition = this.Snake.Head.Position;
+            var previousPosition = this.Snake.Head.Position;
             return new Position(previousPosition.Row, previousPosition.Column);
         }
     }
